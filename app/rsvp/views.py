@@ -1,7 +1,7 @@
 from flask_babel import _
 from flask import render_template
 
-from . import rsvp
+from app.rsvp import rsvp
 
 
 @rsvp.route('/rsvp', methods=['GET'])

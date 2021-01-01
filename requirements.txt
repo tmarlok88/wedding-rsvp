@@ -3,4 +3,5 @@ pynamodb
 flask-babel
 flask-login
 flask-wtf
-flask-admin
+email_validator
+Flask-Bootstrap

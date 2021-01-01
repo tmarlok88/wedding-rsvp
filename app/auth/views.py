@@ -4,7 +4,7 @@ from flask_login import login_user, logout_user
 
 from app.model.Admin import Admin
 from app.auth.forms import LoginForm
-from . import auth
+from app.auth import auth
 
 
 @auth.route('/login', methods=['GET', 'POST'])
@@ -16,7 +16,7 @@ def login():
             flash(_('Invalid username or password'))
             return redirect(url_for('auth.login'))
         login_user(user, remember=form.remember_me.data)
-        return redirect(url_for("admin.admin"))
+        return redirect(url_for("admin.admin_page"))
     return render_template('auth/login.html', title=_('Sign In'), form=form)
 
 

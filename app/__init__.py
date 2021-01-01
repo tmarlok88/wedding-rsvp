@@ -2,14 +2,15 @@ from flask import Flask
 from flask import request
 from flask_babel import Babel
 from flask_login import LoginManager
+from flask_bootstrap import Bootstrap
 
 from app.config import Config
 
 from app.model.Admin import Admin
 
-from .admin import admin as admin_blueprint
-from .auth import auth as auth_blueprint
-from .rsvp import rsvp as rsvp_blueprint
+from app.admin import admin as admin_blueprint
+from app.auth import auth as auth_blueprint
+from app.rsvp import rsvp as rsvp_blueprint
 
 
 app = Flask(__name__)
@@ -18,6 +19,8 @@ app.config.from_object(Config)
 babel = Babel(app)
 login = LoginManager(app)
 login.login_view = 'auth.login'
+
+bootstrap = Bootstrap(app)
 
 
 @babel.localeselector
