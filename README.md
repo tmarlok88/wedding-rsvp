@@ -26,10 +26,17 @@ The only thing you have to pay for, is the domain name (if you need one).
 
 ## Deployment
 
-Deploy the stack
+### Secret management
+
+We don't use any particular secret store for the sake of simplicity, but in order to avoid hard-coding a secret
+into the source code, we need to feed them as an environment variable during serverless deploy:
+
 ```bash
+export FLASK_SECRET='changeme'
+export ADMIN_PASSWORD_HASH=$(python3 -c 'from werkzeug.security import generate_password_hash; print(generate_password_hash("password"))')
 sls deploy
 ```
+
 
 ## Development
 

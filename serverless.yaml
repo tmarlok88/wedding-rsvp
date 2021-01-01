@@ -32,6 +32,8 @@ provider:
         - { "Fn::GetAtt": ["UsersDynamoDBTable", "Arn" ] }
   environment:
     DYNAMO_TABLE: ${self:custom.tableName}
+    FLASK_SECRET: ${env:FLASK_SECRET}
+    ADMIN_PASSWORD_HASH: ${env:ADMIN_PASSWORD_HASH}
 functions:
   app:
     handler: wsgi_handler.handler
@@ -45,14 +47,16 @@ resources:
       Type: 'AWS::DynamoDB::Table'
       Properties:
         AttributeDefinitions:
-          -
-            AttributeName: userId
+          - AttributeName: id
+            AttributeType: S
+          - AttributeName: email
             AttributeType: S
         KeySchema:
-          -
-            AttributeName: userId
+          - AttributeName: id
             KeyType: HASH
+          - AttributeName: email
+            KeyType: RANGE
         ProvisionedThroughput:
-          ReadCapacityUnits: 1
-          WriteCapacityUnits: 1
+          ReadCapacityUnits: 5
+          WriteCapacityUnits: 5
         TableName: ${self:custom.tableName}
