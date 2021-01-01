@@ -7,12 +7,17 @@ from app.config import Config
 
 from app.model.Admin import Admin
 
+from .admin import admin as admin_blueprint
+from .auth import auth as auth_blueprint
+from .rsvp import rsvp as rsvp_blueprint
+
+
 app = Flask(__name__)
 app.config.from_object(Config)
 
 babel = Babel(app)
 login = LoginManager(app)
-login.login_view = 'login'
+login.login_view = 'auth.login'
 
 
 @babel.localeselector
@@ -26,4 +31,6 @@ def load_user(id):
         return Admin()
 
 
-from app.views import rsvp, admin, login
+app.register_blueprint(admin_blueprint, url_prefix='/admin')
+app.register_blueprint(auth_blueprint)
+app.register_blueprint(rsvp_blueprint)
