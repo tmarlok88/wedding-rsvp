@@ -26,6 +26,24 @@ The only thing you have to pay for, is the domain name (if you need one).
 
 ## Deployment
 
+### ReCaptcha support
+
+Since the Admin page authentication is a simple password and the Guest "authentication" is a URL parameter,
+it is a good idea to protect them from brute-forcing.
+
+This can be done, by using ReCAPTCHA.
+
+The first step is to register a v2 ReCAPTCHA here: <https://www.google.com/recaptcha/admin>
+You have to list the domain names of the deployment (it can be changed later).
+
+The next step is to register these environment variables (before deploy)
+
+* USE_RECAPTCHA_FOR_ADMIN - If you'd like to enable captcha for admin login
+* USE_RECAPTCHA_FOR_GUEST - If you'd like to usa a captcha for the guest page (highly recommended)
+* RECAPTCHA_PUBLIC_KEY = The public key provided by google after the registration
+* RECAPTCHA_PRIVATE_KEY = The private key provided by google after the registration
+
+
 ### Secret management
 
 We don't use any particular secret store for the sake of simplicity, but in order to avoid hard-coding a secret

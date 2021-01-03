@@ -1,0 +1,59 @@
+{% extends 'admin_base.html' %}
+
+{% block app_content %}
+<div class="content-section">
+  <div class="outer">
+    <div class="middle">
+      <div class="inner">
+        <br/>
+        <br/>
+        <h1 style="text-align:center;">Guests</h1>
+          <hr class="intro-divider">
+          <div class="center">
+            <table class="table table-striped table-bordered">
+              <thead>
+                <tr>
+                  <th width="15%"> {{_('Name')}} </th>
+                  <th width="40%"> {{_('E-mail')}} </th>
+                  <th width="15%"> {{_('Guest count')}} </th>
+                  <th width="15%"> {{_('Viewed')}} </th>
+                  <th width="15%"> {{_('Responded')}} </th>
+                  <th width="15%"> {{_('Edit')}} </th>
+                  <th width="15%"> {{_('Delete')}} </th>
+                </tr>
+              </thead>
+              <tbody>
+              {% for guest in guests %}
+                <tr>
+                  <td> {{ guest.name }} </td>
+                  <td> {{ guest.email }} </td>
+                  <td> {{ guest.guest_count }} </td>
+                  <td> <i class="fa {% if guest.last_viewed != None %} fa-check {% else %} fa-minus-square {% endif %}"</i>  </td>
+                  <td> <i class="fa {% if guest.last_responded != None %} fa-check {% else %} fa-minus-square {% endif %}"</i>  </td>
+                  <td>
+                    <a href="{{ url_for('admin.edit_guest', guest_id=guest.id) }}">
+                      <i class="fa fa-pencil"></i>
+                    </a>
+                  </td>
+                  <td>
+                    <a href="{{ url_for('admin.delete_guest', guest_id=guest.id) }}">
+                      <i class="fa fa-trash"></i>
+                    </a>
+                  </td>
+                </tr>
+              {% endfor %}
+              </tbody>
+            </table>
+          </div>
+          <div style="text-align: center">
+
+          <a href="{{ url_for('admin.add_guest') }}" class="btn btn-default btn-lg">
+            <i class="fa fa-plus"></i>
+            {{_('Add')}}
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

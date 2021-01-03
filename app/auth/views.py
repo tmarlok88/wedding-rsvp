@@ -16,7 +16,7 @@ def login():
             flash(_('Invalid username or password'))
             return redirect(url_for('auth.login'))
         login_user(user, remember=form.remember_me.data)
-        return redirect(url_for("admin.admin_page"))
+        return redirect(url_for("admin.admin_dashboard"))
     return render_template('auth/login.html', title=_('Sign In'), form=form)
 
 

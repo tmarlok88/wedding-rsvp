@@ -35,6 +35,8 @@ provider:
     DYNAMO_TABLE: ${self:custom.tableName}
     FLASK_SECRET: ${env:FLASK_SECRET}
     ADMIN_PASSWORD_HASH: ${env:ADMIN_PASSWORD_HASH}
+    RECAPTCHA_PUBLIC_KEY: ${env:RECAPTCHA_PUBLIC_KEY}
+    RECAPTCHA_PRIVATE_KEY: ${env:RECAPTCHA_PRIVATE_KEY}
 functions:
   app:
     handler: wsgi_handler.handler
