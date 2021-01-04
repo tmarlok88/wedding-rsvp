@@ -37,6 +37,7 @@ provider:
     ADMIN_PASSWORD_HASH: ${env:ADMIN_PASSWORD_HASH}
     RECAPTCHA_PUBLIC_KEY: ${env:RECAPTCHA_PUBLIC_KEY}
     RECAPTCHA_PRIVATE_KEY: ${env:RECAPTCHA_PRIVATE_KEY}
+    SENDER_EMAIL_ADDRESS: ${env:SENDER_EMAIL_ADDRESS}
 functions:
   app:
     handler: wsgi_handler.handler

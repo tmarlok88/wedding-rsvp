@@ -1,7 +1,6 @@
 from flask import Flask, request
 from flask_babel import Babel
 from flask_login import LoginManager
-from flask_bootstrap import Bootstrap
 from app.config import Config
 
 from app.model.Admin import Admin
@@ -16,8 +15,6 @@ app.config.from_object(Config)
 
 babel = Babel(app)
 login = LoginManager(app)
-
-bootstrap = Bootstrap(app)
 
 
 @babel.localeselector

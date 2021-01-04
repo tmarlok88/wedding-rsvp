@@ -4,4 +4,3 @@ flask-babel
 flask-login
 flask-wtf
 email_validator
-Flask-Bootstrap

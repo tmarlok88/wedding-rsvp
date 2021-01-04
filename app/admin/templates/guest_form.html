@@ -1,9 +1,19 @@
 {% extends 'admin_base.html' %}
 
-{% import "bootstrap/wtf.html" as wtf %}
-
 {% block app_content %}
 
-{{ wtf.quick_form(form) }}
+<form action="" method="post" novalidate class="form-group">
+    {{ form.hidden_tag() }}
+    <p>
+        <label for="name">{{ form.name.label }}</label>{{ form.name(class_="form-control") }}<br/>
+        <label for="email">{{ form.email.label }}</label>{{ form.email(class_="form-control") }}<br/>
+        <label for="number_of_guests">{{ form.number_of_guests.label }}</label>{{ form.number_of_guests(class_="form-control") }}<br/>
+        <label for="food_allergies">{{ form.food_allergies.label }}</label>{{ form.food_allergies(class_="form-control") }}<br/>
+        <label for="favourite_music">{{ form.favourite_music.label }}</label>{{ form.favourite_music(class_="form-control") }}<br/>
+        <label for="notes">{{ form.notes.label }}</label>{{ form.notes(class_="form-control") }}<br/>
+        <label for="will_attend">{{ form.will_attend.label }}</label>{{ form.will_attend(class_="form-control") }}<br/>
+    </p>
+    <p>{{ form.submit(class_="form-control") }}</p>
+</form>
 
 {% endblock %}

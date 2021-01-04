@@ -1,12 +1,18 @@
+import os
+
 from flask_babel import _
 from flask import render_template, redirect, url_for, abort, flash
 from flask_login import login_required
 from flask_login import login_user, logout_user
 
 from app.admin import admin
-from app.admin.forms import GuestForm, LoginForm
+from app.admin.forms import GuestForm, LoginForm, EmailForm
 from app.model.Guest import Guest
 from app.model.Admin import Admin
+from app.services.EmailSender import EmailSender
+
+
+emailsender = EmailSender(os.getenv("AWS_REGION"), os.getenv("SENDER_EMAIL_ADDRESS"))
 
 
 @admin.route('/', methods=['GET'])
@@ -82,3 +88,14 @@ def login():
 def logout():
     logout_user()
     return redirect(url_for('admin.login'))
+
+
+@admin.route('/email_sender', methods=['GET', 'POST'])
+@login_required
+def email_sender():
+    form = EmailForm()
+    if form.validate_on_submit():
+        emailsender.send_email(form.recipients.data, form.subject.data, form.body.data)
+        flash(_("E-mails sent successfully"))
+
+    return render_template('email_sender.html', title=_('Send mail'), form=form)

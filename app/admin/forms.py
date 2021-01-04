@@ -1,7 +1,9 @@
 import os
 
 from flask_wtf import FlaskForm, RecaptchaField
-from wtforms import StringField, SubmitField, IntegerField, BooleanField, PasswordField
+from wtforms import StringField, SubmitField, IntegerField, BooleanField, PasswordField, TextAreaField,\
+    SelectMultipleField
+from wtforms.fields.html5 import EmailField
 from wtforms.validators import DataRequired, Email, NumberRange
 from flask_babel import lazy_gettext as _l
 from werkzeug.security import check_password_hash
@@ -12,7 +14,7 @@ from app.model.Guest import Guest
 
 class GuestForm(FlaskForm):
     name = StringField(_l('Name'), validators=[DataRequired()])
-    email = StringField(_l('E-mail'), validators=[DataRequired(), Email()])
+    email = EmailField(_l('E-mail'), validators=[DataRequired(), Email()])
     food_allergies = StringField(_l('Food allergies'))
     number_of_guests = IntegerField(_l('Number of guests'), validators=[NumberRange(0, 20)])
     notes = StringField(_l('Other important notes'))
@@ -50,3 +52,12 @@ class LoginForm(FlaskForm):
 
     def validate_login(self):
         return check_password_hash(os.getenv("ADMIN_PASSWORD_HASH"), self.password.data)
+
+
+class EmailForm(FlaskForm):
+    subject = StringField(_l('Subject'), validators=[DataRequired()])
+    recipients = SelectMultipleField(_l('Send To'), validators=[DataRequired()],
+                                     render_kw={'multiple': None, 'data-live-search': "true", 'class': "selectpicker"},
+                                     choices=[(g.email, g.name) for g in Guest.scan()])
+    body = TextAreaField(_l('E-mail body'), validators=[DataRequired()])
+    submit = SubmitField(_l('Send'))
