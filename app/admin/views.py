@@ -1,16 +1,18 @@
 from flask_babel import _
 from flask import render_template, redirect, url_for, abort, flash
 from flask_login import login_required
+from flask_login import login_user, logout_user
 
 from app.admin import admin
-from app.admin.forms import GuestForm
+from app.admin.forms import GuestForm, LoginForm
 from app.model.Guest import Guest
+from app.model.Admin import Admin
 
 
 @admin.route('/', methods=['GET'])
 @login_required
 def admin_dashboard():
-    return render_template("admin/admin_dashboard.html", title=_("Admin page"))
+    return render_template("admin_dashboard.html", title=_("Admin page"))
 
 
 @admin.route('/guest/add', methods=['GET', 'POST'])
@@ -19,17 +21,12 @@ def add_guest():
     form = GuestForm()
     if form.validate_on_submit():
         guest = Guest()
-        guest.name = form.name.data
-        guest.email = form.email.data
-        guest.notes = form.notes.data
-        guest.number_of_guests = form.number_of_guests.data
-        guest.food_allergies = form.food_allergies.data
-        guest.will_attend = form.will_attend.data
-        guest.favourite_music = form.favourite_music.data
+        form.fill_model(guest)
+        guest.filled_by_admin = True
         guest.save()
         return redirect(url_for("admin.list_guest"))
 
-    return render_template('admin/guest_form.html', form=form, title=_("Add guest"))
+    return render_template('guest_form.html', form=form, title=_("Add guest"))
 
 
 @admin.route('/guest/edit/<string:guest_id>', methods=['GET', 'POST'])
@@ -41,31 +38,19 @@ def edit_guest(guest_id):
     if not guest:
         abort(404)
     if form.validate_on_submit():
-        guest.name = form.name.data
-        guest.email = form.email.data
-        guest.notes = form.notes.data
-        guest.number_of_guests = form.number_of_guests.data
-        guest.food_allergies = form.food_allergies.data
-        guest.will_attend = form.will_attend.data
-        guest.favourite_music = form.favourite_music.data
+        form.fill_model(guest)
         guest.filled_by_admin = True
         guest.save()
         return redirect(url_for("admin.list_guest"))
-    form.name.data = guest.name
-    form.email.data = guest.email
-    form.notes.data = guest.notes
-    form.number_of_guests.data = guest.number_of_guests
-    form.food_allergies.data = guest.food_allergies
-    form.will_attend.data = guest.will_attend
-    form.favourite_music.data = guest.favourite_music
-    return render_template('admin/guest_form.html', form=form, title=_("Edit guest"))
+    form.set_model(guest)
+    return render_template('guest_form.html', form=form, title=_("Edit guest"))
 
 
 @admin.route('/guest/list', methods=['GET', 'POST'])
 @login_required
 def list_guest():
     guest_list = Guest.scan()
-    return render_template('admin/guest_list.html', guests=guest_list, title=_("Guest list"))
+    return render_template('guest_list.html', guests=guest_list, title=_("Guest list"))
 
 
 @admin.route('/guest/delete/<string:guest_id>', methods=['GET'])
@@ -78,3 +63,22 @@ def delete_guest(guest_id):
     guest.delete()
     flash(_("Guest {} removed".format(guest.name)))
     return redirect(url_for("admin.list_guest"))
+
+
+@admin.route('/login', methods=['GET', 'POST'])
+def login():
+    form = LoginForm()
+    if form.validate_on_submit():
+        user = Admin()
+        if not form.validate_login():
+            flash(_('Invalid username or password'))
+            return redirect(url_for('admin.login'))
+        login_user(user, remember=form.remember_me.data)
+        return redirect(url_for("admin.admin_dashboard"))
+    return render_template('login.html', title=_('Sign In'), form=form)
+
+
+@admin.route('/logout')
+def logout():
+    logout_user()
+    return redirect(url_for('admin.login'))

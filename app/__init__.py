@@ -1,15 +1,13 @@
-from flask import Flask
-from flask import request
+from flask import Flask, request
 from flask_babel import Babel
 from flask_login import LoginManager
 from flask_bootstrap import Bootstrap
-
 from app.config import Config
 
 from app.model.Admin import Admin
+from app.model.Guest import Guest
 
 from app.admin import admin as admin_blueprint
-from app.auth import auth as auth_blueprint
 from app.rsvp import rsvp as rsvp_blueprint
 
 
@@ -18,7 +16,6 @@ app.config.from_object(Config)
 
 babel = Babel(app)
 login = LoginManager(app)
-login.login_view = 'auth.login'
 
 bootstrap = Bootstrap(app)
 
@@ -29,11 +26,24 @@ def get_locale():
 
 
 @login.user_loader
-def load_user(id):
-    if id == "admin":
-        return Admin()
+def load_user(user_id):
+    if request.blueprint == "admin":
+        if user_id == "admin":
+            return Admin()
+    if request.blueprint == "rsvp":
+        guests = Guest.scan(Guest.id == user_id)
+        try:
+            guest = guests.next()
+            return guest
+        except StopIteration as si_exception:
+            return None
+
 
 
 app.register_blueprint(admin_blueprint, url_prefix='/admin')
-app.register_blueprint(auth_blueprint)
 app.register_blueprint(rsvp_blueprint)
+
+login.blueprint_login_views = {
+    'admin': 'admin.login',
+    'rsvp': 'rsvp.rsvp_captcha',
+}

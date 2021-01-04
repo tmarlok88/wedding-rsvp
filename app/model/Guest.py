@@ -3,9 +3,10 @@ import uuid
 
 from pynamodb.models import Model
 from pynamodb.attributes import UnicodeAttribute, BooleanAttribute, UTCDateTimeAttribute, NumberAttribute
+from flask_login import UserMixin
 
 
-class Guest(Model):
+class Guest(Model, UserMixin):
     class Meta:
         table_name = os.getenv("DYNAMO_TABLE")
         region = os.getenv("AWS_REGION")
@@ -20,3 +21,7 @@ class Guest(Model):
     notes = UnicodeAttribute(null=True)
     will_attend = BooleanAttribute(null=True)
     filled_by_admin = BooleanAttribute(default=False)
+
+    def get_id(self):
+        return self.id
+

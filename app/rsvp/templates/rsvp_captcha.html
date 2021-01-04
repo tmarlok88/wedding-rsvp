@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% import "bootstrap/wtf.html" as wtf %}
+
+{% block app_content %}
+
+<form action="" method="post" novalidate>
+    {{ form.hidden_tag() }}
+    <p>
+        {{ form.recaptcha }} <br/>
+    </p>
+    <p>{{ form.submit() }}</p>
+</form>
+
+{% endblock %}

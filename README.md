@@ -28,7 +28,7 @@ The only thing you have to pay for, is the domain name (if you need one).
 
 ### ReCaptcha support
 
-Since the Admin page authentication is a simple password and the Guest "authentication" is a URL parameter,
+Since the Admin page authentication is a simple password, and the Guest "authentication" is a URL parameter,
 it is a good idea to protect them from brute-forcing.
 
 This can be done, by using ReCAPTCHA.
