@@ -1,5 +1,7 @@
 {% extends 'admin_base.html' %}
 
+{% from "macros.html" import generate_form %}
+
 {% block styles %}
 {{super()}}
 <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.18/css/bootstrap-select.min.css" rel="stylesheet">
@@ -7,16 +9,7 @@
 
 {% block app_content %}
 
-<form action="" method="post" novalidate class="form-group">
-    {{ form.hidden_tag() }}
-    <p>
-        <label for="recipients">{{ form.recipients.label }}</label>{{ form.recipients(class_="form-control") }}<br/>
-        <label for="subject">{{ form.subject.label }}</label>{{ form.subject(class_="form-control") }}<br/>
-        <label for="body">{{ form.body.label }}</label>{{ form.body(class_="form-control") }}<br/>
-        <br/>
-    </p>
-    <p>{{ form.submit(class_="form-control") }}</p>
-</form>
+{{generate_form(form)}}
 
 {% endblock %}
 

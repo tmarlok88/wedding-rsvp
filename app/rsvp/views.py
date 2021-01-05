@@ -33,11 +33,14 @@ def rsvp_page(guest_id):
     return render_template("rsvp.html", form=form, guest=current_user, title=_("Wedding RSVP"))
 
 
-@rsvp.route('/rsvp_captcha/<string:guest_id>', methods=['GET', 'POST'])
+@rsvp.route('/rsvp_captcha', methods=['GET', 'POST'])
 def rsvp_captcha():
     guest_id = request.args.get("next", "").split('/')[-1]
 
+    if not guest_id:
+        abort(404)
     form = RSVPCaptchaForm()
+
     if form.validate_on_submit() or not current_app.config["USE_RECAPTCHA_FOR_GUEST"]:
         guests = Guest.scan(Guest.id == guest_id)
         try:
