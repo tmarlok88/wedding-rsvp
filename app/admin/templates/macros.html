@@ -1,6 +1,7 @@
 {% macro generate_form(form) %}
 
 <form action="" method="post" novalidate>
+{{ form.hidden_tag() }}
 {% for field in form.data%}
     {% if field != 'csrf_token' %}
         {% if form[field].type == 'BooleanField'%}
@@ -14,7 +15,7 @@
         </div>
         {% elif form[field].type == 'SubmitField' %}
         <div class="form-group row">
-            <div class="col-sm-5">{{ form[field](class_="btn btn-primary") }}</div><br/>
+            <div class="col-sm-5">{{ form.submit(class_="btn btn-primary") }}</div><br/>
         </div>
         {% else %}
         <div class="form-group row">
@@ -23,6 +24,6 @@
         </div>
         {% endif%}
     {% endif %}
-</form>
 {% endfor %}
-{% endmacro %}
+</form>
+>{% endmacro %}

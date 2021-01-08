@@ -12,9 +12,6 @@ from app.model.Admin import Admin
 from app.services.EmailSender import EmailSender
 
 
-emailsender = EmailSender(os.getenv("AWS_REGION"), os.getenv("SENDER_EMAIL_ADDRESS"))
-
-
 @admin.route('/', methods=['GET'])
 @login_required
 def admin_dashboard():
@@ -59,7 +56,7 @@ def list_guest():
     return render_template('guest_list.html', guests=guest_list, title=_("Guest list"))
 
 
-@admin.route('/guest/delete/<string:guest_id>', methods=['GET'])
+@admin.route('/guest/delete/<string:guest_id>', methods=['GET'])        # TODO csrf protection
 @login_required
 def delete_guest(guest_id):
     guests = Guest.scan(Guest.id == guest_id)
@@ -95,6 +92,7 @@ def logout():
 def email_sender():
     form = EmailForm()
     if form.validate_on_submit():
+        emailsender = EmailSender(os.getenv("AWS_REGION"), os.getenv("SENDER_EMAIL_ADDRESS"))
         emailsender.send_email(form.recipients.data, form.subject.data, form.body.data)
         flash(_("E-mails sent successfully"))
 
