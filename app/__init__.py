@@ -1,4 +1,4 @@
-from flask import Flask, request
+from flask import Flask, request, current_app
 from flask_babel import Babel
 from flask_login import LoginManager
 from app.config import Config
@@ -9,17 +9,30 @@ from app.model.Guest import Guest
 from app.admin import admin as admin_blueprint
 from app.rsvp import rsvp as rsvp_blueprint
 
+babel = Babel()
+login = LoginManager()
 
-app = Flask(__name__)
-app.config.from_object(Config)
 
-babel = Babel(app)
-login = LoginManager(app)
+def create_app(config_class=Config):
+    app = Flask(__name__)
+    app.config.from_object(config_class)
+    login.init_app(app)
+    babel.init_app(app)
+
+    app.register_blueprint(admin_blueprint, url_prefix='/admin')
+    app.register_blueprint(rsvp_blueprint)
+
+    login.blueprint_login_views = {
+        'admin': 'admin.login',
+        'rsvp': 'rsvp.rsvp_captcha',
+    }
+
+    return app
 
 
 @babel.localeselector
 def get_locale():
-    return request.accept_languages.best_match(app.config['LANGUAGES'])
+    return request.accept_languages.best_match(current_app.config['LANGUAGES'])
 
 
 @login.user_loader
@@ -34,13 +47,3 @@ def load_user(user_id):
             return guest
         except StopIteration as si_exception:
             return None
-
-
-
-app.register_blueprint(admin_blueprint, url_prefix='/admin')
-app.register_blueprint(rsvp_blueprint)
-
-login.blueprint_login_views = {
-    'admin': 'admin.login',
-    'rsvp': 'rsvp.rsvp_captcha',
-}

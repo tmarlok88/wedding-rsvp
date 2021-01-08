@@ -1,5 +1,4 @@
-import os
-
+from flask import current_app
 from flask_wtf import FlaskForm, RecaptchaField
 from wtforms import StringField, SubmitField, IntegerField, BooleanField, PasswordField, TextAreaField,\
     SelectMultipleField
@@ -51,13 +50,13 @@ class LoginForm(FlaskForm):
     submit = SubmitField(_l('Sign In'))
 
     def validate_login(self):
-        return check_password_hash(os.getenv("ADMIN_PASSWORD_HASH"), self.password.data)
+        return check_password_hash(current_app.config["ADMIN_PASSWORD_HASH"], self.password.data)
 
 
 class EmailForm(FlaskForm):
     subject = StringField(_l('Subject'), validators=[DataRequired()])
-    recipients = SelectMultipleField(_l('Send To'), validators=[DataRequired()],
-                                     render_kw={'multiple': None, 'data-live-search': "true", 'class': "selectpicker"},
-                                     choices=[(g.email, g.name) for g in Guest.scan()])
+    # recipients = SelectMultipleField(_l('Send To'), validators=[DataRequired()],
+    #                                  render_kw={'multiple': None, 'data-live-search': "true", 'class': "selectpicker"},
+    #                                  choices=[(g.email, g.name) for g in Guest.scan()])
     body = TextAreaField(_l('E-mail body'), validators=[DataRequired()])
     submit = SubmitField(_l('Send'))

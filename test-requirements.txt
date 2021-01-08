@@ -1,0 +1,4 @@
+Flask-Testing
+twill
+moto[ses,dynamodb2]==1.3.14   #(see: https://github.com/spulec/moto/issues/3535)
+python-dotenv

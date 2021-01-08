@@ -8,7 +8,7 @@ custom:
   tableName: 'wedding-rsvp-${self:provider.stage}'
   domainName: ''
   wsgi:
-    app: app.app
+    app: run.app
     packRequirements: false
   pythonRequirements:
     dockerizePip: non-linux
@@ -64,3 +64,15 @@ resources:
           ReadCapacityUnits: 5
           WriteCapacityUnits: 5
         TableName: ${self:custom.tableName}
+
+package:
+  exclude:
+    - .idea/**
+    - '*.env'
+    - '*.md'
+    - venv/**
+    - __pycache__/**
+    - tests/**
+    - test-*
+    - LICENSE
+    - babel.cfg
