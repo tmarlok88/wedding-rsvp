@@ -32,7 +32,7 @@ class TestAdminGuest(ParentTest):
         self.assert_template_used("guest_form.html")
 
     def test_add_guest(self):
-        guest_data = {'name': 'Add Test User', 'email': 'fake@mail.com', 'will_attend': 'y', 'favourite_music': 'AAA',
+        guest_data = {'name': 'Add Test User', 'email': 'fake@mail.com', 'will_attend': True, 'favourite_music': 'AAA',
                       'food_allergies': 'bbbb', 'number_of_guests': 5, 'notes': 'CcCcC'}
 
         response = self.client.post("/admin/guest/add", data=guest_data)
@@ -41,7 +41,6 @@ class TestAdminGuest(ParentTest):
         guests = list_guests()
         guest_data["filled_by_admin"] = True
         guest_data["id"] = guests[0].id
-        guest_data["will_attend"] = True     # replace y string
 
         self.assertDictEqual(guests[0].__dict__["attribute_values"], guest_data)
 
@@ -70,10 +69,10 @@ class TestAdminGuest(ParentTest):
         guests = list_guests()
 
         self.assert_redirects(response, "/admin/guest/list")
-        self.assertEquals(len(guests), 2)               # moto bug with update see: https://github.com/spulec/moto/issues/3577 - should be 1
+        self.assertEqual(len(guests), 2)               # moto bug with update see: https://github.com/spulec/moto/issues/3577 - should be 1
         edited_guest_data["filled_by_admin"] = True
         edited_guest_data["id"] = guests[1].id
-        edited_guest_data["will_attend"] = False      # replace 'n' string
+        edited_guest_data["will_attend"] = False
         self.assertDictEqual(guests[1].__dict__["attribute_values"], edited_guest_data)
 
     def test_delete_guest(self):
@@ -84,7 +83,7 @@ class TestAdminGuest(ParentTest):
         guests = list_guests()
 
         self.assert_redirects(response, "/admin/guest/list")
-        self.assertEquals(len(guests), 0)               # moto bug with update see: https://github.com/spulec/moto/issues/3577 - should be 1
+        self.assertEqual(len(guests), 0)
 
 
 if __name__ == '__main__':

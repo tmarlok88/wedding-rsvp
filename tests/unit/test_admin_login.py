@@ -1,12 +1,16 @@
 import unittest
+import os
 from werkzeug.security import generate_password_hash
 from moto import mock_dynamodb2
 
 from parent import ParentTest
 
 
+os.environ["AWS_REGION"] = "WORLD"
+
+
 @mock_dynamodb2
-class AdminLogin(ParentTest):
+class TestAdminLogin(ParentTest):
     def create_app(self):
         app = ParentTest.create_app(self)
         app.config['LOGIN_DISABLED'] = False

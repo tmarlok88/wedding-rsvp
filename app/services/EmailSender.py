@@ -7,7 +7,7 @@ class EmailSender:
         self.client = boto3.client('ses', region_name=region)
         self.sender = sender
 
-    def send_email(self, recipients: list, subject: str, body: str):
+    def send_email(self, recipients: list, subject: str, body: str) -> bool:
         try:
             # Provide the contents of the email.
             response = self.client.send_email(
@@ -34,6 +34,7 @@ class EmailSender:
             )
         except ClientError as e:
             print(e.response['Error']['Message'])
+            return False
         else:
-            print("Email sent! Message ID:"),
-            print(response['MessageId'])
+            print(f"Email sent! Message ID: {response['MessageId']}")
+            return True

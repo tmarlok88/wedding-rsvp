@@ -91,9 +91,12 @@ def logout():
 @login_required
 def email_sender():
     form = EmailForm()
+    form.recipients.choices = [(g.email, g.name) for g in Guest.scan()]
     if form.validate_on_submit():
         emailsender = EmailSender(os.getenv("AWS_REGION"), os.getenv("SENDER_EMAIL_ADDRESS"))
-        emailsender.send_email(form.recipients.data, form.subject.data, form.body.data)
-        flash(_("E-mails sent successfully"))
+        if emailsender.send_email(form.recipients.data, form.subject.data, form.body.data):
+            flash(_("E-mails sent successfully"))
+        else:
+            flash(_("E-mails couldn't be sent"))
 
     return render_template('email_sender.html', title=_('Send mail'), form=form)
