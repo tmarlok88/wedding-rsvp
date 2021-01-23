@@ -49,7 +49,3 @@ class TestAdminSendMail(ParentTest):
                                                                  'subject': 'Test message', 'body': 'message body'})
         self.assert200(response)
         self.assert_message_flashed("E-mails sent successfully")
-
-
-if __name__ == '__main__':
-    unittest.main(verbosity=2)

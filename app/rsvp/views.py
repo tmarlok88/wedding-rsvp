@@ -47,6 +47,7 @@ def rsvp_captcha():
         try:
             guest = guests.next()
             login_user(guest, remember=True)
+
             return redirect(url_for("rsvp.rsvp_page", guest_id=guest_id))
         except StopIteration as si_exception:
             abort(404)

@@ -5,10 +5,10 @@ from test.support import EnvironmentVarGuard
 import threading
 
 from moto.server import create_backend_app
+from tests.guest_helper import clear_all_guests
 
 
 class E2ETest(LiveServerTestCase):
-
     @classmethod
     def setUpClass(cls) -> None:
         cls.env = EnvironmentVarGuard()
@@ -16,14 +16,14 @@ class E2ETest(LiveServerTestCase):
         if os.getenv("IS_LOCAL", True):
             cls.env.set('DYNAMO_TABLE', 'test_table')
             cls.env.set('AWS_REGION', 'us-west-1')
-            cls.env.set('AWS_REGION', 'us-west-1')
             cls.env.set('AWS_ENDPOINT_URL', 'http://localhost:7012')
             cls.env.set('AWS_ACCESS_KEY_ID', 'testing')
             cls.env.set('AWS_SECRET_ACCESS_KEY', 'testing')
             cls.env.set('AWS_SECURITY_TOKEN', 'testing')
             cls.env.set('AWS_SESSION_TOKEN', 'testing')
             cls.moto_app = create_backend_app("dynamodb2")
-            cls.moto_thread = threading.Thread(target=cls.moto_app.run, args=("localhost", 7012), kwargs={"use_reloader": False})
+            cls.moto_thread = threading.Thread(target=cls.moto_app.run, args=("localhost", 7012),
+                                               kwargs={"use_reloader": False})
             cls.moto_thread.setDaemon(True)
             cls.moto_thread.start()
 
@@ -36,6 +36,9 @@ class E2ETest(LiveServerTestCase):
         if browser == "edge":
             self.browser = webdriver.Edge()
         self.addCleanup(self.browser.quit)
+
+    def tearDown(self) -> None:
+        clear_all_guests()
 
     def create_app(self):
         with self.env:

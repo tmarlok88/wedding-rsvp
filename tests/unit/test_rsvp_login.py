@@ -31,14 +31,10 @@ class TestRSVPLogin(ParentTest):
         self.assert_template_used("errors/404.html")
 
     def test_existing_user_found(self):
-        guest_id = save_guest(dict(name="Example User", email="test@example.com"))
+        guest_id = save_guest(dict(name="Example User", email="test@example.com")).id
 
         response = self.client.get(f"/rsvp/{guest_id}", follow_redirects=True)
 
         self.assert200(response)
         self.assert_template_used("rsvp.html")
         self.assertIn("Example User", response.data.decode("utf-8"))
-
-
-if __name__ == '__main__':
-    unittest.main(verbosity=2)

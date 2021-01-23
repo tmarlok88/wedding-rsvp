@@ -29,7 +29,3 @@ class TestAdminLogin(ParentTest):
     def test_login_bad_password(self):
         response = self.client.post('/admin/login?next=%2Fadmin%2F', data={'password': 'bad-password'})
         self.assert_redirects(response, "/admin/login")
-
-
-if __name__ == '__main__':
-    unittest.main(verbosity=2)

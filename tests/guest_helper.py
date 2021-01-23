@@ -10,7 +10,7 @@ def save_guest(guest_data: dict):
         from tests import context
         g = context.app.model.Guest.Guest(**guest_data)
         g.save()
-        return g.id
+        return g
 
 
 def list_guests():

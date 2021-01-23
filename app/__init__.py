@@ -21,7 +21,7 @@ def create_app(config_class=Config):
 
     app.register_blueprint(admin_blueprint, url_prefix='/admin')
     app.register_blueprint(rsvp_blueprint)
-
+    login.login_message = None
     login.blueprint_login_views = {
         'admin': 'admin.login',
         'rsvp': 'rsvp.rsvp_captcha',

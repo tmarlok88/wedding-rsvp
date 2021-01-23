@@ -24,7 +24,6 @@ class GuestForm(FlaskForm):
 
     def set_model(self, guest: Guest):
         self.name.data = guest.name
-        self.name.data = guest.name
         self.email.data = guest.email
         self.notes.data = guest.notes
         self.number_of_guests.data = guest.number_of_guests

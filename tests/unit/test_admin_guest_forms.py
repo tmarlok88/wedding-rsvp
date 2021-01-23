@@ -47,7 +47,7 @@ class TestAdminGuest(ParentTest):
     def test_edit_guest_page(self):
         guest_data = {'name': 'Edit Page Test User', 'email': 'fake@mail.com', 'will_attend': True, 'favourite_music': 'AAA',
                       'food_allergies': 'bbbb', 'number_of_guests': 5, 'notes': 'CcCcC'}
-        guest_id = save_guest(guest_data)
+        guest_id = save_guest(guest_data).id
         response = self.client.get(f"/admin/guest/edit/{guest_id}")
         self.assert200(response)
         self.assert_template_used("guest_form.html")
@@ -64,7 +64,7 @@ class TestAdminGuest(ParentTest):
                       'food_allergies': 'bbbb', 'number_of_guests': 5, 'notes': 'CcCcC'}
         edited_guest_data = {'name': 'Changed Test User', 'email': 'changed@mail.com', 'notes': 'Some notes',
                              'favourite_music': 'changed', 'food_allergies': 'changed_too', 'number_of_guests': 0 }
-        guest_id = save_guest(guest_data)
+        guest_id = save_guest(guest_data).id
         response = self.client.post(f"/admin/guest/edit/{guest_id}", data=edited_guest_data)
         guests = list_guests()
 
@@ -78,13 +78,9 @@ class TestAdminGuest(ParentTest):
     def test_delete_guest(self):
         guest_data = {'name': 'Edit Test User', 'email': 'fake@mail.com', 'will_attend': True, 'favourite_music': 'AAA',
                       'food_allergies': 'bbbb', 'number_of_guests': 5, 'notes': 'CcCcC'}
-        guest_id = save_guest(guest_data)
+        guest_id = save_guest(guest_data).id
         response = self.client.get(f"/admin/guest/delete/{guest_id}")
         guests = list_guests()
 
         self.assert_redirects(response, "/admin/guest/list")
         self.assertEqual(len(guests), 0)
-
-
-if __name__ == '__main__':
-    unittest.main(verbosity=2)
