@@ -51,18 +51,19 @@ class TestRSVP(E2ETest):
         self.browser.find_element_by_id("number_of_guests").send_keys(Keys.ENTER)
 
         # issue a browser refresh to make sure, the change is saved
-        self.browser.refresh()
+        self.browser.get(f"{self.get_server_url()}/rsvp")
+        import time
+        time.sleep(1)
         self.assertEqual(self.browser.find_element_by_id("number_of_guests").get_attribute("value"), "4")
         self.assertEqual(get_guest(guest_id).number_of_guests, 4)        # to the database as well
 
         # But wait! He became vegan since...
         self.browser.find_element_by_id("food_allergies").clear()
         self.browser.find_element_by_id("food_allergies").send_keys('I a\'m vegan')
-        self.browser.find_element_by_id("food_allergies").send_keys(Keys.ENTER)
+        self.browser.find_element_by_id("submit").click()
 
         # issue a browser refresh to make sure, the change is saved
-        self.browser.refresh()
-        import time
+        self.browser.get(f"{self.get_server_url()}/rsvp/{guest_id}")
         time.sleep(1)
         self.assertEqual(self.browser.find_element_by_id("food_allergies").get_attribute("value"), 'I a\'m vegan')
         self.assertEqual(get_guest(guest_id).food_allergies, 'I a\'m vegan')        # to the database as well
