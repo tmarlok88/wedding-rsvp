@@ -65,9 +65,9 @@ We need to install the test dependencies:
 pip install -r test-requirements.txt
 ```
 
-for the E2E tests, you should install the 'geckodriver' package (Ubunt for example):
+for the E2E tests, you should install the following packages (for Firefox and Chromium):
 ```bash
-apt-get install firefox-geckodriver
+apt-get install firefox-geckodriver chromium-chromedriver
 ```
 
 ### E2E tests

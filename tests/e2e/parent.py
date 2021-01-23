@@ -28,7 +28,13 @@ class E2ETest(LiveServerTestCase):
             cls.moto_thread.start()
 
     def setUp(self) -> None:
-        self.browser = webdriver.Firefox()
+        browser = os.getenv("E2E_BROWSER", "firefox")
+        if browser == "firefox":
+            self.browser = webdriver.Firefox()
+        if browser == "chrome":
+            self.browser = webdriver.Chrome()
+        if browser == "edge":
+            self.browser = webdriver.Edge()
         self.addCleanup(self.browser.quit)
 
     def create_app(self):
