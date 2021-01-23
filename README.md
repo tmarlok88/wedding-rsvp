@@ -76,8 +76,27 @@ End-to-end test are used to test the application from and end-user perspective.
 They can be executed against a local test environment with mocked dependencies,
 or a deployed staging environment as well. 
 
+Running in local environment:
+
+```bash
+cd tests/e2e
+nose2
+
+# For coverage report:
+nose2 --with-coverage --coverage ../../app/
+```
+
 ### Unit tests
 
+unit tests can be run with nose2 from the tests/unit directory. Like this:
+
+```bash
+cd tests/unit
+nose2
+
+# For coverage report:
+nose2 --with-coverage --coverage ../../app/
+```
 
 ## Development
 

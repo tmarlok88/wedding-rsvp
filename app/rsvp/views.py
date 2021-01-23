@@ -10,13 +10,14 @@ from app.model.Guest import Guest
 from app.admin.forms import GuestForm
 
 
-@rsvp.route('/rsvp/', methods=['GET', 'POST'], defaults={'guest_id': None})
+@rsvp.route('/rsvp', methods=['GET', 'POST'], defaults={'guest_id': None})
 @rsvp.route('/rsvp/<string:guest_id>', methods=['GET', 'POST'])
 @login_required
 def rsvp_page(guest_id):
-    if current_user.id != guest_id and guest_id is not None:
+    if (guest_id is not None and not current_user.is_anonymous and current_user.id != guest_id) or \
+            (current_user.is_anonymous and guest_id is None):
         logout_user()
-        abort(403)
+        abort(404)
     form = GuestForm()
 
     current_user.last_viewed = datetime.datetime.utcnow()
@@ -30,7 +31,7 @@ def rsvp_page(guest_id):
     else:
         form.set_model(current_user)
 
-    return render_template("rsvp.html", form=form, guest=current_user, title=_("Wedding RSVP"))
+    return render_template("rsvp.html", form=form, guest=current_user, title=_(f"Wedding RSVP | {current_user.name}"))
 
 
 @rsvp.route('/rsvp_captcha', methods=['GET', 'POST'])
@@ -51,3 +52,9 @@ def rsvp_captcha():
             abort(404)
     else:
         return render_template('rsvp_captcha.html', title=_('B & T Wedding'), form=form)
+
+
+@rsvp.errorhandler(404)
+def page_not_found(e):
+    # note that we set the 404 status explicitly
+    return render_template('errors/404.html'), 404
