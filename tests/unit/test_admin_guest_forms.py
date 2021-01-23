@@ -2,7 +2,7 @@ import unittest
 from moto import mock_dynamodb2
 
 from parent import ParentTest
-from guest_helper import save_guest, list_guests, clear_all_guests
+from tests.guest_helper import save_guest, list_guests, clear_all_guests
 
 
 @mock_dynamodb2

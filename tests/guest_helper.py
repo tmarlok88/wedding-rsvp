@@ -7,7 +7,7 @@ env.set('AWS_REGION', 'fake-region')
 
 def save_guest(guest_data: dict):
     with env:
-        import context
+        from tests import context
         g = context.app.model.Guest.Guest(**guest_data)
         g.save()
         return g.id
@@ -15,12 +15,12 @@ def save_guest(guest_data: dict):
 
 def list_guests():
     with env:
-        import context
+        from tests import context
         return [guest for guest in context.app.model.Guest.Guest().scan()]
 
 
 def clear_all_guests():
     with env:
-        import context
+        from tests import context
         for guest in context.app.model.Guest.Guest().scan():
             guest.delete()

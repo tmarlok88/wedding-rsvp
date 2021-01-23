@@ -1,6 +1,7 @@
 __pycache__/
 *.py[cod]
 *$py.class
+.pytest-cache/
 
 .serverless/
 venv/
@@ -8,3 +9,5 @@ venv/
 .idea
 
 secrets.env
+
+geckodriver.log

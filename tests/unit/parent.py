@@ -12,7 +12,6 @@ class ParentTest(TestCase):
 
         with self.env:
             from config import Config
-            import context
+            from tests import context
             app = context.app.create_app(Config)
             return app
-

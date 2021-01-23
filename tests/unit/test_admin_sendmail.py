@@ -5,7 +5,7 @@ from moto import mock_dynamodb2, mock_ses
 
 from parent import ParentTest
 
-from guest_helper import save_guest
+from tests.guest_helper import save_guest
 
 
 @mock.patch.dict(os.environ, {"AWS_REGION": "eu-central-1", "SENDER_EMAIL_ADDRESS": "sender@example.com"})

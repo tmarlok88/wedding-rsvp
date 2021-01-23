@@ -1,12 +1,8 @@
 import unittest
-import os
 from werkzeug.security import generate_password_hash
 from moto import mock_dynamodb2
 
 from parent import ParentTest
-
-
-os.environ["AWS_REGION"] = "WORLD"
 
 
 @mock_dynamodb2

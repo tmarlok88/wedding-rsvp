@@ -14,7 +14,7 @@ from app.admin.forms import GuestForm
 @rsvp.route('/rsvp/<string:guest_id>', methods=['GET', 'POST'])
 @login_required
 def rsvp_page(guest_id):
-    if current_user.id != guest_id and (guest_id is not None):
+    if current_user.id != guest_id and guest_id is not None:
         logout_user()
         abort(403)
     form = GuestForm()

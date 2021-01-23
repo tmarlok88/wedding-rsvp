@@ -55,6 +55,29 @@ export ADMIN_PASSWORD_HASH=$(python3 -c 'from werkzeug.security import generate_
 sls deploy
 ```
 
+## Testing
+
+### Preparations
+
+We need to install the test dependencies:
+
+```bash
+pip install -r test-requirements.txt
+```
+
+for the E2E tests, you should install the 'geckodriver' package (Ubunt for example):
+```bash
+apt-get install firefox-geckodriver
+```
+
+### E2E tests
+
+End-to-end test are used to test the application from and end-user perspective.
+They can be executed against a local test environment with mocked dependencies,
+or a deployed staging environment as well. 
+
+### Unit tests
+
 
 ## Development
 
