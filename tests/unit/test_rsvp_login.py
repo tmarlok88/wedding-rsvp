@@ -2,7 +2,7 @@ import unittest
 from moto import mock_dynamodb2
 
 from parent import ParentTest
-from tests.guest_helper import save_guest
+from tests.guest_helper import save_guest, EXAMPLE_GUEST_1
 
 
 @mock_dynamodb2
@@ -31,10 +31,10 @@ class TestRSVPLogin(ParentTest):
         self.assert_template_used("errors/404.html")
 
     def test_existing_user_found(self):
-        guest_id = save_guest(dict(name="Example User", email="test@example.com")).id
+        guest_id = save_guest(EXAMPLE_GUEST_1).id
 
         response = self.client.get(f"/rsvp/{guest_id}", follow_redirects=True)
 
         self.assert200(response)
         self.assert_template_used("rsvp.html")
-        self.assertIn("Example User", response.data.decode("utf-8"))
+        self.assertIn(EXAMPLE_GUEST_1["name"], response.data.decode("utf-8"))

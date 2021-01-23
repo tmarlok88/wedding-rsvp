@@ -1,11 +1,28 @@
 import os
 from flask_testing import LiveServerTestCase
 from selenium import webdriver
+from selenium.common.exceptions import WebDriverException
 from test.support import EnvironmentVarGuard
 import threading
+import time
 
 from moto.server import create_backend_app
 from tests.guest_helper import clear_all_guests
+
+MAX_WAIT = 20
+
+
+def wait(fn):
+    def modified_fn(*args, **kwargs):
+        start_time = time.time()
+        while True:
+            try:
+                return fn(*args, **kwargs)
+            except (AssertionError, WebDriverException) as e:
+                if time.time() - start_time > MAX_WAIT:
+                    raise e
+                time.sleep(0.5)
+    return modified_fn
 
 
 class E2ETest(LiveServerTestCase):
@@ -49,3 +66,7 @@ class E2ETest(LiveServerTestCase):
             from app.model.Guest import Guest
             Guest.create_table()
             return app
+
+    @wait
+    def wait_for(self, fn):
+        return fn()

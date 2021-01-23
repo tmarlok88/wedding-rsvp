@@ -1,11 +1,11 @@
-import unittest
 import mock
 import os
 from moto import mock_dynamodb2, mock_ses
+import html
 
 from parent import ParentTest
 
-from tests.guest_helper import save_guest
+from tests.guest_helper import save_guest, EXAMPLE_GUEST_1, EXAMPLE_GUEST_2
 
 
 @mock.patch.dict(os.environ, {"AWS_REGION": "eu-central-1", "SENDER_EMAIL_ADDRESS": "sender@example.com"})
@@ -24,19 +24,19 @@ class TestAdminSendMail(ParentTest):
         self.assert_template_used("email_sender.html")
 
     def test_email_sender_page_recipient_list(self):
-        save_guest(dict(name="List Test User", email="test@example.com"))
-        save_guest(dict(name="Another user", email="anothertest@some.domain"))
+        save_guest(EXAMPLE_GUEST_1)
+        save_guest(EXAMPLE_GUEST_2)
 
         response = self.client.get("/admin/email_sender")
 
-        self.assertIn("List Test User", response.data.decode("utf-8"))
-        self.assertIn("test@example.com", response.data.decode("utf-8"))
-        self.assertIn("Another user", response.data.decode("utf-8"))
-        self.assertIn("anothertest@some.domain", response.data.decode("utf-8"))
+        self.assertIn(EXAMPLE_GUEST_1["name"], response.data.decode("utf-8"))
+        self.assertIn(EXAMPLE_GUEST_1["email"], response.data.decode("utf-8"))
+        self.assertIn(EXAMPLE_GUEST_2["name"], response.data.decode("utf-8"))
+        self.assertIn(EXAMPLE_GUEST_2["email"], response.data.decode("utf-8"))
 
     def test_email_sender_send_mail_fail(self):
         with mock.patch.dict(os.environ, {"AWS_REGION": "eu-central-1", "SENDER_EMAIL_ADDRESS": "fake@example.com"}):
-            response = self.client.post('/admin/email_sender', data={'recipients': ['test@example.com'],
+            response = self.client.post('/admin/email_sender', data={'recipients': [EXAMPLE_GUEST_1["email"]],
                                                                  'subject': 'Test message', 'body': 'message body'})
         self.assert200(response)
         self.assert_message_flashed("E-mails couldn't be sent")
@@ -45,7 +45,7 @@ class TestAdminSendMail(ParentTest):
         import boto3
         ses_client = boto3.client('ses', region_name="mock-region")
         ses_client.verify_email_identity(EmailAddress='sender@example.com')
-        response = self.client.post('/admin/email_sender', data={'recipients': ['test@example.com'],
+        response = self.client.post('/admin/email_sender', data={'recipients': [EXAMPLE_GUEST_2["email"]],
                                                                  'subject': 'Test message', 'body': 'message body'})
         self.assert200(response)
         self.assert_message_flashed("E-mails sent successfully")

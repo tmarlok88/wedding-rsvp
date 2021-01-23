@@ -1,10 +1,10 @@
 from tests.e2e.parent import E2ETest
 from selenium.webdriver.common.keys import Keys
+from tests.guest_helper import save_guest, get_guest, EXAMPLE_GUEST_1
 
 
 class TestRSVP(E2ETest):
     def test_rsvp_auth(self):
-        from tests.guest_helper import save_guest
         username = "E2E Test User"
         guest_id = save_guest(dict(name=username, email="test@example.com")).id
 
@@ -21,9 +21,7 @@ class TestRSVP(E2ETest):
         self.assertEqual(f"Wedding RSVP | {username}", self.browser.title)
 
     def test_rsvp_page(self):
-        from tests.guest_helper import save_guest, get_guest
-        guest_data = {'name': 'Add Test User', 'email': 'fake@mail.com', 'will_attend': True, 'favourite_music': 'AAA',
-                      'food_allergies': 'bbbb', 'number_of_guests': 5, 'notes': 'CcCcC'}
+        guest_data = dict(EXAMPLE_GUEST_1)
         edit_allowed = ["will_attend", "favourite_music", "food_allergies", "number_of_guests", "notes"]
 
         guest_id = save_guest(guest_data).id
@@ -52,9 +50,8 @@ class TestRSVP(E2ETest):
 
         # issue a browser refresh to make sure, the change is saved
         self.browser.get(f"{self.get_server_url()}/rsvp")
-        import time
-        time.sleep(1)
-        self.assertEqual(self.browser.find_element_by_id("number_of_guests").get_attribute("value"), "4")
+        self.wait_for(
+            lambda: self.assertEqual(self.browser.find_element_by_id("number_of_guests").get_attribute("value"), "4"))
         self.assertEqual(get_guest(guest_id).number_of_guests, 4)        # to the database as well
 
         # But wait! He became vegan since...
@@ -64,7 +61,8 @@ class TestRSVP(E2ETest):
 
         # issue a browser refresh to make sure, the change is saved
         self.browser.get(f"{self.get_server_url()}/rsvp/{guest_id}")
-        time.sleep(1)
-        self.assertEqual(self.browser.find_element_by_id("food_allergies").get_attribute("value"), 'I a\'m vegan')
+        self.wait_for(lambda: self.assertEqual(
+            self.browser.find_element_by_id("food_allergies").get_attribute("value"), 'I a\'m vegan'))
         self.assertEqual(get_guest(guest_id).food_allergies, 'I a\'m vegan')        # to the database as well
+
 
