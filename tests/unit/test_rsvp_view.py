@@ -13,6 +13,8 @@ class TestRSVPView(ParentTest):
     def test_rsvp_page(self, current_user):
         guest_data = {'name': 'Add Test User', 'email': 'fake@mail.com', 'will_attend': True, 'favourite_music': 'AAA',
                       'food_allergies': 'bbbb', 'number_of_guests': 5, 'notes': 'CcCcC'}
+        edit_allowed = ["will_attend", "favourite_music", "food_allergies", "number_of_guests", "notes"]
+
         guest = save_guest(guest_data)
         current_user.return_value = guest
 
@@ -20,10 +22,11 @@ class TestRSVPView(ParentTest):
 
         self.assert200(response)
         self.assert_template_used("rsvp.html")
-        for value in guest_data.values():
-            if type(value) is str:
-                self.assertIn(value, response.data.decode("utf-8"))
-            if type(value) is bool and value is True:
-                self.assertIn("checked", response.data.decode("utf-8"))
-            if type(value) is bool and value is False:
-                self.assertNotIn("checked", response.data.decode("utf-8"))
+        for key, value in guest_data.items():
+            if key in edit_allowed:
+                if type(value) is str:
+                    self.assertIn(value, response.data.decode("utf-8"))
+                if type(value) is bool and value is True:
+                    self.assertIn("checked", response.data.decode("utf-8"))
+                if type(value) is bool and value is False:
+                    self.assertNotIn("checked", response.data.decode("utf-8"))

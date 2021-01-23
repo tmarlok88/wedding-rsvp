@@ -5,9 +5,8 @@ from flask import render_template, request, abort, redirect, url_for, current_ap
 from flask_login import login_required, login_user, current_user, logout_user
 
 from app.rsvp import rsvp
-from app.rsvp.forms import RSVPCaptchaForm
+from app.rsvp.forms import RSVPCaptchaForm, GuestForm
 from app.model.Guest import Guest
-from app.admin.forms import GuestForm
 
 
 @rsvp.route('/rsvp', methods=['GET', 'POST'], defaults={'guest_id': None})

@@ -19,6 +19,12 @@ def list_guests():
         return [guest for guest in context.app.model.Guest.Guest().scan()]
 
 
+def get_guest(guest_id):
+    with env:
+        from tests import context
+        return context.app.model.Guest.Guest.scan(context.app.model.Guest.Guest.id == guest_id).next()
+
+
 def clear_all_guests():
     with env:
         from tests import context
