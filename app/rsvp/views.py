@@ -23,12 +23,12 @@ def rsvp_page(guest_id):
     current_user.save()
 
     if form.validate_on_submit():
-        form.fill_model(current_user)
+        form.fill_model_from_form(current_user)
         current_user.last_responded = datetime.datetime.utcnow()
         current_user.filled_by_admin = False
         current_user.save()
     else:
-        form.set_model(current_user)
+        form.fill_form_from_model(current_user)
 
     return render_template("rsvp.html", form=form, guest=current_user, title=_(f"Wedding RSVP | {current_user.name}"))
 

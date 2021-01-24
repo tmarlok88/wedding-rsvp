@@ -2,7 +2,7 @@ from test.support import EnvironmentVarGuard
 
 env = EnvironmentVarGuard()
 env.set('DYNAMO_TABLE', 'test_table')
-env.set('AWS_REGION', 'fake-region')
+env.set('AWS_REGION', 'us-west-1')
 
 EXAMPLE_GUEST_1 = {'name': 'Mick Jagger',
                    'email': 'fake@mail.com',
@@ -18,6 +18,13 @@ EXAMPLE_GUEST_2 = {'name': 'Bruce Dickinson',
                    'favourite_music': 'Belga',
                    'food_allergies': 'sunshine - I\'m a vampire',
                    'number_of_guests': 0}
+
+INVALID_GUEST = {'name': 'some name',
+                 'email': 'invalid-mail.com',
+                 'will_attend': False,
+                 'favourite_music': 'Belga',
+                 'food_allergies': 'sunshine - I\'m a vampire',
+                 'number_of_guests': 99}
 
 
 def create_guest(guest_data: dict):

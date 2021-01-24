@@ -8,7 +8,7 @@ class ParentTest(TestCase):
 
         self.env = EnvironmentVarGuard()
         self.env.set('DYNAMO_TABLE', 'test_table')
-        self.env.set('AWS_REGION', 'eu-central-1')
+        self.env.set('AWS_REGION', 'us-west-1')
 
         with self.env:
             from config import Config
