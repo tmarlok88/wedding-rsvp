@@ -18,7 +18,7 @@ class AdminModelTest(TestCase):
 class GuestModelTest(TestCase):
     def test_guest_default_values(self):
         test_guest = context.app.model.Guest.Guest()
-        self.assertIsNotNone(UUID(test_guest.get_id(), version=4))
+        self.assertIsNotNone(UUID(str(test_guest.get_id()), version=4))
         self.assertFalse(test_guest.filled_by_admin)
 
     def test_guest_create_from_json(self):

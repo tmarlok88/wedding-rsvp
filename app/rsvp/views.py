@@ -1,5 +1,6 @@
 import datetime
 
+from uuid import UUID
 from flask_babel import _
 from flask import render_template, request, abort, redirect, url_for, current_app
 from flask_login import login_required, login_user, current_user, logout_user
@@ -13,7 +14,7 @@ from app.model.Guest import Guest
 @rsvp.route('/rsvp/<string:guest_id>', methods=['GET', 'POST'])
 @login_required
 def rsvp_page(guest_id):
-    if (guest_id is not None and not current_user.is_anonymous and current_user.id != guest_id) or \
+    if (guest_id is not None and not current_user.is_anonymous and str(current_user.id) != guest_id) or \
             (current_user.is_anonymous and guest_id is None):
         logout_user()
         abort(404)

@@ -37,16 +37,18 @@ def add_guest():
 def edit_guest(guest_id):
     form = GuestForm()
     guests = Guest.scan(Guest.id == guest_id)
-    guest = guests.next()
-    if not guest:
+    try:
+        guest = guests.next()
+    except StopIteration as si_exception:
         abort(404)
-    if form.validate_on_submit():
-        form.fill_model(guest)
-        guest.filled_by_admin = True
-        guest.save()
-        return redirect(url_for("admin.list_guest"))
-    form.set_model(guest)
-    return render_template('guest_form.html', form=form, title=_("Edit guest"))
+    else:
+        if form.validate_on_submit():
+            form.fill_model(guest)
+            guest.filled_by_admin = True
+            guest.save()
+            return redirect(url_for("admin.list_guest"))
+        form.set_model(guest)
+        return render_template('guest_form.html', form=form, title=_("Edit guest"))
 
 
 @admin.route('/guest/list', methods=['GET', 'POST'])
@@ -60,8 +62,9 @@ def list_guest():
 @login_required
 def delete_guest(guest_id):
     guests = Guest.scan(Guest.id == guest_id)
-    guest = guests.next()
-    if not guest:
+    try:
+        guest = guests.next()
+    except StopIteration as si_exception:
         abort(404)
     guest.delete()
     flash(_("Guest {} removed".format(guest.name)))

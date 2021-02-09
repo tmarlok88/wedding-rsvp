@@ -58,6 +58,13 @@ class TestAdminGuest(ParentTest):
                 string_val = "y" if value else "n"
                 self.assertIn(f"value=\"{string_val}\"", html.unescape(response.data.decode("utf-8")))
 
+    def test_edit_guest_page_no_such_guest(self):
+        guest_data = EXAMPLE_GUEST_1
+        guest_id = save_guest(guest_data).id
+        response = self.client.get(f"/admin/guest/edit/{guest_id}XXX")
+        self.assert404(response)
+        #self.assert_template_used("errors/404.html")
+
     def test_edit_guest(self):
         guest_data = dict(EXAMPLE_GUEST_1)
         edited_guest_data = dict(EXAMPLE_GUEST_2)
@@ -81,3 +88,11 @@ class TestAdminGuest(ParentTest):
 
         self.assert_redirects(response, "/admin/guest/list")
         self.assertEqual(len(guests), 0)
+
+    def test_delete_guest_no_such_guest(self):
+        guest_data = EXAMPLE_GUEST_1
+        guest_id = save_guest(guest_data).id
+        response = self.client.get(f"/admin/guest/delete/{guest_id}XXX")
+
+        self.assert404(response)
+        #self.assert_template_used("errors/404.html")
