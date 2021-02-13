@@ -5,7 +5,7 @@ import datetime
 import os
 
 from tests import context
-from tests.guest_helper import EXAMPLE_GUEST_1
+from tests.guest_helper import EXAMPLE_GUEST_1, EXAMPLE_GUEST_2, save_guest
 
 
 class AdminModelTest(TestCase):
@@ -44,3 +44,20 @@ class GuestModelTest(TestCase):
         test_guest = context.app.model.Guest.Guest()
         with self.assertRaisesRegex(ValueError, "Attribute 'email' cannot be None"):
             test_guest.save()
+
+    def test_find_guest(self):
+        test_guest = context.app.model.Guest.Guest(**EXAMPLE_GUEST_1)
+        test_guest_2 = context.app.model.Guest.Guest(**EXAMPLE_GUEST_2)                # Just so that we have a second value
+        with mock.patch.dict(os.environ, {"AWS_REGION": "us-west-1", "DYNAMO_TABLE": "fake-table"}):
+            test_guest.save()
+            test_guest_2.save()
+            found_guest = context.app.model.Guest.Guest.find(test_guest.get_id())
+            self.assertDictEqual(test_guest.attribute_values, found_guest.attribute_values)
+
+    def test_find_non_existing_guest(self):
+        test_guest = context.app.model.Guest.Guest(**EXAMPLE_GUEST_1)
+        test_guest_2 = context.app.model.Guest.Guest(**EXAMPLE_GUEST_2)                # Just so that we have a second value
+        with mock.patch.dict(os.environ, {"AWS_REGION": "us-west-1", "DYNAMO_TABLE": "fake-table"}):
+            test_guest_2.save()
+            found_guest = context.app.model.Guest.Guest.find(test_guest.get_id())
+            self.assertIsNone(found_guest)

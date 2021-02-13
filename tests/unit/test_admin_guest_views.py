@@ -87,6 +87,7 @@ class TestAdminGuest(ParentTest):
         guests = list_guests()
 
         self.assert_redirects(response, "/admin/guest/list")
+        self.assertMessageFlashed(f"Guest {EXAMPLE_GUEST_1['name']} removed")
         self.assertEqual(len(guests), 0)
 
     def test_delete_guest_no_such_guest(self):

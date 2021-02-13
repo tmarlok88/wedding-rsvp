@@ -28,3 +28,11 @@ class Guest(Model, UserMixin):
     def get_id(self):
         return str(self.id)
 
+    @staticmethod
+    def find(guest_id: str):
+        guests = Guest.scan(Guest.id == guest_id)
+        try:
+            return guests.next()
+        except StopIteration as si_exception:
+            return None
+

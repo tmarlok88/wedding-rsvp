@@ -43,13 +43,11 @@ def rsvp_captcha():
     form = RSVPCaptchaForm()
 
     if form.validate_on_submit() or not current_app.config["USE_RECAPTCHA_FOR_GUEST"]:
-        guests = Guest.scan(Guest.id == guest_id)
-        try:
-            guest = guests.next()
+        guest = Guest.find(guest_id)
+        if guest:
             login_user(guest, remember=True)
-
             return redirect(url_for("rsvp.rsvp_page", guest_id=guest_id))
-        except StopIteration as si_exception:
+        else:
             abort(404)
     else:
         return render_template('rsvp_captcha.html', title=_('B & T Wedding'), form=form)

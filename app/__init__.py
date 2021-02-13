@@ -41,9 +41,4 @@ def load_user(user_id):
         if user_id == "admin":
             return Admin()
     if request.blueprint == "rsvp":
-        guests = Guest.scan(Guest.id == user_id)
-        try:
-            guest = guests.next()
-            return guest
-        except StopIteration as si_exception:
-            return None
+        return Guest.find(user_id)
