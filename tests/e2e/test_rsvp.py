@@ -1,5 +1,10 @@
 from tests.e2e.parent import E2ETest
 from selenium.webdriver.common.keys import Keys
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.common.by import By
+from selenium.common.exceptions import NoSuchElementException, StaleElementReferenceException
+from selenium.webdriver.support import expected_conditions
+
 from tests.guest_helper import save_guest, get_guest, EXAMPLE_GUEST_1
 
 
@@ -10,7 +15,7 @@ class TestRSVP(E2ETest):
 
         # testuser goes to the rsvp page, but gets rejected
         self.browser.get(f"{self.get_server_url()}/rsvp")
-        self.assertEqual("Unknown user", self.browser.title)
+        self.assertEqual("Not found", self.browser.title)
 
         # now he goes to hos special link - he is recognized and accepted
         self.browser.get(f"{self.get_server_url()}/rsvp/{guest_id}")
@@ -44,19 +49,26 @@ class TestRSVP(E2ETest):
                                      self.browser.find_element_by_id(key).get_attribute("checked"))
 
         # It occurs to him that he just divorced, so that the ex-wife won't come
-        self.browser.find_element_by_id("number_of_guests").send_keys(Keys.BACKSPACE)
-        self.browser.find_element_by_id("number_of_guests").send_keys('4')
-        self.browser.find_element_by_id("number_of_guests").send_keys(Keys.ENTER)
+        number_of_guests = self.browser.find_element_by_id("number_of_guests")
+        number_of_guests.send_keys(Keys.BACKSPACE)
+        number_of_guests.send_keys('4')
+        number_of_guests.send_keys(Keys.ENTER)
 
-        # issue a browser refresh to make sure, the change is saved
-        self.browser.get(f"{self.get_server_url()}/rsvp")
+        # wait for the refresh to finish
+        WebDriverWait(self.browser, 5, ignored_exceptions=(NoSuchElementException,)) \
+            .until(expected_conditions.staleness_of(number_of_guests))
+
         self.wait_for(
             lambda: self.assertEqual(self.browser.find_element_by_id("number_of_guests").get_attribute("value"), "4"))
         self.assertEqual(get_guest(guest_id).number_of_guests, 4)        # to the database as well
 
-        # But wait! He became vegan since...
-        self.browser.find_element_by_id("food_allergies").clear()
-        self.browser.find_element_by_id("food_allergies").send_keys('I a\'m vegan')
+        # But wait! He became vegan since..
+        food_allergies = WebDriverWait(self.browser, 5,
+                                       ignored_exceptions=(NoSuchElementException,StaleElementReferenceException,)) \
+            .until(expected_conditions.presence_of_element_located((By.ID, "food_allergies")))
+
+        food_allergies.clear()
+        food_allergies.send_keys('I a\'m vegan')
         self.browser.find_element_by_id("submit").click()
 
         # issue a browser refresh to make sure, the change is saved

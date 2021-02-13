@@ -9,7 +9,7 @@ import time
 from moto.server import create_backend_app
 from tests.guest_helper import clear_all_guests
 
-MAX_WAIT = 20
+MAX_WAIT = 5
 
 
 def wait(fn):
