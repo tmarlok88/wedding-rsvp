@@ -1,7 +1,8 @@
 from moto import mock_dynamodb2
 import html
+import uuid
 from parent import ParentTest
-from tests.guest_helper import save_guest, list_guests, clear_all_guests, EXAMPLE_GUEST_1, EXAMPLE_GUEST_2
+from tests.guest_helper import save_guest, get_guest, list_guests, clear_all_guests, EXAMPLE_GUEST_1, EXAMPLE_GUEST_2
 
 
 @mock_dynamodb2
@@ -40,7 +41,7 @@ class TestAdminGuest(ParentTest):
 
         guests = list_guests()
         expected_data["filled_by_admin"] = True
-        expected_data["id"] = guests[0].id
+        expected_data["id"] = uuid.UUID(guests[0].get_id())
 
         self.assertDictEqual(guests[0].__dict__["attribute_values"], expected_data)
 

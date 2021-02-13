@@ -1,6 +1,6 @@
-import unittest
 from werkzeug.security import generate_password_hash
 from moto import mock_dynamodb2
+from flask_login import current_user
 
 from parent import ParentTest
 
@@ -29,3 +29,13 @@ class TestAdminLogin(ParentTest):
     def test_login_bad_password(self):
         response = self.client.post('/admin/login?next=%2Fadmin%2F', data={'password': 'bad-password'})
         self.assert_redirects(response, "/admin/login")
+
+    def test_logout(self):
+        response = self.client.post('/admin/login?next=%2Fadmin%2F', data={'password': 'testing-password'},
+                                    follow_redirects=True)
+        self.assert200(response)
+        self.assert_template_used("admin_dashboard.html")
+
+        response = self.client.get('/admin/logout', follow_redirects=True)
+        self.assert200(response)
+        self.assert_template_used("login.html")

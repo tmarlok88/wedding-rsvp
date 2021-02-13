@@ -1,6 +1,5 @@
 import datetime
 
-from uuid import UUID
 from flask_babel import _
 from flask import render_template, request, abort, redirect, url_for, current_app
 from flask_login import login_required, login_user, current_user, logout_user

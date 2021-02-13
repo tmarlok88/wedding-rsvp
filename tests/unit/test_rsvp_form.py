@@ -29,11 +29,9 @@ class TestRSVPGuestForm(ParentTest):
         for key, value in form.data.items():
             if key != "submit":
                 self.assertEqual(guest.attribute_values.get(key), EXAMPLE_GUEST_2.get(key))
-
         for key, value in guest.attribute_values.items():                   # Guest attributes not in the form shouldn't be touched
             if key not in form.data.keys():
                 self.assertNotEqual(guest.attribute_values.get(key), EXAMPLE_GUEST_2.get(key))
-
         self.assertEqual(guest.last_viewed, now)                            # last_viewed attribute is the same
 
     def test_validator(self):
