@@ -63,7 +63,7 @@ class TestAdminGuest(ParentTest):
         guest_id = save_guest(guest_data).id
         response = self.client.get(f"/admin/guest/edit/{guest_id}XXX")
         self.assert404(response)
-        #self.assert_template_used("errors/404.html")
+        self.assert_template_used("errors/404.html")
 
     def test_edit_guest(self):
         guest_data = dict(EXAMPLE_GUEST_1)
@@ -95,4 +95,4 @@ class TestAdminGuest(ParentTest):
         response = self.client.get(f"/admin/guest/delete/{guest_id}XXX")
 
         self.assert404(response)
-        #self.assert_template_used("errors/404.html")
+        self.assert_template_used("errors/404.html")

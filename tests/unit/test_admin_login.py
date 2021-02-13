@@ -19,7 +19,7 @@ class TestAdminLogin(ParentTest):
 
     def test_login_page(self):
         response = self.client.get("/admin/login")
-        self.assertIn("Login", response.data.decode("utf-8"))
+        self.assertIn("Password", response.data.decode("utf-8"))
         self.assert_template_used("login.html")
 
     def test_login(self):

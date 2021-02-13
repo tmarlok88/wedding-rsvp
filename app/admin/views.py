@@ -103,3 +103,8 @@ def email_sender():
             flash(_("E-mails couldn't be sent"))
 
     return render_template('email_sender.html', title=_('Send mail'), form=form)
+
+
+@admin.errorhandler(404)
+def page_not_found(e):
+    return render_template('errors/404.html'), 404
