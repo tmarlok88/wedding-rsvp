@@ -10,3 +10,6 @@ class Config(object):
     RECAPTCHA_PRIVATE_KEY = os.environ.get('RECAPTCHA_PRIVATE_KEY')
     RECAPTCHA_OPTIONS = {'theme': 'white'}
     ADMIN_PASSWORD_HASH = os.environ.get('ADMIN_PASSWORD_HASH')
+    CDN_DOMAIN = os.environ.get('STATIC_URL_PATH')
+    CDN_TIMESTAMP = False
+    CDN_HTTPS = True

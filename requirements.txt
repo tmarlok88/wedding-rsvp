@@ -5,3 +5,4 @@ flask-babel
 flask-login
 flask-wtf
 email_validator
+flask-cdn-ng

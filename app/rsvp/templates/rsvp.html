@@ -1,32 +1,283 @@
-{% extends 'base.html' %}
+<!DOCTYPE html>
+<html>
 
-{% block app_content %}
+<head>
+    <title>{{ title }}</title>
+    {% block styles %}
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
 
-<form action="" method="post" novalidate>
-{{ form.hidden_tag() }}
-{% for field in form.data%}
-    {% if field != 'csrf_token' %}
-        {% if form[field].type == 'BooleanField'%}
-        <div class="form-group row">
-            <div class="col-sm-2"></div>
-            <div class="col-sm-5">
-                <div class="form-check">
-                    {{ form[field](class_="form-check-input") }}<label class="form-check-label"  for="{{field}}">{{ form[field].label }}</label><br/>
-                </div>
-            </div>
-        </div>
-        {% elif form[field].type == 'SubmitField' %}
-        <div class="form-group row">
-            <div class="col-sm-5">{{ form.submit(class_="btn btn-primary") }}</div><br/>
-        </div>
-        {% else %}
-        <div class="form-group row">
-            <label class="col-sm-2 col-form-label" for="{{field}}">{{ form[field].label }}</label>
-            <div class="col-sm-5">{{ form[field](class_="form-control") }}</div><br/>
-        </div>
-        {% endif%}
-    {% endif %}
-{% endfor %}
-</form>
+    <link href="{{ url_for('static', filename='css/rsvp.css') }}" rel="stylesheet">
+	<link href='https://fonts.googleapis.com/css?family=Work+Sans:400,300,600,400italic,700' rel='stylesheet' type='text/css'>
+	<link href="https://fonts.googleapis.com/css?family=Sacramento" rel="stylesheet">
 
+	<!-- Animate.css -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.css" rel="stylesheet">
+
+	<!-- Magnific Popup -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.1.0/magnific-popup.min.css" rel="stylesheet">
+
+	<!-- Owl Carousel  -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/owl-carousel/1.3.3/owl.carousel.min.css" rel="stylesheet">
+
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/owl-carousel/1.3.3/owl.theme.min.css" rel="stylesheet">
+	<!-- Modernizr JS -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.min.js"></script>
+	<!-- FOR IE9 below -->
+	<!--[if lt IE 9]>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/respond.js/1.4.2/respond.min.js"></script>
+	<![endif]-->
+	{% endblock %}
+</head>
+<body>
+<div class="page">
+	<nav class="fh5co-nav" role="navigation">
+		<div class="container">
+			<div class="row">
+				<div class="col-xs-2">
+					<div id="fh5co-logo"><a href="index.html">Wedding<strong>.</strong></a></div>
+				</div>
+				<div class="col-xs-10 text-right menu-1">
+					<ul>
+						<li class="active"><a href="index.html">Home</a></li>
+						<li><a href="about.html">Story</a></li>
+						<li class="has-dropdown">
+							<a href="services.html">Services</a>
+							<ul class="dropdown">
+								<li><a href="#">Web Design</a></li>
+								<li><a href="#">eCommerce</a></li>
+								<li><a href="#">Branding</a></li>
+								<li><a href="#">API</a></li>
+							</ul>
+						</li>
+						<li class="has-dropdown">
+							<a href="gallery.html">Gallery</a>
+							<ul class="dropdown">
+								<li><a href="#">HTML5</a></li>
+								<li><a href="#">CSS3</a></li>
+								<li><a href="#">Sass</a></li>
+								<li><a href="#">jQuery</a></li>
+							</ul>
+						</li>
+						<li><a href="contact.html">Contact</a></li>
+					</ul>
+				</div>
+			</div>
+
+		</div>
+	</nav>
+
+	<header id="fh5co-header" class="fh5co-cover" role="banner" style="background-image:url({{url_for('static', filename='img/img_bg_2.jpg')}});" data-stellar-background-ratio="0.5">
+		<div class="overlay"></div>
+		<div class="container">
+			<div class="row">
+				<div class="col-md-8 col-md-offset-2 text-center">
+					<div class="display-t">
+						<div class="display-tc animate-box" data-animate-effect="fadeIn">
+							<h1>{{_("Barbi &amp; Tamás")}}</h1>
+							<h2>{{_("We Are Getting Married")}}</h2>
+							<div class="simply-countdown simply-countdown-one"></div>
+							<p><a href="#" class="btn btn-default btn-sm">{{_("Save the date")}}</a></p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</header>
+
+	<div id="fh5co-couple">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-8 col-md-offset-2 text-center fh5co-heading animate-box">
+					<h2>Hello!</h2>
+					<h3>{{custom_data['wedding_date'].strftime("%Y.%m.%d %H:%M")}}</h3>
+					<p>We invited you to celebrate our wedding</p>
+				</div>
+			</div>
+			<div class="couple-wrap animate-box">
+				<div class="couple-half">
+					<div class="groom">
+						<img src="{{url_for('static', filename='img/groom.jpg')}}" alt="groom" class="img-responsive">
+					</div>
+					<div class="desc-groom">
+						<h3>Joefrey Mahusay</h3>
+						<p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. Separated they live in Bookmarksgrove</p>
+					</div>
+				</div>
+				<p class="heart text-center"><i class="icon-heart2"></i></p>
+				<div class="couple-half">
+					<div class="bride">
+						<img src="{{url_for('static', filename='img/bride.jpg')}}" alt="groom" class="img-responsive">
+					</div>
+					<div class="desc-bride">
+						<h3>Sheila Mahusay</h3>
+						<p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. Separated they live in Bookmarksgrove</p>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div id="fh5co-event" class="fh5co-bg" style="background-image:url({{url_for('static', filename='img/img_bg_3.jpg')}});">
+		<div class="overlay"></div>
+		<div class="container">
+			<div class="row">
+				<div class="col-md-8 col-md-offset-2 text-center fh5co-heading animate-box">
+					<span>Our Special Events</span>
+					<h2>Wedding Events</h2>
+				</div>
+			</div>
+			<div class="row">
+				<div class="display-t">
+					<div class="display-tc">
+						<div class="col-md-10 col-md-offset-1">
+							<div class="col-md-6 col-sm-6 text-center">
+								<div class="event-wrap animate-box">
+									<h3>Main Ceremony</h3>
+									<div class="event-col">
+										<i class="icon-clock"></i>
+										<span>4:00 PM</span>
+										<span>6:00 PM</span>
+									</div>
+									<div class="event-col">
+										<i class="icon-calendar"></i>
+										<span>Monday 28</span>
+										<span>November, 2016</span>
+									</div>
+									<p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. Separated they live in Bookmarksgrove right at the coast of the Semantics, a large language ocean.</p>
+								</div>
+							</div>
+							<div class="col-md-6 col-sm-6 text-center">
+								<div class="event-wrap animate-box">
+									<h3>Wedding Party</h3>
+									<div class="event-col">
+										<i class="icon-clock"></i>
+										<span>7:00 PM</span>
+										<span>12:00 AM</span>
+									</div>
+									<div class="event-col">
+										<i class="icon-calendar"></i>
+										<span>Monday 28</span>
+										<span>November, 2016</span>
+									</div>
+									<p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. Separated they live in Bookmarksgrove right at the coast of the Semantics, a large language ocean.</p>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div id="fh5co-started" class="fh5co-bg" style="background-image:url({{url_for('static', filename='img/img_bg_5.jpg')}});">
+		<div class="overlay"></div>
+		<div class="container">
+			<div class="row animate-box">
+				<div class="col-md-8 col-md-offset-2 text-center fh5co-heading">
+					<h2>Are You Attending?</h2>
+					<p>Please Fill-up the form to notify you that you're attending. Thanks.</p>
+				</div>
+			</div>
+			<form action="" method="post" novalidate>
+				{{ form.hidden_tag() }}
+				<div class="row animate-box">
+					<div class="col-md-10 col-md-offset-1">
+						{% for field in form.data%}
+							{% if field != 'csrf_token' %}
+								{% if form[field].type == 'BooleanField'%}
+								<div class="form-group row">
+									<div class="col-sm-2"></div>
+									<div class="col-sm-5">
+										<div class="form-check">
+											{{ form[field](class_="form-check-input") }}<label class="form-check-label"  for="{{field}}">{{ form[field].label }}</label><br/>
+										</div>
+									</div>
+								</div>
+								{% elif form[field].type == 'SubmitField' %}
+								<div class="form-group row">
+									<div class="col-sm-5">{{ form.submit(class_="btn btn-primary") }}</div><br/>
+								</div>
+								{% else %}
+								<div class="form-group row">
+									<label class="col-sm-2 col-form-label" for="{{field}}">{{ form[field].label }}</label>
+									<div class="col-sm-5">{{ form[field](class_="form-control") }}</div><br/>
+								</div>
+								{% endif%}
+							{% endif %}
+						{% endfor %}
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+
+	<footer id="fh5co-footer" role="contentinfo">
+		<div class="container">
+
+			<div class="row copyright">
+				<div class="col-md-12 text-center">
+					<p>
+						<small class="block">&copy; 2016 Free HTML5. All Rights Reserved.</small>
+						<small class="block">Designed by <a href="http://freehtml5.co/" target="_blank">FREEHTML5.co</a> Demo Images: <a href="http://unsplash.co/" target="_blank">Unsplash</a></small>
+					</p>
+					<p>
+						<ul class="fh5co-social-icons">
+							<li><a href="#"><i class="icon-twitter"></i></a></li>
+							<li><a href="#"><i class="icon-facebook"></i></a></li>
+							<li><a href="#"><i class="icon-linkedin"></i></a></li>
+							<li><a href="#"><i class="icon-dribbble"></i></a></li>
+						</ul>
+					</p>
+				</div>
+			</div>
+
+		</div>
+	</footer>
+</div>
+{% block scripts %}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-migrate/3.3.2/jquery-migrate.min.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.3/js/bootstrap.bundle.min.js"></script>
+
+<!-- jQuery Easing -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.min.js"></script>
+<!-- Waypoints -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/waypoints/4.0.1/jquery.waypoints.js"></script>
+<!-- Carousel -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/owl-carousel/1.3.3/owl.carousel.min.js"></script>
+<!-- countTo -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-countto/1.2.0/jquery.countTo.min.js"></script>
+
+<!-- Stellar -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/stellar.js/0.6.2/jquery.stellar.min.js"></script>
+<!-- Magnific Popup -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.1.0/jquery.magnific-popup.min.js"></script>
+
+
+<script src="{{ url_for('static', filename='js/simplyCountdown.js') }}"></script>
+<!-- Main -->
+<script src="{{ url_for('static', filename='js/main.js') }}"></script>
+
+<script>
+var d = new Date("{{custom_data['wedding_date'].strftime('%Y-%m-%d %H:%M')}}");
+
+// default example
+simplyCountdown('.simply-countdown-one', {
+    year: d.getFullYear(),
+    month: d.getMonth() + 1,
+    day: d.getDate()
+});
+
+//jQuery example
+$('#simply-countdown-losange').simplyCountdown({
+    year: d.getFullYear(),
+    month: d.getMonth() + 1,
+    day: d.getDate(),
+    enableUtc: false
+});
+</script>
 {% endblock %}
+</body>
+</html>

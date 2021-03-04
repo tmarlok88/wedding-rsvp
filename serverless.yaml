@@ -3,15 +3,98 @@ service: wedding-rsvp
 plugins:
   - serverless-python-requirements
   - serverless-wsgi
-
+  - serverless-finch
+  - serverless-plugin-additional-stacks
 custom:
   tableName: 'wedding-rsvp-${self:provider.stage}'
-  domainName: ''
+  domainName: ${opt:domain, 'bt-wedding.info'}
+  staticBucketName: 'wedding-rsvp-staticbucket'
   wsgi:
     app: run.app
     packRequirements: false
   pythonRequirements:
     dockerizePip: non-linux
+  client:
+    bucketName: wedding-rsvp-staticbucket
+    distributionFolder: app/static
+    keyPrefix: static
+#  customDomain:
+#    domainName: '${opt:domain}'
+#    basePath: ''
+#    stage: ${self:provider.stage}
+#    createRoute53Record: true
+  additionalStacks:
+    permanentResources:
+      deploy: Before
+      stackName: 'wedding-rsvp-static-resources'
+      Resources:
+        SSLCertificate:
+          Type: 'AWS::CertificateManager::Certificate'
+          Properties:
+            DomainName: '${self:custom.domainName}'
+            SubjectAlternativeNames:
+              - 'www.${self:custom.domainName}'
+            ValidationMethod: DNS
+            DomainValidationOptions:
+              - DomainName: '${self:custom.domainName}'
+                HostedZoneId: Z055211036AWVY5R1HSN0         #TODO
+              - DomainName: 'www.${self:custom.domainName}'
+                HostedZoneId: Z055211036AWVY5R1HSN0         #TODO
+        StaticS3Bucket:
+          Type: AWS::S3::Bucket
+          Properties:
+            BucketName: ${self:custom.staticBucketName}
+            AccessControl: PublicRead
+            WebsiteConfiguration:
+              IndexDocument: index.html
+              ErrorDocument: index.html
+        StaticS3BucketPolicy:
+          Type: AWS::S3::BucketPolicy
+          Properties:
+            Bucket:
+              Ref: StaticS3Bucket
+            PolicyDocument:
+              Statement:
+                - Sid: PublicReadGetObject
+                  Effect: Allow
+                  Principal: "*"
+                  Action:
+                    - s3:GetObject
+                  Resource: arn:aws:s3:::${self:custom.staticBucketName}/*
+        StaticCloudFrontDistribution:
+          Type: AWS::CloudFront::Distribution
+          Properties:
+            DistributionConfig:
+              Origins:
+                - DomainName: ${self:custom.staticBucketName}.s3.amazonaws.com
+                  Id: static-bucket
+                  CustomOriginConfig:
+                    HTTPPort: 80
+                    HTTPSPort: 443
+                    OriginProtocolPolicy: https-only
+              Enabled: 'true'
+              ## Uncomment the following section in case you are using a custom domain
+              # Aliases:
+              # - mysite.example.com
+              DefaultRootObject: index.html
+              DefaultCacheBehavior:
+                AllowedMethods:
+                  - GET
+                  - HEAD
+                TargetOriginId: static-bucket
+                ForwardedValues:
+                  QueryString: 'false'
+                  Cookies:
+                    Forward: none
+                ViewerProtocolPolicy: redirect-to-https
+              ViewerCertificate:
+                CloudFrontDefaultCertificate: 'true'
+      Outputs:
+        CloudFrontDNS:
+          Value: !GetAtt StaticCloudFrontDistribution.DomainName
+          Export:
+            Name: CloudFrontDNS
+
 provider:
   name: aws
   runtime: python3.8
@@ -38,6 +121,7 @@ provider:
     RECAPTCHA_PUBLIC_KEY: ${env:RECAPTCHA_PUBLIC_KEY}
     RECAPTCHA_PRIVATE_KEY: ${env:RECAPTCHA_PRIVATE_KEY}
     SENDER_EMAIL_ADDRESS: ${env:SENDER_EMAIL_ADDRESS}
+    STATIC_URL_PATH: "${cf:wedding-rsvp-dev-permanentResources.CloudFrontDNS, 'dummy'}"
 functions:
   app:
     handler: wsgi_handler.handler
@@ -64,6 +148,26 @@ resources:
           ReadCapacityUnits: 5
           WriteCapacityUnits: 5
         TableName: ${self:custom.tableName}
+    wwwDNSRecord:
+      Type: AWS::Route53::RecordSet
+      Properties:
+        HostedZoneName: '${self:custom.domainName}.'
+        Name: 'www.${self:custom.domainName}.'
+        Type: A
+        TTL: '900'
+        ResourceRecords:
+        - 192.168.0.1
+        - 192.168.0.2
+    staticDNSRecord:
+      Type: AWS::Route53::RecordSet
+      Properties:
+        HostedZoneName: '${self:custom.domainName}.'
+        Name: 'static.${self:custom.domainName}.'
+        Type: A
+        TTL: '900'
+        ResourceRecords:
+        - 192.168.0.1
+        - 192.168.0.2
 
 package:
   exclude:
@@ -75,4 +179,8 @@ package:
     - tests/**
     - test-*
     - LICENSE
+    - '*.md'
     - babel.cfg
+    - run-local.py
+    - app/static/**
+    - node_modules/**

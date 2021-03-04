@@ -24,7 +24,9 @@ The only thing you have to pay for, is the domain name (if you need one).
   * Fill out responses for guests who couldn't use the web
 * Import guest list from CSV
 
-## Deployment
+## Development
+
+`>= node12`
 
 ### ReCaptcha support
 

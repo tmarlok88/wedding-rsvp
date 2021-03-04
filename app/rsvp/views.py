@@ -30,7 +30,8 @@ def rsvp_page(guest_id):
     else:
         form.fill_form_from_model(current_user)
 
-    return render_template("rsvp.html", form=form, guest=current_user, title=_(f"Wedding RSVP | {current_user.name}"))
+    return render_template("rsvp.html", form=form, guest=current_user, title=_(f"Wedding RSVP | {current_user.name}"),
+                           custom_data={"wedding_date": datetime.datetime(2021,7,31,16,)})
 
 
 @rsvp.route('/rsvp_captcha', methods=['GET', 'POST'])

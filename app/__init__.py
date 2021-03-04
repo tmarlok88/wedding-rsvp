@@ -1,6 +1,7 @@
 from flask import Flask, request, current_app
 from flask_babel import Babel
 from flask_login import LoginManager
+from flask_cdn import CDN
 from app.config import Config
 
 from app.model.Admin import Admin
@@ -18,6 +19,7 @@ def create_app(config_class=Config):
     app.config.from_object(config_class)
     login.init_app(app)
     babel.init_app(app)
+    CDN(app)
 
     app.register_blueprint(admin_blueprint, url_prefix='/admin')
     app.register_blueprint(rsvp_blueprint)

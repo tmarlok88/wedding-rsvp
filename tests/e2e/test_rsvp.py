@@ -76,5 +76,3 @@ class TestRSVP(E2ETest):
         self.wait_for(lambda: self.assertEqual(
             self.browser.find_element_by_id("food_allergies").get_attribute("value"), 'I a\'m vegan'))
         self.assertEqual(get_guest(guest_id).food_allergies, 'I a\'m vegan')        # to the database as well
-
-
