@@ -19,13 +19,13 @@ class TestRSVPViews(ParentTest):
 
     def test_redirect_to_captcha_page(self):
         response = self.client.get("/rsvp/fake_id")
-        self.assert_redirects(response, "/rsvp_captcha?next=%2Frsvp%2Ffake_id")
+        self.assert_redirects(response, "/rsvp/captcha?next=%2Frsvp%2Ffake_id")
 
     def test_captcha_page(self):
         self.app.config["USE_RECAPTCHA_FOR_GUEST"] = True
         self.app.config["RECAPTCHA_PUBLIC_KEY"] = "fake_key"
 
-        response = self.client.get("/rsvp_captcha?next=%2Frsvp%2Ffake_id")
+        response = self.client.get("/rsvp/captcha?next=%2Frsvp%2Ffake_id")
 
         self.assert200(response)
         self.assert_template_used("rsvp_captcha.html")
@@ -72,7 +72,7 @@ class TestRSVPViews(ParentTest):
         self.app.config["USE_RECAPTCHA_FOR_GUEST"] = True
         self.app.config["RECAPTCHA_PUBLIC_KEY"] = "fake_key"
 
-        response = self.client.get(f"/rsvp_captcha?next=")
+        response = self.client.get(f"/rsvp/captcha?next=")
 
         self.assert404(response)
         self.assert_template_used("errors/404.html")
@@ -81,7 +81,7 @@ class TestRSVPViews(ParentTest):
         guest = save_guest(EXAMPLE_GUEST_1)
         guest2 = save_guest(EXAMPLE_GUEST_2)
         self.client.get(f"/rsvp/{str(guest.id)}", follow_redirects=True)      # user logs in
-        response = self.client.get(f"/rsvp")                                  # user_id from session
+        response = self.client.get(f"/rsvp/")                                  # user_id from session
 
         self.assert200(response)
         self.assert_template_used("rsvp.html")

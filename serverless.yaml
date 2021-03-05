@@ -1,28 +1,46 @@
 service: wedding-rsvp
+useDotenv: true
 
 plugins:
   - serverless-python-requirements
   - serverless-wsgi
   - serverless-finch
   - serverless-plugin-additional-stacks
+  - serverless-domain-manager
 custom:
-  tableName: 'wedding-rsvp-${self:provider.stage}'
-  domainName: ${opt:domain, 'bt-wedding.info'}
-  staticBucketName: 'wedding-rsvp-staticbucket'
+  environment: ${opt:stage, 'dev'}
+  prefix:
+    dev: dev
+    stage: stg
+    production: prd
+  domainPrefix:
+    dev: dev
+    stage: stage
+    production: ''
+  staticPrefix:
+    dev: dev_static
+    stage: dev_static
+    production: 'static'
+  tableName: '${self:custom.prefix.${self:custom.environment}}-wedding-rsvp'
+  domainName: ${env:WEB_DOMAIN, 'dummy-domain.info'}
+  staticBucketName: "${cf:wedding-rsvp-dev-permanentResources.StaticBucket, 'wedding-rsvp-staticbucket-${sls:instanceId}'}"
   wsgi:
     app: run.app
     packRequirements: false
   pythonRequirements:
     dockerizePip: non-linux
   client:
-    bucketName: wedding-rsvp-staticbucket
+    bucketName: ${self:custom.staticBucketName}
     distributionFolder: app/static
-    keyPrefix: static
-#  customDomain:
-#    domainName: '${opt:domain}'
-#    basePath: ''
-#    stage: ${self:provider.stage}
-#    createRoute53Record: true
+    keyPrefix: ${self:custom.staticPrefix.${self:custom.environment}}
+    manageResources: false
+  customDomain:
+    domainName: '${self:custom.domainPrefix.${self:custom.environment}}.${env:WEB_DOMAIN}'
+    certificateName: '${env:WEB_DOMAIN}'
+    stage: ${self:provider.stage}
+    createRoute53Record: true
+    endpointType: 'regional'
+    autoDomain: true
   additionalStacks:
     permanentResources:
       deploy: Before
@@ -33,21 +51,15 @@ custom:
           Properties:
             DomainName: '${self:custom.domainName}'
             SubjectAlternativeNames:
-              - 'www.${self:custom.domainName}'
+              - '*.${self:custom.domainName}'
             ValidationMethod: DNS
             DomainValidationOptions:
-              - DomainName: '${self:custom.domainName}'
-                HostedZoneId: Z055211036AWVY5R1HSN0         #TODO
-              - DomainName: 'www.${self:custom.domainName}'
-                HostedZoneId: Z055211036AWVY5R1HSN0         #TODO
+              - DomainName: '*.${self:custom.domainName}'
+                HostedZoneId: '${env:HOSTED_ZONE_ID}'
         StaticS3Bucket:
           Type: AWS::S3::Bucket
           Properties:
             BucketName: ${self:custom.staticBucketName}
-            AccessControl: PublicRead
-            WebsiteConfiguration:
-              IndexDocument: index.html
-              ErrorDocument: index.html
         StaticS3BucketPolicy:
           Type: AWS::S3::BucketPolicy
           Properties:
@@ -61,45 +73,22 @@ custom:
                   Action:
                     - s3:GetObject
                   Resource: arn:aws:s3:::${self:custom.staticBucketName}/*
-        StaticCloudFrontDistribution:
-          Type: AWS::CloudFront::Distribution
-          Properties:
-            DistributionConfig:
-              Origins:
-                - DomainName: ${self:custom.staticBucketName}.s3.amazonaws.com
-                  Id: static-bucket
-                  CustomOriginConfig:
-                    HTTPPort: 80
-                    HTTPSPort: 443
-                    OriginProtocolPolicy: https-only
-              Enabled: 'true'
-              ## Uncomment the following section in case you are using a custom domain
-              # Aliases:
-              # - mysite.example.com
-              DefaultRootObject: index.html
-              DefaultCacheBehavior:
-                AllowedMethods:
-                  - GET
-                  - HEAD
-                TargetOriginId: static-bucket
-                ForwardedValues:
-                  QueryString: 'false'
-                  Cookies:
-                    Forward: none
-                ViewerProtocolPolicy: redirect-to-https
-              ViewerCertificate:
-                CloudFrontDefaultCertificate: 'true'
       Outputs:
-        CloudFrontDNS:
-          Value: !GetAtt StaticCloudFrontDistribution.DomainName
+        StaticBucketDNS:
+          Value: !GetAtt StaticS3Bucket.DualStackDomainName
           Export:
             Name: CloudFrontDNS
+        StaticBucket:
+          Value: !Ref StaticS3Bucket
+          Export:
+            Name: StaticBucket
 
 provider:
   name: aws
   runtime: python3.8
-  stage: dev
-  region: eu-central-1
+  stage: ${self:custom.environment}
+  region: ${opt:region, 'eu-central-1'}
+  endpointType: REGIONAL
   apiGateway:
     shouldStartNameWithService: true
   iamRoleStatements:
@@ -121,7 +110,9 @@ provider:
     RECAPTCHA_PUBLIC_KEY: ${env:RECAPTCHA_PUBLIC_KEY}
     RECAPTCHA_PRIVATE_KEY: ${env:RECAPTCHA_PRIVATE_KEY}
     SENDER_EMAIL_ADDRESS: ${env:SENDER_EMAIL_ADDRESS}
-    STATIC_URL_PATH: "${cf:wedding-rsvp-dev-permanentResources.CloudFrontDNS, 'dummy'}"
+    STATIC_URL_PATH: "${cf:wedding-rsvp-dev-permanentResources.StaticBucketDNS, 'dummy'}"
+    ENVIRONMENT: ${env:ENVIRONMENT, self:custom.environment}
+
 functions:
   app:
     handler: wsgi_handler.handler
@@ -148,26 +139,6 @@ resources:
           ReadCapacityUnits: 5
           WriteCapacityUnits: 5
         TableName: ${self:custom.tableName}
-    wwwDNSRecord:
-      Type: AWS::Route53::RecordSet
-      Properties:
-        HostedZoneName: '${self:custom.domainName}.'
-        Name: 'www.${self:custom.domainName}.'
-        Type: A
-        TTL: '900'
-        ResourceRecords:
-        - 192.168.0.1
-        - 192.168.0.2
-    staticDNSRecord:
-      Type: AWS::Route53::RecordSet
-      Properties:
-        HostedZoneName: '${self:custom.domainName}.'
-        Name: 'static.${self:custom.domainName}.'
-        Type: A
-        TTL: '900'
-        ResourceRecords:
-        - 192.168.0.1
-        - 192.168.0.2
 
 package:
   exclude:

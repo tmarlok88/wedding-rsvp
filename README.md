@@ -24,9 +24,36 @@ The only thing you have to pay for, is the domain name (if you need one).
   * Fill out responses for guests who couldn't use the web
 * Import guest list from CSV
 
-## Development
 
-`>= node12`
+## Preparations
+
+### Local development environment
+
+The following instructions are for Ubuntu 20.04, but you can get the gist from it...
+
+Get the source code:
+```bash
+git clone https://github.com/tmarlok88/wedding-rsvp.git
+```
+
+Setup serverless:
+```bash
+
+#install nodejs (it must be >= 12.0)
+curl -sL https://deb.nodesource.com/setup_14.x -o nodesource_setup.sh
+bash nodesource_setup.sh
+sudo apt-get install -y nodejs npm
+
+#install serverless framework and the required plugins for the project
+sudo npm install -g serverless
+
+change to the source
+sls plugin install --name serverless-python-requirements
+sls plugin install --name serverless-wsgi
+sls plugin install --name serverless-finch
+sls plugin install --name serverless-plugin-additional-stacks
+sls plugin install --name serverless-domain-manager
+```
 
 ### ReCaptcha support
 
@@ -157,4 +184,44 @@ Edit the generated `.po` file, and recompile the catalog:
 
 ```bash
 pybabel compile -d app/translations
+```
+
+
+## Deployment
+
+### Deploy permanent resources
+
+There are resources shared between environments, which should be preserved. We have to deploy those before
+working on any specific environment:
+
+```bash
+serverless deploy additionalstacks
+```
+
+### Deploy the stack
+
+The application can be deployed to a specific environment with the following command
+(you might have to wait up to 30 minutes):
+
+```bash
+serverless deploy deploy --stage <stage>
+```
+
+### Deploy static content
+
+We can synchronize the static content with the following command:
+```bash
+serverless client deploy --stage <stage>
+```
+
+### Teardown
+
+If you don't want to host the infrastructure anymore, then you can remove it easily:
+
+```bash
+# remove the serverless stack
+serverless remove --stage <stage>
+
+# remove the permanent resources
+serverless remove additionalstacks
 ```

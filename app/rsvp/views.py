@@ -9,8 +9,8 @@ from app.rsvp.forms import RSVPCaptchaForm, GuestForm
 from app.model.Guest import Guest
 
 
-@rsvp.route('/rsvp', methods=['GET', 'POST'], defaults={'guest_id': None})
-@rsvp.route('/rsvp/<string:guest_id>', methods=['GET', 'POST'])
+@rsvp.route('/', methods=['GET', 'POST'], defaults={'guest_id': None})
+@rsvp.route('/<string:guest_id>', methods=['GET', 'POST'])
 @login_required
 def rsvp_page(guest_id):
     if (guest_id is not None and not current_user.is_anonymous and str(current_user.id) != guest_id) or \
@@ -34,7 +34,7 @@ def rsvp_page(guest_id):
                            custom_data={"wedding_date": datetime.datetime(2021,7,31,16,)})
 
 
-@rsvp.route('/rsvp_captcha', methods=['GET', 'POST'])
+@rsvp.route('/captcha', methods=['GET', 'POST'])
 def rsvp_captcha():
     guest_id = request.args.get("next", "").split('/')[-1]
 

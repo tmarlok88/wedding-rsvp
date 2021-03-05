@@ -5,6 +5,7 @@ __pycache__/
 
 .serverless/
 venv/
+node_modules/
 
 .idea
 
