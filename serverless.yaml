@@ -112,6 +112,8 @@ provider:
     SENDER_EMAIL_ADDRESS: ${env:SENDER_EMAIL_ADDRESS}
     STATIC_URL_PATH: "${cf:wedding-rsvp-dev-permanentResources.StaticBucketDNS, 'dummy'}"
     ENVIRONMENT: ${env:ENVIRONMENT, self:custom.environment}
+    USE_RECAPTCHA_FOR_GUEST: ${env:USE_RECAPTCHA_FOR_GUEST, 'True'}
+    USE_RECAPTCHA_FOR_ADMIN: ${env:USE_RECAPTCHA_FOR_ADMIN, 'True'}
 
 functions:
   app:
