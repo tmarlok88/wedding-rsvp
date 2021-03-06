@@ -51,8 +51,3 @@ def rsvp_captcha():
             abort(404)
     else:
         return render_template('rsvp_captcha.html', title=_('B & T Wedding'), form=form)
-
-
-@rsvp.errorhandler(404)
-def page_not_found(e):
-    return render_template('errors/404.html'), 404

@@ -1,7 +1,6 @@
 import mock
 import os
 from moto import mock_dynamodb2, mock_ses
-import html
 
 from parent import ParentTest
 

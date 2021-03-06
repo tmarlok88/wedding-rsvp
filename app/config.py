@@ -9,6 +9,7 @@ class Config(object):
     RECAPTCHA_PUBLIC_KEY = os.environ.get('RECAPTCHA_PUBLIC_KEY')
     RECAPTCHA_PRIVATE_KEY = os.environ.get('RECAPTCHA_PRIVATE_KEY')
     RECAPTCHA_OPTIONS = {'theme': 'white'}
+    RECAPTCHA_DATA_ATTRS = {'callback': 'onSubmitCallback'}
     ADMIN_PASSWORD_HASH = os.environ.get('ADMIN_PASSWORD_HASH')
     CDN_DOMAIN = os.environ.get('STATIC_URL_PATH')
     CDN_TIMESTAMP = False

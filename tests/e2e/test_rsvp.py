@@ -15,7 +15,7 @@ class TestRSVP(E2ETest):
 
         # testuser goes to the rsvp page, but gets rejected
         self.browser.get(f"{self.get_server_url()}/rsvp")
-        self.assertEqual("Not found", self.browser.title)
+        self.assertEqual("404 - Not found", self.browser.title)
 
         # now he goes to hos special link - he is recognized and accepted
         self.browser.get(f"{self.get_server_url()}/rsvp/{guest_id}")

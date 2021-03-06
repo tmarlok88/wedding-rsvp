@@ -63,6 +63,7 @@ class E2ETest(LiveServerTestCase):
             from tests import context
             app = context.app.create_app(Config)
             app.config['LIVESERVER_PORT'] = 0
+            app.config['ADMIN_PASSWORD_HASH'] = "pbkdf2:sha256:150000$nC4kA7sN$89c5edf694d455af7f1ff29ac46c77bddfd0069e8e806a29037ca33ee488070f"        # password
             from app.model.Guest import Guest
             Guest.create_table()
             return app

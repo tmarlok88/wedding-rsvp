@@ -60,6 +60,15 @@ custom:
           Type: AWS::S3::Bucket
           Properties:
             BucketName: ${self:custom.staticBucketName}
+            CorsConfiguration:
+              CorsRules:
+                - AllowedOrigins:
+                    - "https://*.${self:custom.domainName}"
+                    - "https://${self:custom.domainName}"
+                  AllowedMethods:
+                    - GET
+                  AllowedHeaders:
+                    - "*"
         StaticS3BucketPolicy:
           Type: AWS::S3::BucketPolicy
           Properties:
@@ -157,3 +166,5 @@ package:
     - run-local.py
     - app/static/**
     - node_modules/**
+    - package-lock.json
+    - package.json

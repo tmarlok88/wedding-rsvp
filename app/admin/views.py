@@ -66,6 +66,7 @@ def delete_guest(guest_id):
 def login():
     form = LoginForm()
     if form.validate_on_submit():
+        logout_user()           # just to be sure we wipe any leftover session cookie
         user = Admin()
         if not form.validate_login():
             flash(_('Invalid username or password'))
@@ -94,8 +95,3 @@ def email_sender():
             flash(_("E-mails couldn't be sent"))
 
     return render_template('email_sender.html', title=_('Send mail'), form=form)
-
-
-@admin.errorhandler(404)
-def page_not_found(e):
-    return render_template('errors/404.html'), 404

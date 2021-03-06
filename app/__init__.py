@@ -1,5 +1,5 @@
 import os
-from flask import Flask, request, current_app
+from flask import Flask, request, render_template, current_app
 from flask_babel import Babel
 from flask_login import LoginManager
 from flask_cdn import CDN
@@ -35,6 +35,10 @@ def create_app(config_class=Config):
         'rsvp': 'rsvp.rsvp_captcha',
     }
 
+    @app.errorhandler(404)
+    def page_not_found(e):
+        return render_template('errors/404.html'), 404
+
     return app
 
 
@@ -50,3 +54,4 @@ def load_user(user_id):
             return Admin()
     if request.blueprint == "rsvp":
         return Guest.find(user_id)
+

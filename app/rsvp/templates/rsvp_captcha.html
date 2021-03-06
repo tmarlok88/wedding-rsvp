@@ -1,7 +1,11 @@
-<form action="" method="post" novalidate>
+<script>
+    function onSubmitCallback(token) {
+        document.getElementById("rsvp-captcha").submit();
+    }
+</script>
+<form id="rsvp-captcha" action="" method="post" novalidate>
     {{ form.hidden_tag() }}
     <p>
         {{ form.recaptcha }} <br/>
     </p>
-    <p>{{ form.submit() }}</p>
 </form>
