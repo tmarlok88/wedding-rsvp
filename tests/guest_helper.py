@@ -19,8 +19,7 @@ EXAMPLE_GUEST_2 = {'name': 'Bruce Dickinson',
                    'food_allergies': 'sunshine - I\'m a vampire',
                    'number_of_guests': 0}
 
-INVALID_GUEST = {'name': 'some name',
-                 'email': 'invalid-mail.com',
+INVALID_GUEST = {'email': 'invalid-mail.com',
                  'will_attend': False,
                  'favourite_music': 'Belga',
                  'food_allergies': 'sunshine - I\'m a vampire',

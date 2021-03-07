@@ -110,6 +110,19 @@ class TestRSVPViews(ParentTest):
         edited_guest_data["will_attend"] = False
         edited_guest_data["last_responded"] = edited_guest.last_responded
         edited_guest_data["last_viewed"] = edited_guest.last_viewed
-        self.maxDiff = None
         self.assertDictEqual(edited_guest.__dict__["attribute_values"], {**EXAMPLE_GUEST_1, **edited_guest_data})
 
+    def test_rsvp_fill_form_validators(self):
+        self.app.config["USE_RECAPTCHA_FOR_GUEST"] = False
+        guest_data = dict(EXAMPLE_GUEST_1)
+        edited_guest_data = {"food_allergies": "Kartoffel",
+                             "number_of_guests": -1,
+                             "notes": "blahblah",
+                             "favourite_music": "Pink Floyd"}
+        guest_id = save_guest(guest_data).id
+        self.client.get(f"/rsvp/{str(guest_id)}", follow_redirects=True)      # user logs in
+        response = self.client.post(f"/rsvp/{guest_id}", data=edited_guest_data)
+        edited_guest = get_guest(guest_id)
+
+        self.assertIn("Number must be between", response.data.decode("utf-8"))
+        self.assertEqual(edited_guest.number_of_guests, EXAMPLE_GUEST_1["number_of_guests"])

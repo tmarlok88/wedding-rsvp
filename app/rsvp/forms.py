@@ -1,5 +1,6 @@
 from flask_wtf import FlaskForm, RecaptchaField
-from wtforms import SubmitField, StringField, IntegerField, BooleanField
+from wtforms import SubmitField, StringField, BooleanField
+from wtforms_components import IntegerField
 from wtforms.validators import NumberRange
 from flask_babel import lazy_gettext as _l
 
@@ -12,11 +13,11 @@ class RSVPCaptchaForm(FlaskForm):
 
 
 class GuestForm(FlaskForm):
-    food_allergies = StringField(_l('Food allergies'))
     number_of_guests = IntegerField(_l('Number of guests'), validators=[NumberRange(0, 20)])
-    notes = StringField(_l('Other important notes'))
+    food_allergies = StringField(_l('Food allergies'))
     favourite_music = StringField(_l('Favourite music'),
                                   description=_l("Do you have some music, you'd really like to listen?"))
+    notes = StringField(_l('Other important notes'))
     will_attend = BooleanField(_l('I will attend'))
     submit = SubmitField(_l('Submit'))
 

@@ -21,7 +21,7 @@ custom:
     dev: dev_static
     stage: dev_static
     production: 'static'
-  tableName: '${self:custom.prefix.${self:custom.environment}}-wedding-rsvp'
+  tableName: '${self:custom.prefix.${self:custom.environment}}-wedding-rsvp-guests'
   domainName: ${env:WEB_DOMAIN, 'dummy-domain.info'}
   staticBucketName: "${cf:wedding-rsvp-dev-permanentResources.StaticBucket, 'wedding-rsvp-staticbucket-${sls:instanceId}'}"
   wsgi:
@@ -111,7 +111,7 @@ provider:
         - dynamodb:DeleteItem
         - dynamodb:DescribeTable
       Resource:
-        - { "Fn::GetAtt": ["UsersDynamoDBTable", "Arn" ] }
+        - { "Fn::GetAtt": ["GuestsDynamoDBTable", "Arn" ] }
   environment:
     DYNAMO_TABLE: ${self:custom.tableName}
     FLASK_SECRET: ${env:FLASK_SECRET}
@@ -133,19 +133,15 @@ functions:
 
 resources:
   Resources:
-    UsersDynamoDBTable:
+    GuestsDynamoDBTable:
       Type: 'AWS::DynamoDB::Table'
       Properties:
         AttributeDefinitions:
           - AttributeName: id
             AttributeType: S
-          - AttributeName: email
-            AttributeType: S
         KeySchema:
           - AttributeName: id
             KeyType: HASH
-          - AttributeName: email
-            KeyType: RANGE
         ProvisionedThroughput:
           ReadCapacityUnits: 5
           WriteCapacityUnits: 5

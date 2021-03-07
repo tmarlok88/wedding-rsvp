@@ -2,7 +2,7 @@ from moto import mock_dynamodb2
 import html
 import uuid
 from parent import ParentTest
-from tests.guest_helper import save_guest, get_guest, list_guests, clear_all_guests, EXAMPLE_GUEST_1, EXAMPLE_GUEST_2
+from tests.guest_helper import save_guest, list_guests, clear_all_guests, EXAMPLE_GUEST_1, EXAMPLE_GUEST_2, INVALID_GUEST
 
 
 @mock_dynamodb2
@@ -45,6 +45,17 @@ class TestAdminGuest(ParentTest):
 
         self.assertDictEqual(guests[0].__dict__["attribute_values"], expected_data)
 
+    def test_add_guest_invalid_data(self):
+        response = self.client.post("/admin/guest/add", data=dict(INVALID_GUEST))
+        guests = list_guests()
+
+        self.assert200(response)
+        self.assert_template_used("guest_form.html")
+        self.assertIn("This field is required.", response.data.decode("utf-8"))
+        self.assertIn("Invalid email address", response.data.decode("utf-8"))
+        self.assertIn("Number must be between", response.data.decode("utf-8"))
+        self.assertEqual(len(guests), 0)
+
     def test_edit_guest_page(self):
         guest_data = EXAMPLE_GUEST_1
         guest_id = save_guest(guest_data).id
@@ -75,11 +86,11 @@ class TestAdminGuest(ParentTest):
         guests = list_guests()
 
         self.assert_redirects(response, "/admin/guest/list")
-        self.assertEqual(len(guests), 2)               # moto bug with update see: https://github.com/spulec/moto/issues/3577 - should be 1
+        self.assertEqual(len(guests), 1)
         edited_guest_data["filled_by_admin"] = True
-        edited_guest_data["id"] = guests[1].id
+        edited_guest_data["id"] = guests[0].id
         edited_guest_data["will_attend"] = False
-        self.assertDictEqual(guests[1].__dict__["attribute_values"], edited_guest_data)
+        self.assertDictEqual(guests[0].__dict__["attribute_values"], edited_guest_data)
 
     def test_delete_guest(self):
         guest_data = EXAMPLE_GUEST_1

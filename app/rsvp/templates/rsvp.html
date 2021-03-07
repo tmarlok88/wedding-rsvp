@@ -1,3 +1,5 @@
+{% from "rsvp_macros.html" import generate_text_field %}
+
 <!DOCTYPE html>
 <html>
 
@@ -172,33 +174,26 @@
 					<p>Please Fill-up the form to notify you that you're attending. Thanks.</p>
 				</div>
 			</div>
-			<form action="" method="post" novalidate>
+			<form action="" method="post">
 				{{ form.hidden_tag() }}
 				<div class="row animate-box">
 					<div class="col-md-10 col-md-offset-1">
-						{% for field in form.data%}
-							{% if field != 'csrf_token' %}
-								{% if form[field].type == 'BooleanField'%}
-								<div class="form-group row">
-									<div class="col-sm-2"></div>
-									<div class="col-sm-5">
-										<div class="form-check">
-											{{ form[field](class_="form-check-input") }}<label class="form-check-label"  for="{{field}}">{{ form[field].label }}</label><br/>
-										</div>
-									</div>
+						<div class="form-group row">
+							<div class="col-sm-2"></div>
+							<div class="col-sm-5">
+								<div class="form-check">
+									{{ form["will_attend"](class_="form-check-input") }}{{ form["will_attend"].label(class="form-check-label") }}<br/>
 								</div>
-								{% elif form[field].type == 'SubmitField' %}
-								<div class="form-group row">
-									<div class="col-sm-5">{{ form.submit(class_="btn btn-primary") }}</div><br/>
-								</div>
-								{% else %}
-								<div class="form-group row">
-									<label class="col-sm-2 col-form-label" for="{{field}}">{{ form[field].label }}</label>
-									<div class="col-sm-5">{{ form[field](class_="form-control") }}</div><br/>
-								</div>
-								{% endif%}
-							{% endif %}
-						{% endfor %}
+							</div>
+						</div>
+						{{generate_text_field(form["number_of_guests"])}}
+						{{generate_text_field(form["food_allergies"])}}
+						{{generate_text_field(form["favourite_music"])}}
+						{{generate_text_field(form["notes"])}}
+						<div class="form-row">
+							<div class="col-sm-5">{{ form.submit(class_="btn btn-default btn-block") }}</div><br/>
+						</div>
+
 					</div>
 				</div>
 			</form>

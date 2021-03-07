@@ -50,7 +50,7 @@ class TestRSVP(E2ETest):
 
         # It occurs to him that he just divorced, so that the ex-wife won't come
         number_of_guests = self.browser.find_element_by_id("number_of_guests")
-        number_of_guests.send_keys(Keys.BACKSPACE)
+        number_of_guests.clear()
         number_of_guests.send_keys('4')
         number_of_guests.send_keys(Keys.ENTER)
 

@@ -4,6 +4,7 @@ import uuid
 from pynamodb.models import Model
 from pynamodb.attributes import UnicodeAttribute, BooleanAttribute, UTCDateTimeAttribute, NumberAttribute
 from pynamodb_attributes import UUIDAttribute
+from pynamodb.exceptions import DoesNotExist
 from flask_login import UserMixin
 
 
@@ -14,7 +15,7 @@ class Guest(Model, UserMixin):
         host = os.getenv("AWS_ENDPOINT_URL", None)
 
     id = UUIDAttribute(hash_key=True, default=uuid.uuid4)
-    email = UnicodeAttribute(range_key=True)
+    email = UnicodeAttribute()
     name = UnicodeAttribute()
     food_allergies = UnicodeAttribute(null=True)
     favourite_music = UnicodeAttribute(null=True)
@@ -30,9 +31,8 @@ class Guest(Model, UserMixin):
 
     @staticmethod
     def find(guest_id: str):
-        guests = Guest.scan(Guest.id == guest_id)
         try:
-            return guests.next()
-        except StopIteration as si_exception:
+            return Guest.get(guest_id)
+        except DoesNotExist as si_exception:
             return None
 

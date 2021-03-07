@@ -9,11 +9,12 @@
 * proper rsvp page
     * ~~clean up unnecessary cdn imports~~
     * ~~fix 404 error page~~
-    * form validation
+    * ~~form validation~~
     * customize RSVP data
     * embed location
     * page design
     * ~~auto forward after captcha~~
+* csv upload, export
 * html e-mail skeleton
 * pdf generation
 * translation

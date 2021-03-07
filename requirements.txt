@@ -4,5 +4,5 @@ pynamodb-attributes
 flask-babel
 flask-login
 flask-wtf
-email_validator
+WTForms-Components
 flask-cdn-ng

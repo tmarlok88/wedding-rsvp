@@ -1,29 +1,37 @@
 {% macro generate_form(form) %}
 
-<form action="" method="post" novalidate>
+<form action="" method="post">
 {{ form.hidden_tag() }}
 {% for field in form.data%}
     {% if field != 'csrf_token' %}
+        {% set validity = ':valid' %}
+
         {% if form[field].type == 'BooleanField'%}
-        <div class="form-group row">
+        <div class="form-row">
             <div class="col-sm-2"></div>
             <div class="col-sm-5">
                 <div class="form-check">
-                    {{ form[field](class_="form-check-input") }}<label class="form-check-label"  for="{{field}}">{{ form[field].label }}</label><br/>
+                    {{ form[field](class_="form-check-input") }} {{ form[field].label(class="form-check-label") }}<br/>
                 </div>
             </div>
         </div>
         {% elif form[field].type == 'SubmitField' %}
-        <div class="form-group row">
+        <div class="form-row">
             <div class="col-sm-5">{{ form.submit(class_="btn btn-primary") }}</div><br/>
         </div>
         {% else %}
         <div class="form-group row">
-            <label class="col-sm-2 col-form-label" for="{{field}}">{{ form[field].label }}</label>
-            <div class="col-sm-5">{{ form[field](class_="form-control") }}</div><br/>
+            {{ form[field].label(class="col-sm-2 col-form-label") }}
+            <div class="col-sm-5">{{ form[field](class="form-control", **kwargs) }}
+            {% if form[field].errors %}
+                {% for error in form[field].errors %}
+            <div class="invalid-feedback">{{ error }}</div>
+                {% endfor %}
+            {% endif %}
+            </div>
         </div>
         {% endif%}
-    {% endif %}
+  {% endif %}
 {% endfor %}
 </form>
 {% endmacro %}
