@@ -10,16 +10,21 @@
     * ~~clean up unnecessary cdn imports~~
     * ~~fix 404 error page~~
     * ~~form validation~~
-    * customize RSVP data
-    * embed location
+    * ~~customize RSVP data~~
+    * ~~embed location~~
     * page design
     * ~~auto forward after captcha~~
+    * ~~save the date to google calendar~~
+    * descriptions in form
+* proper rsvp page
+* translation
+* unsubscribe and delete my data
 * csv upload, export
 * html e-mail skeleton
 * pdf generation
-* translation
 * admin dashboard
 * github actions
 * README
 * mail send e2e tests
 * admin e2e
+* logging

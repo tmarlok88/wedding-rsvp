@@ -72,6 +72,19 @@ The next step is to register these environment variables (before deploy)
 * RECAPTCHA_PUBLIC_KEY = The public key provided by google after the registration
 * RECAPTCHA_PRIVATE_KEY = The private key provided by google after the registration
 
+### Embed Google Maps with location
+
+1. Enable the Maps Javascript API: https://console.cloud.google.com/apis/
+2. get an API key: https://developers.google.com/maps/documentation/embed/map-generator#enable-api-sdk
+3. It might be a good idea to restrict the API key to our web address, and to the Maps Javascript API.
+4. Create an environment variable called MAPS_API_KEY and set its value to the API key just created
+5. customize the maps map in the `rsvp_content.yaml`
+
+### Google calendar event
+
+If you want to assign a Google calendar event to the "Save the date" button, simply create the event
+in your calendar, and use the "Publish event" function. This will give you a link.
+You have to configure the `basic_data.calendar_event_link` in the `rsvp_content.yaml` to this link.
 
 ### Secret management
 

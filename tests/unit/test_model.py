@@ -5,7 +5,7 @@ import datetime
 import os
 
 from tests import context
-from tests.guest_helper import EXAMPLE_GUEST_1, EXAMPLE_GUEST_2, save_guest
+from tests.guest_helper import EXAMPLE_GUEST_1, EXAMPLE_GUEST_2
 
 
 class AdminModelTest(TestCase):

@@ -7,7 +7,7 @@
     <title>{{ title }}</title>
     {% block styles %}
     <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css" rel="stylesheet">
 
     <link href="{{ url_for('static', filename='css/rsvp.css') }}" rel="stylesheet">
 	<link href='https://fonts.googleapis.com/css?family=Work+Sans:400,300,600,400italic,700' rel='stylesheet' type='text/css'>
@@ -18,6 +18,11 @@
 
 	<!-- Modernizr JS -->
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.min.js"></script>
+
+	<!-- Owl Carousel  -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/owl-carousel/1.3.3/owl.carousel.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/owl-carousel/1.3.3/owl.theme.min.css" rel="stylesheet">
+
 	<!-- FOR IE9 below -->
 	<!--[if lt IE 9]>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/respond.js/1.4.2/respond.min.js"></script>
@@ -34,27 +39,11 @@
 				</div>
 				<div class="col-xs-10 text-right menu-1">
 					<ul>
-						<li class="active"><a href="index.html">Home</a></li>
-						<li><a href="about.html">Story</a></li>
-						<li class="has-dropdown">
-							<a href="services.html">Services</a>
-							<ul class="dropdown">
-								<li><a href="#">Web Design</a></li>
-								<li><a href="#">eCommerce</a></li>
-								<li><a href="#">Branding</a></li>
-								<li><a href="#">API</a></li>
-							</ul>
-						</li>
-						<li class="has-dropdown">
-							<a href="gallery.html">Gallery</a>
-							<ul class="dropdown">
-								<li><a href="#">HTML5</a></li>
-								<li><a href="#">CSS3</a></li>
-								<li><a href="#">Sass</a></li>
-								<li><a href="#">jQuery</a></li>
-							</ul>
-						</li>
-						<li><a href="contact.html">Contact</a></li>
+						<li><a href="#fh5co-header">{{_("Home")}}</a></li>
+						<li><a href="#fh5co-description">{{_("Details")}}</a></li>
+						<li><a href="#fh5co-event-timeline">{{_("Events")}}</a></li>
+						<li><a href="#fh5co-started">{{_("RSVP")}}</a></li>
+						<li><a href="#fh5co-map">{{_("Map")}}</a></li>
 					</ul>
 				</div>
 			</div>
@@ -69,10 +58,10 @@
 				<div class="col-md-8 col-md-offset-2 text-center">
 					<div class="display-t">
 						<div class="display-tc animate-box" data-animate-effect="fadeIn">
-							<h1>{{_("Barbi &amp; Tamás")}}</h1>
+							<h1>{{rsvp_content["basic_data"]["bride"]}} &amp; {{rsvp_content["basic_data"]["groom"]}}</h1>
 							<h2>{{_("We Are Getting Married")}}</h2>
 							<div class="simply-countdown simply-countdown-one"></div>
-							<p><a href="#" class="btn btn-default btn-sm">{{_("Save the date")}}</a></p>
+							<p><a target="_blank" href="{{rsvp_content['basic_data']['calendar_event_link']}}" class="btn btn-default btn-sm">{{_("Save the date")}}</a></p>
 						</div>
 					</div>
 				</div>
@@ -80,98 +69,55 @@
 		</div>
 	</header>
 
-	<div id="fh5co-couple">
+	<div id="fh5co-description" style="background-image:url({{url_for('static', filename='img/img_bg_3.jpg')}});" data-stellar-background-ratio="0.5">
 		<div class="container">
 			<div class="row">
 				<div class="col-md-8 col-md-offset-2 text-center fh5co-heading animate-box">
 					<h2>Hello!</h2>
-					<h3>{{custom_data['wedding_date'].strftime("%Y.%m.%d %H:%M")}}</h3>
-					<p>We invited you to celebrate our wedding</p>
-				</div>
-			</div>
-			<div class="couple-wrap animate-box">
-				<div class="couple-half">
-					<div class="groom">
-						<img src="{{url_for('static', filename='img/groom.jpg')}}" alt="groom" class="img-responsive">
-					</div>
-					<div class="desc-groom">
-						<h3>Joefrey Mahusay</h3>
-						<p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. Separated they live in Bookmarksgrove</p>
-					</div>
-				</div>
-				<p class="heart text-center"><i class="icon-heart2"></i></p>
-				<div class="couple-half">
-					<div class="bride">
-						<img src="{{url_for('static', filename='img/bride.jpg')}}" alt="groom" class="img-responsive">
-					</div>
-					<div class="desc-bride">
-						<h3>Sheila Mahusay</h3>
-						<p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. Separated they live in Bookmarksgrove</p>
-					</div>
+					<h3>{{rsvp_content["basic_data"]['event_date'].strftime("%Y.%m.%d %H:%M")}}</h3>
+					<p>{{_("We invited you to celebrate our wedding")}}</p>
+					<p> {{ rsvp_content["main_message"] }}</p>
 				</div>
 			</div>
 		</div>
 	</div>
-
-	<div id="fh5co-event" class="fh5co-bg" style="background-image:url({{url_for('static', filename='img/img_bg_3.jpg')}});">
-		<div class="overlay"></div>
+	<div id="fh5co-event-timeline">
 		<div class="container">
 			<div class="row">
 				<div class="col-md-8 col-md-offset-2 text-center fh5co-heading animate-box">
-					<span>Our Special Events</span>
-					<h2>Wedding Events</h2>
+					<span>{{_("Evening's program")}}</span>
+					<h2>{{_("Evening's program")}}</h2>
 				</div>
 			</div>
 			<div class="row">
-				<div class="display-t">
-					<div class="display-tc">
-						<div class="col-md-10 col-md-offset-1">
-							<div class="col-md-6 col-sm-6 text-center">
-								<div class="event-wrap animate-box">
-									<h3>Main Ceremony</h3>
-									<div class="event-col">
-										<i class="icon-clock"></i>
-										<span>4:00 PM</span>
-										<span>6:00 PM</span>
-									</div>
-									<div class="event-col">
-										<i class="icon-calendar"></i>
-										<span>Monday 28</span>
-										<span>November, 2016</span>
-									</div>
-									<p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. Separated they live in Bookmarksgrove right at the coast of the Semantics, a large language ocean.</p>
+				<div class="col-md-12 col-md-offset-0">
+					<ul class="timeline animate-box">
+						{% for event in rsvp_content["wedding_events"] %}
+						<li class="{{loop.cycle('timeline-inverted', '') }} animate-box">
+							<div class="timeline-badge"><i class="fas {{event['icon']}} fa-4x"></i></div>
+							<div class="timeline-panel">
+								<div class="timeline-heading">
+									<h3 class="timeline-title">{{event["name"]}}</h3>
+									<span class="date">{{event['begin'].strftime("%H:%M")}} - {{event['end'].strftime("%H:%M")}}</span>
+								</div>
+								<div class="timeline-body">
+									<p>{{event["description"]}}</p>
 								</div>
 							</div>
-							<div class="col-md-6 col-sm-6 text-center">
-								<div class="event-wrap animate-box">
-									<h3>Wedding Party</h3>
-									<div class="event-col">
-										<i class="icon-clock"></i>
-										<span>7:00 PM</span>
-										<span>12:00 AM</span>
-									</div>
-									<div class="event-col">
-										<i class="icon-calendar"></i>
-										<span>Monday 28</span>
-										<span>November, 2016</span>
-									</div>
-									<p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. Separated they live in Bookmarksgrove right at the coast of the Semantics, a large language ocean.</p>
-								</div>
-							</div>
-						</div>
-					</div>
+						</li>
+						{% endfor %}
+			    	</ul>
 				</div>
 			</div>
 		</div>
 	</div>
-
 	<div id="fh5co-started" class="fh5co-bg" style="background-image:url({{url_for('static', filename='img/img_bg_5.jpg')}});">
 		<div class="overlay"></div>
 		<div class="container">
 			<div class="row animate-box">
 				<div class="col-md-8 col-md-offset-2 text-center fh5co-heading">
-					<h2>Are You Attending?</h2>
-					<p>Please Fill-up the form to notify you that you're attending. Thanks.</p>
+					<h2>{{_("Are You Attending?")}}</h2>
+					<p>{{_("Please Fill-up the form to notify you that you're attending. Thanks.")}}</p>
 				</div>
 			</div>
 			<form action="" method="post">
@@ -199,29 +145,75 @@
 			</form>
 		</div>
 	</div>
-
-	<footer id="fh5co-footer" role="contentinfo">
+	{% if "map" in rsvp_content%}
+	<div id="fh5co-map" class="fh5co-bg" style="background-image:url({{url_for('static', filename='img/img_bg_5.jpg')}});">
+		<div class="overlay"></div>
 		<div class="container">
+			<div class="row animate-box">
+				<div class="col-md-8 col-md-offset-2 text-center fh5co-heading">
+					<h2>{{_("Location")}}</h2>
+					<p>{{_("A map for the different event locations")}}</p>
 
-			<div class="row copyright">
-				<div class="col-md-12 text-center">
-					<p>
-						<small class="block">&copy; 2016 Free HTML5. All Rights Reserved.</small>
-						<small class="block">Designed by <a href="http://freehtml5.co/" target="_blank">FREEHTML5.co</a> Demo Images: <a href="http://unsplash.co/" target="_blank">Unsplash</a></small>
-					</p>
-					<p>
-						<ul class="fh5co-social-icons">
-							<li><a href="#"><i class="icon-twitter"></i></a></li>
-							<li><a href="#"><i class="icon-facebook"></i></a></li>
-							<li><a href="#"><i class="icon-linkedin"></i></a></li>
-							<li><a href="#"><i class="icon-dribbble"></i></a></li>
-						</ul>
-					</p>
 				</div>
-			</div>
+				<div id="map"></div>
+				<script>
+					function initMap() {
+						var map = new google.maps.Map(document.getElementById('map'), {
+							zoom: {{rsvp_content["map"]["zoom"]}},
+							center: { lat: {{rsvp_content["map"]["center"]["lat"]}},
+									  lng: {{rsvp_content["map"]["center"]["lng"]}} }
+						});
+						{% for location in rsvp_content["map"]["locations"] %}
+						var marker{{ loop.index }} = new google.maps.Marker({
+							position: {
+								lat: {{location['lat']}},
+								lng: {{location['lng']}}
+							},
+							map: map,
+							title: "{{location['name']}}",
+						});
+						{% if 'description' in location %}
 
+						var infowindow{{loop.index}} = new google.maps.InfoWindow({
+							content: "{{ location['description'] }}",
+						});
+						marker{{loop.index}}.addListener("click", () => {
+							infowindow{{loop.index}}.open(map, marker{{loop.index}});
+						});
+
+						{% endif %}
+						{% endfor %}
+					}
+				</script>
+				<script async defer src="https://maps.googleapis.com/maps/api/js?key={{MAPS_API_KEY}}&callback=initMap">
+				</script>
+			</div>
 		</div>
-	</footer>
+	</div>
+	{% endif %}
+
+<!--	<footer id="fh5co-footer" role="contentinfo">-->
+<!--		<div class="container">-->
+
+<!--			<div class="row copyright">-->
+<!--				<div class="col-md-12 text-center">-->
+<!--					<p>-->
+<!--						<small class="block">&copy; 2016 Free HTML5. All Rights Reserved.</small>-->
+<!--						<small class="block">Designed by <a href="http://freehtml5.co/" target="_blank">FREEHTML5.co</a> Demo Images: <a href="http://unsplash.co/" target="_blank">Unsplash</a></small>-->
+<!--					</p>-->
+<!--					<p>-->
+<!--						<ul class="fh5co-social-icons">-->
+<!--							<li><a href="#"><i class="icon-twitter"></i></a></li>-->
+<!--							<li><a href="#"><i class="icon-facebook"></i></a></li>-->
+<!--							<li><a href="#"><i class="icon-linkedin"></i></a></li>-->
+<!--							<li><a href="#"><i class="icon-dribbble"></i></a></li>-->
+<!--						</ul>-->
+<!--					</p>-->
+<!--				</div>-->
+<!--			</div>-->
+
+<!--		</div>-->
+<!--	</footer>-->
 </div>
 {% block scripts %}
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -236,6 +228,9 @@
 <!-- countTo -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-countto/1.2.0/jquery.countTo.min.js"></script>
 
+<!-- Carousel -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/owl-carousel/1.3.3/owl.carousel.min.js"></script>
+
 <!-- Stellar -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/stellar.js/0.6.2/jquery.stellar.min.js"></script>
 
@@ -244,7 +239,7 @@
 <script src="{{ url_for('static', filename='js/main.js') }}"></script>
 
 <script>
-var d = new Date("{{custom_data['wedding_date'].strftime('%Y-%m-%d %H:%M')}}");
+var d = new Date("{{rsvp_content["basic_data"]['event_date'].strftime('%Y-%m-%d %H:%M')}}");
 
 // default example
 simplyCountdown('.simply-countdown-one', {

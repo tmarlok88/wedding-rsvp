@@ -1,10 +1,13 @@
 import html
 import datetime
+import yaml
+import os
+import mock
 from dateutil.tz import tzutc
 from moto import mock_dynamodb2
 
 from parent import ParentTest
-from tests.guest_helper import save_guest, get_guest, clear_all_guests, EXAMPLE_GUEST_1, EXAMPLE_GUEST_2, list_guests
+from tests.guest_helper import save_guest, get_guest, clear_all_guests, EXAMPLE_GUEST_1, EXAMPLE_GUEST_2
 
 
 @mock_dynamodb2
@@ -126,3 +129,22 @@ class TestRSVPViews(ParentTest):
 
         self.assertIn("Number must be between", response.data.decode("utf-8"))
         self.assertEqual(edited_guest.number_of_guests, EXAMPLE_GUEST_1["number_of_guests"])
+
+    @mock.patch.dict(os.environ, {"PERSONALIZE_SRC_FILE": "../../app/personalize/rsvp_content.yaml"})
+    def test_personalized_data_is_present(self):
+        self.app.config["USE_RECAPTCHA_FOR_GUEST"] = False
+        guest_data = dict(EXAMPLE_GUEST_1)
+        guest_id = save_guest(guest_data).id
+        response = self.client.get(f"/rsvp/{str(guest_id)}", follow_redirects=True)      # user logs in
+
+        with open(os.getenv('PERSONALIZE_SRC_FILE'), 'r') as stream:
+            try:
+                personalized_data = yaml.safe_load(stream)
+            except yaml.YAMLError as exc:
+                print(exc)
+        self.assertIn(personalized_data["basic_data"]["bride"], response.data.decode("utf-8"))
+        self.assertIn(personalized_data["basic_data"]["groom"], response.data.decode("utf-8"))
+        self.assertIn(personalized_data["main_message"], response.data.decode("utf-8"))
+        for _event in personalized_data["wedding_events"]:
+            self.assertIn(personalized_data['name'], response.data.decode("utf-8"))
+            self.assertIn(personalized_data['description'], response.data.decode("utf-8"))

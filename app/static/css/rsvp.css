@@ -238,62 +238,6 @@ h1, h2, h3, h4, h5, h6, figure {
   position: relative;
 }
 
-.fh5co-video {
-  height: 450px;
-  overflow: hidden;
-  -webkit-border-radius: 7px;
-  -moz-border-radius: 7px;
-  -ms-border-radius: 7px;
-  border-radius: 7px;
-}
-.fh5co-video a {
-  z-index: 1001;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  margin-top: -45px;
-  margin-left: -45px;
-  width: 90px;
-  height: 90px;
-  display: table;
-  text-align: center;
-  background: #fff;
-  -webkit-box-shadow: 0px 14px 30px -15px rgba(0, 0, 0, 0.75);
-  -moz-box-shadow: 0px 14px 30px -15px rgba(0, 0, 0, 0.75);
-  box-shadow: 0px 14px 30px -15px rgba(0, 0, 0, 0.75);
-  -webkit-border-radius: 50%;
-  -moz-border-radius: 50%;
-  -ms-border-radius: 50%;
-  border-radius: 50%;
-}
-.fh5co-video a i {
-  text-align: center;
-  display: table-cell;
-  vertical-align: middle;
-  font-size: 40px;
-}
-.fh5co-video .overlay {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: rgba(0, 0, 0, 0.5);
-  -webkit-transition: 0.5s;
-  -o-transition: 0.5s;
-  transition: 0.5s;
-}
-.fh5co-video:hover .overlay {
-  background: rgba(0, 0, 0, 0.7);
-}
-.fh5co-video:hover a {
-  position: relative;
-  -webkit-transform: scale(1.2);
-  -moz-transform: scale(1.2);
-  -ms-transform: scale(1.2);
-  -o-transform: scale(1.2);
-  transform: scale(1.2);
-}
 
 .fh5co-cover {
   height: 900px;
@@ -551,6 +495,7 @@ h1, h2, h3, h4, h5, h6, figure {
   -moz-border-radius: 50%;
   -ms-border-radius: 50%;
   border-radius: 50%;
+  padding-top: 30px;
 }
 @media screen and (max-width: 480px) {
   .timeline > li > .timeline-badge {
@@ -611,6 +556,7 @@ h1, h2, h3, h4, h5, h6, figure {
     left: 15px;
     margin-left: 0;
     top: 16px;
+    padding-top: 30px;
   }
 
   ul.timeline > li > .timeline-panel {
@@ -994,12 +940,11 @@ form label {
 #fh5co-services,
 #fh5co-started,
 #fh5co-footer,
-#fh5co-event,
-#fh5co-couple-story,
-#fh5co-couple,
+#fh5co-event-timeline,
+#fh5co-description,
 #fh5co-gallery,
 .fh5co-section {
-  padding: 7em 0;
+  padding: 2em 0;
   clear: both;
 }
 @media screen and (max-width: 768px) {
@@ -1007,9 +952,8 @@ form label {
   #fh5co-services,
   #fh5co-started,
   #fh5co-footer,
-  #fh5co-event,
-  #fh5co-couple-story,
-  #fh5co-couple,
+  #fh5co-event-timeline,
+  #fh5co-description,
   #fh5co-gallery,
   .fh5co-section {
     padding: 3em 0;
