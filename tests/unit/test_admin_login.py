@@ -1,6 +1,5 @@
 from werkzeug.security import generate_password_hash
 from moto import mock_dynamodb2
-from flask_login import current_user
 
 from parent import ParentTest
 

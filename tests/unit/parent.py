@@ -5,7 +5,6 @@ from flask_testing import TestCase
 from test.support import EnvironmentVarGuard
 
 
-@mock.patch.dict(os.environ, {"PERSONALIZE_SRC_FILE": "../../app/personalize/rsvp_content.yaml"})
 class ParentTest(TestCase):
     def create_app(self):
         self.env = EnvironmentVarGuard()

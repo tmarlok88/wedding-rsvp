@@ -1,8 +1,8 @@
+from flask_babel import lazy_gettext as _l
 from flask_wtf import FlaskForm, RecaptchaField
 from wtforms import SubmitField, StringField, BooleanField
-from wtforms_components import IntegerField
 from wtforms.validators import NumberRange
-from flask_babel import lazy_gettext as _l
+from wtforms_components import IntegerField
 
 from app.model.Guest import Guest
 

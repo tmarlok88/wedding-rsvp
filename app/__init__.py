@@ -1,14 +1,14 @@
 import os
+
 from flask import Flask, request, render_template, current_app
 from flask_babel import Babel
-from flask_login import LoginManager
 from flask_cdn import CDN
-from app.config import Config
-
-from app.model.Admin import Admin
-from app.model.Guest import Guest
+from flask_login import LoginManager
 
 from app.admin import admin as admin_blueprint
+from app.config import Config
+from app.model.Admin import Admin
+from app.model.Guest import Guest
 from app.rsvp import rsvp as rsvp_blueprint
 
 babel = Babel()

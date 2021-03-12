@@ -1,21 +1,14 @@
 import datetime
-import yaml
 import os
 
-from flask_babel import _
+import yaml
 from flask import render_template, request, abort, redirect, url_for, current_app
+from flask_babel import _
 from flask_login import login_required, login_user, current_user, logout_user
 
+from app.model.Guest import Guest
 from app.rsvp import rsvp
 from app.rsvp.forms import RSVPCaptchaForm, GuestForm
-from app.model.Guest import Guest
-
-rsvp_content = dict()
-with open(f"{os.getenv('PERSONALIZE_SRC_FILE')}", 'r') as stream:
-    try:
-        rsvp_content = yaml.safe_load(stream)
-    except yaml.YAMLError as exc:
-        print(exc)
 
 
 @rsvp.route('/', methods=['GET', 'POST'], defaults={'guest_id': None})
@@ -39,8 +32,10 @@ def rsvp_page(guest_id):
     else:
         form.fill_form_from_model(current_user)
 
-    return render_template("rsvp.html", form=form, guest=current_user, title=_(f"Wedding RSVP | {current_user.name}"),
-                           rsvp_content=rsvp_content, MAPS_API_KEY=os.getenv("MAPS_API_KEY"))
+    with open(os.getenv('PERSONALIZE_SRC_FILE'), 'r') as stream:
+        custom_rsvp_content = yaml.safe_load(stream)
+        return render_template("rsvp.html", form=form, guest=current_user, title=_(f"Wedding RSVP | {current_user.name}"),
+                               rsvp_content=custom_rsvp_content, MAPS_API_KEY=os.getenv("MAPS_API_KEY"))
 
 
 @rsvp.route('/captcha', methods=['GET', 'POST'])

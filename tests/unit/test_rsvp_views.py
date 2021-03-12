@@ -11,6 +11,7 @@ from tests.guest_helper import save_guest, get_guest, clear_all_guests, EXAMPLE_
 
 
 @mock_dynamodb2
+@mock.patch.dict(os.environ, {"PERSONALIZE_SRC_FILE": "../../app/personalize/rsvp_content.yaml"})
 class TestRSVPViews(ParentTest):
     def create_app(self):
         app = ParentTest.create_app(self)
@@ -130,7 +131,6 @@ class TestRSVPViews(ParentTest):
         self.assertIn("Number must be between", response.data.decode("utf-8"))
         self.assertEqual(edited_guest.number_of_guests, EXAMPLE_GUEST_1["number_of_guests"])
 
-    @mock.patch.dict(os.environ, {"PERSONALIZE_SRC_FILE": "../../app/personalize/rsvp_content.yaml"})
     def test_personalized_data_is_present(self):
         self.app.config["USE_RECAPTCHA_FOR_GUEST"] = False
         guest_data = dict(EXAMPLE_GUEST_1)
@@ -146,5 +146,5 @@ class TestRSVPViews(ParentTest):
         self.assertIn(personalized_data["basic_data"]["groom"], response.data.decode("utf-8"))
         self.assertIn(personalized_data["main_message"], response.data.decode("utf-8"))
         for _event in personalized_data["wedding_events"]:
-            self.assertIn(personalized_data['name'], response.data.decode("utf-8"))
-            self.assertIn(personalized_data['description'], response.data.decode("utf-8"))
+            self.assertIn(_event['name'], response.data.decode("utf-8"))
+            self.assertIn(_event['description'], response.data.decode("utf-8"))

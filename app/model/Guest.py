@@ -1,11 +1,11 @@
 import os
 import uuid
 
-from pynamodb.models import Model
-from pynamodb.attributes import UnicodeAttribute, BooleanAttribute, UTCDateTimeAttribute, NumberAttribute
-from pynamodb_attributes import UUIDAttribute
-from pynamodb.exceptions import DoesNotExist
 from flask_login import UserMixin
+from pynamodb.attributes import UnicodeAttribute, BooleanAttribute, UTCDateTimeAttribute, NumberAttribute
+from pynamodb.exceptions import DoesNotExist
+from pynamodb.models import Model
+from pynamodb_attributes import UUIDAttribute
 
 
 class Guest(Model, UserMixin):

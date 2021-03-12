@@ -1,13 +1,12 @@
 from flask import current_app
+from flask_babel import lazy_gettext as _l
 from flask_wtf import FlaskForm, RecaptchaField
+from werkzeug.security import check_password_hash
 from wtforms import StringField, SubmitField, BooleanField, PasswordField, TextAreaField, \
     SelectMultipleField
-from wtforms_components import IntegerField, Email
 from wtforms.fields.html5 import EmailField
 from wtforms.validators import DataRequired, NumberRange
-from flask_babel import lazy_gettext as _l
-from werkzeug.security import check_password_hash
-
+from wtforms_components import IntegerField, Email
 
 from app.model.Guest import Guest
 
