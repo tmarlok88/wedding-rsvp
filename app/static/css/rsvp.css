@@ -489,7 +489,7 @@ h1, h2, h3, h4, h5, h6, figure {
   top: 16px;
   left: 50%;
   margin-left: -80px;
-  background-color: #999999;
+  background-color: #6666ff;
   z-index: 100;
   -webkit-border-radius: 50%;
   -moz-border-radius: 50%;
@@ -1316,14 +1316,13 @@ form label {
   background: rgba(255, 255, 255, 0.3);
 }
 
-#fh5co-started .col-form-label {
+#fh5co-started .col-form-label, .form-text {
   color: rgba(255, 255, 255, 0.5);
 }
 
 #fh5co-started .form-check-label {
   color: rgba(255, 255, 255, 0.5);
 }
-
 
 #fh5co-started .btn {
   height: 54px;

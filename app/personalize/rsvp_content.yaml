@@ -3,7 +3,7 @@ basic_data:
   event_date: 2025-01-30 16:00:00
   bride: Jane
   groom: John
-  calendar_event_link: <fill_this_out>
+  calendar_event_link: https://calendar.google.com/event?action=TEMPLATE&tmeid=MjZpMnRtaDFuN2dkMGUyazV1dWZzYXA2cTIgdG1hcmxva0Bt&tmsrc=tmarlok%40gmail.com
 map:
   zoom: 12
   center:

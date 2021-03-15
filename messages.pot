@@ -1,14 +1,14 @@
 # Translations template for PROJECT.
-# Copyright (C) 2020 ORGANIZATION
+# Copyright (C) 2021 ORGANIZATION
 # This file is distributed under the same license as the PROJECT project.
-# FIRST AUTHOR <EMAIL@ADDRESS>, 2020.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2021.
 #
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2020-12-30 12:32+0100\n"
+"POT-Creation-Date: 2021-03-15 11:25+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,7 +17,243 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.9.0\n"
 
-#: app/views/rsvp.py:10
-msgid "Wedding RSVP"
+#: app/admin/forms.py:15 app/admin/templates/guest_list.html:16
+msgid "Name"
+msgstr ""
+
+#: app/admin/forms.py:16 app/admin/templates/guest_list.html:17
+msgid "E-mail"
+msgstr ""
+
+#: app/admin/forms.py:17 app/rsvp/forms.py:18
+msgid "Food allergies"
+msgstr ""
+
+#: app/admin/forms.py:18 app/rsvp/forms.py:16
+msgid "Number of guests"
+msgstr ""
+
+#: app/admin/forms.py:19 app/rsvp/forms.py:22
+msgid "Other important notes"
+msgstr ""
+
+#: app/admin/forms.py:20 app/rsvp/forms.py:20
+msgid "Favourite music"
+msgstr ""
+
+#: app/admin/forms.py:21 app/rsvp/forms.py:21
+msgid "Do you have some music, you'd really like to listen?"
+msgstr ""
+
+#: app/admin/forms.py:22 app/rsvp/forms.py:24
+msgid "I will attend"
+msgstr ""
+
+#: app/admin/forms.py:46
+msgid "Password"
+msgstr ""
+
+#: app/admin/forms.py:47
+msgid "Remember Me"
+msgstr ""
+
+#: app/admin/forms.py:49 app/admin/views.py:76
+msgid "Sign In"
+msgstr ""
+
+#: app/admin/forms.py:56
+msgid "Subject"
+msgstr ""
+
+#: app/admin/forms.py:57
+msgid "Send To"
+msgstr ""
+
+#: app/admin/forms.py:60
+msgid "E-mail body"
+msgstr ""
+
+#: app/admin/forms.py:61
+msgid "Send"
+msgstr ""
+
+#: app/admin/views.py:18
+msgid "Admin page"
+msgstr ""
+
+#: app/admin/views.py:32
+msgid "Add guest"
+msgstr ""
+
+#: app/admin/views.py:46
+msgid "Edit guest"
+msgstr ""
+
+#: app/admin/templates/admin_base.html:24 app/admin/views.py:53
+msgid "Guest list"
+msgstr ""
+
+#: app/admin/views.py:61
+msgid "Guest {} removed"
+msgstr ""
+
+#: app/admin/views.py:72
+msgid "Invalid username or password"
+msgstr ""
+
+#: app/admin/views.py:93
+msgid "E-mails sent successfully"
+msgstr ""
+
+#: app/admin/views.py:95
+msgid "E-mails couldn't be sent"
+msgstr ""
+
+#: app/admin/views.py:97
+msgid "Send mail"
+msgstr ""
+
+#: app/admin/templates/admin_base.html:15
+msgid "Admin"
+msgstr ""
+
+#: app/admin/templates/admin_base.html:23
+msgid "Dashboard"
+msgstr ""
+
+#: app/admin/templates/admin_base.html:25
+msgid "E-mail sender"
+msgstr ""
+
+#: app/admin/templates/admin_base.html:29
+msgid "Login"
+msgstr ""
+
+#: app/admin/templates/admin_base.html:31
+msgid "Logout"
+msgstr ""
+
+#: app/admin/templates/guest_list.html:18
+msgid "Guest count"
+msgstr ""
+
+#: app/admin/templates/guest_list.html:19
+msgid "Viewed"
+msgstr ""
+
+#: app/admin/templates/guest_list.html:20
+msgid "Responded"
+msgstr ""
+
+#: app/admin/templates/guest_list.html:21
+msgid "Edit"
+msgstr ""
+
+#: app/admin/templates/guest_list.html:22
+msgid "Delete"
+msgstr ""
+
+#: app/admin/templates/guest_list.html:52
+msgid "Add"
+msgstr ""
+
+#: app/admin/templates/errors/404.html:3
+msgid "Not found"
+msgstr ""
+
+#: app/admin/templates/errors/404.html:7
+msgid "The requested resource couldn't be found"
+msgstr ""
+
+#: app/rsvp/forms.py:12
+msgid "Bring me to the RSVP"
+msgstr ""
+
+#: app/rsvp/forms.py:17
+msgid "How many of you come (including you)?"
+msgstr ""
+
+#: app/rsvp/forms.py:19
+msgid "If you (or one of your guests) have any food allergy please let us know"
+msgstr ""
+
+#: app/rsvp/forms.py:23
+msgid "Anything important you'd want us to know"
+msgstr ""
+
+#: app/rsvp/forms.py:25
+msgid "Submit"
+msgstr ""
+
+#: app/rsvp/views.py:37
+msgid "Wedding RSVP | "
+msgstr ""
+
+#: app/rsvp/views.py:57
+msgid "B & T Wedding"
+msgstr ""
+
+#: app/rsvp/templates/rsvp.html:42
+msgid "Home"
+msgstr ""
+
+#: app/rsvp/templates/rsvp.html:43
+msgid "Details"
+msgstr ""
+
+#: app/rsvp/templates/rsvp.html:44
+msgid "Events"
+msgstr ""
+
+#: app/rsvp/templates/rsvp.html:45
+msgid "RSVP"
+msgstr ""
+
+#: app/rsvp/templates/rsvp.html:46
+msgid "Map"
+msgstr ""
+
+#: app/rsvp/templates/rsvp.html:62
+msgid "We Are Getting Married"
+msgstr ""
+
+#: app/rsvp/templates/rsvp.html:64
+msgid "Save the date"
+msgstr ""
+
+#: app/rsvp/templates/rsvp.html:78
+msgid "We invited you to celebrate our wedding"
+msgstr ""
+
+#: app/rsvp/templates/rsvp.html:88 app/rsvp/templates/rsvp.html:89
+msgid "Evening's program"
+msgstr ""
+
+#: app/rsvp/templates/rsvp.html:119
+msgid "Are You Attending?"
+msgstr ""
+
+#: app/rsvp/templates/rsvp.html:120
+msgid "Please Fill-up the form to notify you that you're attending. Thanks."
+msgstr ""
+
+#: app/rsvp/templates/rsvp.html:154
+msgid "Location"
+msgstr ""
+
+#: app/rsvp/templates/rsvp.html:155
+msgid "A map for the different event locations"
+msgstr ""
+
+#: app/rsvp/templates/rsvp.html:158
+msgid "Click on the location pin for more information."
+msgstr ""
+
+#: app/rsvp/templates/errors/404.html:4
+msgid "Unknown"
+msgstr ""
+
+#: app/rsvp/templates/errors/404.html:9
+msgid "Please use the link sent to you by e-mail"
 msgstr ""
 

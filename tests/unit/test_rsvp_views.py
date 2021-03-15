@@ -148,3 +148,14 @@ class TestRSVPViews(ParentTest):
         for _event in personalized_data["wedding_events"]:
             self.assertIn(_event['name'], response.data.decode("utf-8"))
             self.assertIn(_event['description'], response.data.decode("utf-8"))
+
+    def test_form_descriptions(self):
+        from tests import context
+        guest = save_guest(EXAMPLE_GUEST_1)
+        form = context.app.rsvp.forms.GuestForm()
+
+        response = self.client.get(f"/rsvp/{guest.id}", follow_redirects=True)
+
+        for key in form.data.keys():
+            if form[key].description:
+                self.assertIn(str(form[key].description), response.data.decode("utf-8"))

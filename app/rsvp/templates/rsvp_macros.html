@@ -1,8 +1,11 @@
 {% macro generate_text_field(field) %}
 
 <div class="form-group row">
-    {{ field.label(class="col-sm-2 col-form-label") }}
+    {{ field.label(class="col-sm-2 col-md-offset-3 col-form-label") }}
     <div class="col-sm-5">{{ field(class="form-control", **kwargs) }}
+        {% if field.description %}
+        <small class="form-text text-muted">{{field.description}}</small>
+        {% endif %}
     {% if field.errors %}
         {% for error in field.errors %}
     <div class="invalid-feedback">{{ error }}</div>

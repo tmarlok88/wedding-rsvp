@@ -15,9 +15,9 @@
     * page design
     * ~~auto forward after captcha~~
     * ~~save the date to google calendar~~
-    * descriptions in form
-* proper rsvp page
-* translation
+    * ~~descriptions in form~~
+* proper captcha page
+* ~~translation~~
 * unsubscribe and delete my data
 * csv upload, export
 * html e-mail skeleton
