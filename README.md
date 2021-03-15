@@ -217,7 +217,7 @@ The application can be deployed to a specific environment with the following com
 (you might have to wait up to 30 minutes):
 
 ```bash
-serverless deploy deploy --stage <stage>
+serverless deploy --stage <stage>
 ```
 
 ### Deploy static content

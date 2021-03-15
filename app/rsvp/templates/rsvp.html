@@ -85,7 +85,6 @@
 		<div class="container">
 			<div class="row">
 				<div class="col-md-8 col-md-offset-2 text-center fh5co-heading animate-box">
-					<span>{{_("Evening's program")}}</span>
 					<h2>{{_("Evening's program")}}</h2>
 				</div>
 			</div>
@@ -146,15 +145,13 @@
 	<div id="fh5co-map" class="fh5co-bg" style="background-image:url({{url_for('static', filename='img/img_bg_5.jpg')}});">
 		<div class="overlay"></div>
 		<div class="container">
-			<div class="row animate-box">
-				<div class="col-md-8 col-md-offset-2 text-center fh5co-heading">
+			<div class="row animate-box" style="margin-bottom: 50px;">
+				<div class="col-md-8 col-md-offset-2 text-center fh5co-heading" style="margin-bottom: 2em;">
 					<h2>{{_("Location")}}</h2>
 					<p>{{_("A map for the different event locations")}}</p>
-				</div>
-				<div class="row animate-box">
 					<p>{{_("Click on the location pin for more information.")}}</p>
 				</div>
-				<div id="map"></div>
+				<div id="map" height="500px"></div>
 				<script>
 					function initMap() {
 						var map = new google.maps.Map(document.getElementById('map'), {
@@ -191,28 +188,20 @@
 	</div>
 	{% endif %}
 
-<!--	<footer id="fh5co-footer" role="contentinfo">-->
-<!--		<div class="container">-->
+	<footer id="fh5co-footer" role="contentinfo">
+		<div class="container">
 
-<!--			<div class="row copyright">-->
-<!--				<div class="col-md-12 text-center">-->
-<!--					<p>-->
-<!--						<small class="block">&copy; 2016 Free HTML5. All Rights Reserved.</small>-->
-<!--						<small class="block">Designed by <a href="http://freehtml5.co/" target="_blank">FREEHTML5.co</a> Demo Images: <a href="http://unsplash.co/" target="_blank">Unsplash</a></small>-->
-<!--					</p>-->
-<!--					<p>-->
-<!--						<ul class="fh5co-social-icons">-->
-<!--							<li><a href="#"><i class="icon-twitter"></i></a></li>-->
-<!--							<li><a href="#"><i class="icon-facebook"></i></a></li>-->
-<!--							<li><a href="#"><i class="icon-linkedin"></i></a></li>-->
-<!--							<li><a href="#"><i class="icon-dribbble"></i></a></li>-->
-<!--						</ul>-->
-<!--					</p>-->
-<!--				</div>-->
-<!--			</div>-->
+			<div class="row copyright">
+				<div class="col-md-12 text-center">
+					<p>
+						<small class="block"><i class="fab fa-github"></i> <a href="https://github.com/tmarlok88/wedding-rsvp">Page source.</a></small>
+						<small class="block">Design based on <a href="http://freehtml5.co/" target="_blank">FREEHTML5.co</a></small>
+					</p>
+				</div>
+			</div>
 
-<!--		</div>-->
-<!--	</footer>-->
+		</div>
+	</footer>
 </div>
 {% block scripts %}
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>

@@ -47,13 +47,13 @@ body {
 }
 
 a {
-  color: #F14E95;
+  color: #7D087C;
   -webkit-transition: 0.5s;
   -o-transition: 0.5s;
   transition: 0.5s;
 }
 a:hover, a:active, a:focus {
-  color: #F14E95;
+  color: #7D087C;
   outline: none;
   text-decoration: none;
 }
@@ -71,17 +71,17 @@ h1, h2, h3, h4, h5, h6, figure {
 
 ::-webkit-selection {
   color: #fff;
-  background: #F14E95;
+  background: #7D087C;
 }
 
 ::-moz-selection {
   color: #fff;
-  background: #F14E95;
+  background: #7D087C;
 }
 
 ::selection {
   color: #fff;
-  background: #F14E95;
+  background: #7D087C;
 }
 
 .fh5co-nav {
@@ -196,7 +196,7 @@ h1, h2, h3, h4, h5, h6, figure {
   color: #fff;
 }
 .fh5co-nav ul li.btn-cta a {
-  color: #F14E95;
+  color: #7D087C;
 }
 .fh5co-nav ul li.btn-cta a span {
   background: #fff;
@@ -577,113 +577,6 @@ h1, h2, h3, h4, h5, h6, figure {
     right: auto;
   }
 }
-#fh5co-gallery-list {
-  flex-wrap: wrap;
-  -webkit-flex-wrap: wrap;
-  -moz-flex-wrap: wrap;
-  display: -webkit-box;
-  display: -moz-box;
-  display: -ms-flexbox;
-  display: -webkit-flex;
-  display: flex;
-  position: relative;
-  float: left;
-  padding: 0;
-  margin: 0;
-  width: 100%;
-}
-#fh5co-gallery-list li {
-  display: block;
-  padding: 0;
-  margin: 0 0 10px 1%;
-  list-style: none;
-  min-height: 400px;
-  background-position: center center;
-  background-size: cover;
-  background-repeat: no-repeat;
-  float: left;
-  clear: left;
-  position: relative;
-  -webkit-border-radius: 7px;
-  -moz-border-radius: 7px;
-  -ms-border-radius: 7px;
-  border-radius: 7px;
-}
-@media screen and (max-width: 480px) {
-  #fh5co-gallery-list li {
-    margin-left: 0;
-  }
-}
-#fh5co-gallery-list li a {
-  min-height: 400px;
-  padding: 2em;
-  position: relative;
-  width: 100%;
-  display: block;
-}
-#fh5co-gallery-list li a:before {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  content: "";
-  z-index: 80;
-  -webkit-transition: 0.5s;
-  -o-transition: 0.5s;
-  transition: 0.5s;
-  -webkit-border-radius: 7px;
-  -moz-border-radius: 7px;
-  -ms-border-radius: 7px;
-  border-radius: 7px;
-  background: rgba(0, 0, 0, 0.2);
-}
-#fh5co-gallery-list li a:hover:before {
-  background: rgba(0, 0, 0, 0.5);
-}
-#fh5co-gallery-list li a .case-studies-summary {
-  width: auto;
-  bottom: 2em;
-  left: 2em;
-  right: 2em;
-  position: absolute;
-  z-index: 100;
-}
-@media screen and (max-width: 768px) {
-  #fh5co-gallery-list li a .case-studies-summary {
-    bottom: 1em;
-    left: 1em;
-    right: 1em;
-  }
-}
-#fh5co-gallery-list li a .case-studies-summary span {
-  text-transform: uppercase;
-  letter-spacing: 2px;
-  font-size: 13px;
-  color: rgba(255, 255, 255, 0.7);
-}
-#fh5co-gallery-list li a .case-studies-summary h2 {
-  color: #fff;
-  margin-bottom: 0;
-}
-@media screen and (max-width: 768px) {
-  #fh5co-gallery-list li a .case-studies-summary h2 {
-    font-size: 20px;
-  }
-}
-#fh5co-gallery-list li.one-third {
-  width: 32.3%;
-}
-@media screen and (max-width: 768px) {
-  #fh5co-gallery-list li.one-third {
-    width: 49%;
-  }
-}
-@media screen and (max-width: 480px) {
-  #fh5co-gallery-list li.one-third {
-    width: 100%;
-  }
-}
 
 #map {
   width: 100%;
@@ -714,7 +607,7 @@ h1, h2, h3, h4, h5, h6, figure {
   display: inline-block;
   zoom: 1;
   *display: inline;
-  color: #F14E95;
+  color: #7D087C;
   padding-left: 10px;
   padding-right: 10px;
 }
@@ -733,7 +626,7 @@ h1, h2, h3, h4, h5, h6, figure {
   position: relative;
 }
 .fh5co-contact-info ul li:before {
-  color: #F14E95;
+  color: #7D087C;
   position: absolute;
   left: 0;
   top: .05em;
@@ -825,7 +718,7 @@ form label {
 .fh5co-cover .display-tc .btn {
   padding: 15px 20px;
   background: #fff !important;
-  color: #F14E95;
+  color: #7D087C;
   border: none !important;
   font-size: 14px;
   text-transform: uppercase;
@@ -888,7 +781,7 @@ form label {
   display: inline-block;
   width: 100px;
   height: 100px;
-  background: rgba(241, 78, 149, 0.8);
+  background: rgba(53, 198, 136, 0.8);
   margin: 0 4px;
   -webkit-border-radius: 50%;
   -moz-border-radius: 50%;
@@ -936,25 +829,19 @@ form label {
   /* words */
 }
 
-#fh5co-testimonial,
-#fh5co-services,
 #fh5co-started,
 #fh5co-footer,
 #fh5co-event-timeline,
 #fh5co-description,
-#fh5co-gallery,
 .fh5co-section {
   padding: 2em 0;
   clear: both;
 }
 @media screen and (max-width: 768px) {
-  #fh5co-testimonial,
-  #fh5co-services,
   #fh5co-started,
   #fh5co-footer,
   #fh5co-event-timeline,
   #fh5co-description,
-  #fh5co-gallery,
   .fh5co-section {
     padding: 3em 0;
   }
@@ -987,7 +874,7 @@ form label {
   font-size: 20px;
   background: #fff;
   padding: 20px;
-  color: #F14E95;
+  color: #7D087C;
   -webkit-border-radius: 50%;
   -moz-border-radius: 50%;
   -ms-border-radius: 50%;
@@ -1010,7 +897,7 @@ form label {
 }
 .couple-half h3 {
   font-family: "Sacramento", Arial, serif;
-  color: #F14E95;
+  color: #7D087C;
   font-size: 30px;
 }
 .couple-half .groom, .couple-half .bride {
@@ -1103,7 +990,7 @@ form label {
   height: 90px;
   font-size: 40px;
   line-height: 40px;
-  color: #F14E95;
+  color: #7D087C;
 }
 .feature-center p, .feature-center h3 {
   margin-bottom: 30px;
@@ -1125,7 +1012,7 @@ form label {
   margin-bottom: 10px;
   line-height: 1.5;
   font-weight: bold;
-  color: #F14E95;
+  color: #7D087C;
   font-family: "Sacramento", Arial, serif;
 }
 @media screen and (max-width: 768px) {
@@ -1144,78 +1031,6 @@ form label {
   letter-spacing: 2px;
   font-weight: 600;
   color: rgba(0, 0, 0, 0.4);
-}
-
-#fh5co-testimonial .wrap-testimony {
-  position: relative;
-}
-#fh5co-testimonial .wrap-testimony .testimony-slide {
-  text-align: center;
-}
-#fh5co-testimonial .wrap-testimony .testimony-slide span {
-  font-size: 12px;
-  text-transform: uppercase;
-  letter-spacing: 2px;
-  font-weight: 700;
-  display: block;
-}
-#fh5co-testimonial .wrap-testimony .testimony-slide span a.twitter {
-  color: #F14E95;
-  font-weight: 300;
-}
-#fh5co-testimonial .wrap-testimony .testimony-slide figure {
-  margin-bottom: 10px;
-  display: -moz-inline-stack;
-  display: inline-block;
-  zoom: 1;
-  *display: inline;
-  width: 100px;
-  height: 100px;
-}
-#fh5co-testimonial .wrap-testimony .testimony-slide figure img {
-  width: 100px;
-  height: 100px;
-  -webkit-border-radius: 50%;
-  -moz-border-radius: 50%;
-  -ms-border-radius: 50%;
-  border-radius: 50%;
-}
-#fh5co-testimonial .wrap-testimony .testimony-slide blockquote {
-  border: none;
-  margin: 30px auto;
-  width: 50%;
-  position: relative;
-  -webkit-border-radius: 4px;
-  -moz-border-radius: 4px;
-  -ms-border-radius: 4px;
-  border-radius: 4px;
-}
-@media screen and (max-width: 992px) {
-  #fh5co-testimonial .wrap-testimony .testimony-slide blockquote {
-    width: 100%;
-  }
-}
-#fh5co-testimonial .wrap-testimony .testimony-slide blockquote p {
-  font-style: italic;
-  color: #8f989f;
-  font-size: 20px;
-  line-height: 1.6em;
-}
-#fh5co-testimonial .wrap-testimony .testimony-slide.active {
-  display: block;
-}
-#fh5co-testimonial .wrap-testimony .arrow-thumb {
-  position: absolute;
-  top: 40%;
-  display: block;
-  width: 100%;
-}
-#fh5co-testimonial .wrap-testimony .arrow-thumb a {
-  font-size: 32px;
-  color: #dadada;
-}
-#fh5co-testimonial .wrap-testimony .arrow-thumb a:hover, #fh5co-testimonial .wrap-testimony .arrow-thumb a:focus, #fh5co-testimonial .wrap-testimony .arrow-thumb a:active {
-  text-decoration: none;
 }
 
 .feature-left {
@@ -1252,7 +1067,7 @@ form label {
   display: table-cell;
   vertical-align: middle;
   font-size: 30px;
-  color: #F14E95;
+  color: #7D087C;
 }
 .feature-left .feature-copy {
   float: left;
@@ -1327,7 +1142,7 @@ form label {
 #fh5co-started .btn {
   height: 54px;
   border: none !important;
-  background: #F14E95;
+  background: #7D087C;
   color: #fff;
   font-size: 16px;
   text-transform: uppercase;
@@ -1371,7 +1186,7 @@ form label {
 }
 .owl-carousel .owl-controls .owl-dot.active span {
   background: transparent;
-  border: 2px solid #F14E95;
+  border: 2px solid #7D087C;
 }
 
 #fh5co-offcanvas {
@@ -1624,9 +1439,9 @@ form label {
 }
 
 .btn-primary {
-  background: #F14E95;
+  background: #7D087C;
   color: #fff;
-  border: 2px solid #F14E95;
+  border: 2px solid #7D087C;
 }
 .btn-primary:hover, .btn-primary:focus, .btn-primary:active {
   background: #f366a3 !important;
@@ -1634,11 +1449,11 @@ form label {
 }
 .btn-primary.btn-outline {
   background: transparent;
-  color: #F14E95;
-  border: 2px solid #F14E95;
+  color: #7D087C;
+  border: 2px solid #7D087C;
 }
 .btn-primary.btn-outline:hover, .btn-primary.btn-outline:focus, .btn-primary.btn-outline:active {
-  background: #F14E95;
+  background: #7D087C;
   color: #fff;
 }
 
@@ -1765,10 +1580,11 @@ form label {
   font-size: 18px;
   font-weight: 300;
 }
+
 .form-control:active, .form-control:focus {
   outline: none;
   box-shadow: none;
-  border-color: #F14E95;
+  border-color: #7D087C;
 }
 
 .row-pb-md {
@@ -1777,16 +1593,6 @@ form label {
 
 .row-pb-sm {
   padding-bottom: 2em !important;
-}
-
-.fh5co-loader {
-  position: fixed;
-  left: 0px;
-  top: 0px;
-  width: 100%;
-  height: 100%;
-  z-index: 9999;
-  background: url(../staic/img/loader.gif) center no-repeat #fff;
 }
 
 .js .animate-box {

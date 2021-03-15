@@ -4,6 +4,7 @@ from flask import Flask, request, render_template, current_app
 from flask_babel import Babel
 from flask_cdn import CDN
 from flask_login import LoginManager
+from flask_wtf.csrf import CSRFProtect
 
 from app.admin import admin as admin_blueprint
 from app.config import Config
@@ -13,6 +14,7 @@ from app.rsvp import rsvp as rsvp_blueprint
 
 babel = Babel()
 login = LoginManager()
+csrf = CSRFProtect()
 
 
 def create_app(config_class=Config):
@@ -24,6 +26,7 @@ def create_app(config_class=Config):
     app.config.from_object(config_class)
     login.init_app(app)
     babel.init_app(app)
+    csrf.init_app(app)
     if static_folder != 'static':
         CDN(app)
 

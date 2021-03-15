@@ -53,7 +53,7 @@ def list_guest():
     return render_template('guest_list.html', guests=guest_list, title=_("Guest list"))
 
 
-@admin.route('/guest/delete/<string:guest_id>', methods=['GET'])        # TODO csrf protection
+@admin.route('/guest/delete/<string:guest_id>', methods=['POST'])
 @login_required
 def delete_guest(guest_id):
     guest = Guest.find(guest_id) or abort(404)

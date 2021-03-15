@@ -12,10 +12,11 @@
     * ~~form validation~~
     * ~~customize RSVP data~~
     * ~~embed location~~
-    * page design
+    * ~~page design~~
     * ~~auto forward after captcha~~
     * ~~save the date to google calendar~~
     * ~~descriptions in form~~
+* customization  
 * proper captcha page
 * ~~translation~~
 * unsubscribe and delete my data

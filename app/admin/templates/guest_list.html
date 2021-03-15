@@ -31,14 +31,18 @@
                   <td> <i class="fa {% if guest.last_viewed != None %} fa-check {% else %} fa-minus-square {% endif %}"</i>  </td>
                   <td> <i class="fa {% if guest.last_responded != None %} fa-check {% else %} fa-minus-square {% endif %}"</i>  </td>
                   <td>
-                    <a href="{{ url_for('admin.edit_guest', guest_id=guest.id) }}">
+                    <a class="btn btn-link" href="{{ url_for('admin.edit_guest', guest_id=guest.id) }}">
                       <i class="fa fa-pencil"></i>
                     </a>
                   </td>
                   <td>
-                    <a href="{{ url_for('admin.delete_guest', guest_id=guest.id) }}">
-                      <i class="fa fa-trash"></i>
-                    </a>
+                    <form action="{{ url_for('admin.delete_guest', guest_id=guest.id) }}" method="post">
+                      <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+                      <button type="submit" class="btn btn-link">
+                        <i class="fa fa-trash"></i>
+                      </button>
+                      </a>
+                    </form>
                   </td>
                 </tr>
               {% endfor %}
