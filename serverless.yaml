@@ -94,7 +94,7 @@ custom:
 
 provider:
   name: aws
-  runtime: python3.7
+  runtime: python3.9
   stage: ${self:custom.environment}
   region: ${opt:region, 'eu-central-1'}
   endpointType: REGIONAL
