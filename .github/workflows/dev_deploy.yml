@@ -19,9 +19,12 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
     - run: npm ci
-
-    # deploy static content
-    - name: serverless client deploy
+    - name: Setup python
+    - uses: actions/setup-python@v2
+      with:
+        python-version: '3.8'
+        architecture: 'x64'
+    - name: deploy static content
       uses: serverless/github-action@master
       with:
         args: client deploy --no-confirm
@@ -39,8 +42,6 @@ jobs:
         SENDER_EMAIL_ADDRESS: ${{ secrets.SENDER_EMAIL_ADDRESS }}
         PERSONALIZE_SRC_FILE: app/personalize/rsvp_content.yaml
         MAPS_API_KEY: ${{ secrets.MAPS_API_KEY }}
-
-    # deploy sls
     - name: serverless deploy
       uses: serverless/github-action@master
       with:
