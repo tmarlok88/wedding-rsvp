@@ -26,7 +26,19 @@ jobs:
       with:
         args: client deploy --no-confirm
       env:
-        SERVERLESS_ACCESS_KEY: ${{ secrets.SERVERLESS_ACCESS_KEY }}
+        AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        RECAPTCHA_PUBLIC_KEY: ${{ secrets.RECAPTCHA_PUBLIC_KEY }}
+        RECAPTCHA_PRIVATE_KEY: ${{ secrets.RECAPTCHA_PRIVATE_KEY }}
+        USE_RECAPTCHA_FOR_GUEST: True
+        USE_RECAPTCHA_FOR_ADMIN: True
+        FLASK_SECRET: ${{ secrets.FLASK_SECRET }}
+        ADMIN_PASSWORD_HASH: ${{ secrets.ADMIN_PASSWORD_HASH }}
+        WEB_DOMAIN: ${{ secrets.WEB_DOMAIN }}
+        HOSTED_ZONE_ID: ${{ secrets.HOSTED_ZONE_ID }}
+        SENDER_EMAIL_ADDRESS: ${{ secrets.SENDER_EMAIL_ADDRESS }}
+        PERSONALIZE_SRC_FILE: app/personalize/rsvp_content.yaml
+        MAPS_API_KEY: ${{ secrets.MAPS_API_KEY }}
 
     # deploy sls
     - name: serverless deploy
