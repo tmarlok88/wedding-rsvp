@@ -16,7 +16,7 @@
     * ~~auto forward after captcha~~
     * ~~save the date to google calendar~~
     * ~~descriptions in form~~
-* customization  
+* customization
 * proper captcha page
 * ~~translation~~
 * unsubscribe and delete my data
