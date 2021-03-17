@@ -25,6 +25,10 @@ jobs:
         node-version: ${{ matrix.node-version }}
     - run: npm ci
     - run: npm install -g serverless
+    - name: personalize image
+      run: wget -N https://gist.github.com/${{ secrets.GIST_PATH }}/raw/img_bg_2.jpg -O app/static/img/img_bg_2.jpg
+    - name: personalize content
+      run: wget -N https://gist.github.com/${{ secrets.GIST_PATH }}/raw/wedding-rsvp-personalize.yaml -O app/personalize/rsvp_content.yaml
     - name: deploy static content
       run: sls client deploy --no-confirm
       env:
