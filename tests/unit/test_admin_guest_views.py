@@ -32,6 +32,7 @@ class TestAdminGuest(ParentTest):
         self.assert_template_used("guest_form.html")
 
     def test_add_guest(self):
+        self.maxDiff = None
         guest_data = dict(EXAMPLE_GUEST_2)
         expected_data = dict(EXAMPLE_GUEST_2)
         guest_data.pop("will_attend")

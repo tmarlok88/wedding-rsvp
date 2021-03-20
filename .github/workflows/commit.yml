@@ -13,7 +13,7 @@ jobs:
         path: ./node_modules
         key: ${{ runner.os }}-build-${{ hashFiles('**/package-lock.json') }}
     - name: Install Dependencies
-      run: npm ci
+      run: npm install
     - run: npm install serverless
 
   python_cache:
