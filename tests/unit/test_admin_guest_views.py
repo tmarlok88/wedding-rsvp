@@ -32,20 +32,21 @@ class TestAdminGuest(ParentTest):
         self.assert_template_used("guest_form.html")
 
     def test_add_guest(self):
-        self.maxDiff = None
+        unique_mail = f"{uuid.uuid4()}@fakemail.com"
         guest_data = dict(EXAMPLE_GUEST_2)
-        expected_data = dict(EXAMPLE_GUEST_2)
+        guest_data["email"] = unique_mail
+        expected_data = dict(guest_data)
         guest_data.pop("will_attend")
 
         response = self.client.post("/admin/guest/add", data=guest_data)
         self.assert_redirects(response, "admin/guest/list")
 
         guests = list_guests()
-        print(guests)
+        added_guest = next(item for item in guests if item.email == unique_mail)
         expected_data["filled_by_admin"] = True
-        expected_data["id"] = uuid.UUID(guests[0].get_id())
+        expected_data["id"] = uuid.UUID(added_guest.get_id())
 
-        #self.assertDictEqual(guests[0].__dict__["attribute_values"], expected_data)
+        self.assertDictEqual(added_guest.__dict__["attribute_values"], expected_data)
 
     def test_add_guest_invalid_data(self):
         response = self.client.post("/admin/guest/add", data=dict(INVALID_GUEST))
