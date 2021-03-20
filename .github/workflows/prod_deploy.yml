@@ -1,9 +1,8 @@
 #name: Deploy master branch
 #
 #on:
-#  push:
-#    branches:
-#      - main
+#  release:
+#    types: [ created ]
 #
 #jobs:
 #  deploy:

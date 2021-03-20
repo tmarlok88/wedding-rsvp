@@ -57,4 +57,3 @@ def load_user(user_id):
             return Admin()
     if request.blueprint == "rsvp":
         return Guest.find(user_id)
-
