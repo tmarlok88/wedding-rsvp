@@ -40,6 +40,7 @@ def create_app(config_class=Config):
 
     @app.errorhandler(404)
     def page_not_found(e):
+        print(str(e))
         return render_template('errors/404.html'), 404
 
     return app

@@ -33,6 +33,5 @@ class Guest(Model, UserMixin):
     def find(guest_id: str):
         try:
             return Guest.get(guest_id)
-        except DoesNotExist as si_exception:
+        except DoesNotExist:
             return None
-

@@ -9,7 +9,7 @@ class EmailSender:
 
     def send_email(self, recipients: list, subject: str, body: str) -> bool:
         try:
-            response = self.client.send_email(
+            self.client.send_email(
                 Destination={
                     'ToAddresses': recipients,
                 },
@@ -32,6 +32,7 @@ class EmailSender:
                 Source=self.sender,
             )
         except ClientError as e:
+            print(str(e))
             return False
         else:
             return True
