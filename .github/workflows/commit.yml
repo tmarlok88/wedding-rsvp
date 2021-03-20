@@ -11,7 +11,7 @@ jobs:
       uses: actions/cache@v2
       with:
         path: ./node_modules
-        key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
+        key: ${{ runner.os }}-build-${{ hashFiles('**/package-lock.json') }}
     - name: Install Dependencies
       run: npm ci
     - run: npm install serverless
@@ -29,8 +29,8 @@ jobs:
       uses: actions/cache@v2
       with:
         path: ~/.cache/pip
-        key: ${{ hashFiles('setup.py') }}-${{ hashFiles('dev-requirements.txt') }}
-
+        key: ${{ runner.os }}-build-${{ hashFiles('requirements.txt') }}
+    - run: ls ~/.cache/pip
     - name: Install requirements
       run: |
         pip install --upgrade --upgrade-strategy eager -r requirements.txt
@@ -55,7 +55,7 @@ jobs:
       run: |
         pip install nose2
         pip install flake8
-
+    - run: ls ~/.cache/pip
     - name: linting
       run: flake8 --extend-ignore=E501 app/
     - name: unit tests
