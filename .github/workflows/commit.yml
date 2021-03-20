@@ -29,7 +29,7 @@ jobs:
       uses: actions/cache@v2
       with:
         path: ${{ env.pythonLocation }}
-        key: ${{ env.pythonLocation }}-${{ hashFiles('requirements.txt')-${{ hashFiles('test-requirements.txt') }}
+        key: ${{ env.pythonLocation }}-${{ hashFiles('requirements.txt') }}-${{ hashFiles('test-requirements.txt') }}
     - run: ls ~/.cache/pip
     - name: Install requirements
       run: |
