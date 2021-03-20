@@ -28,8 +28,8 @@ jobs:
     - name: pip cache
       uses: actions/cache@v2
       with:
-        path: ~/.cache/pip
-        key: ${{ runner.os }}-build-${{ hashFiles('requirements.txt') }}
+        path: ${{ env.pythonLocation }}
+        key: ${{ env.pythonLocation }}-${{ hashFiles('requirements.txt')-${{ hashFiles('test-requirements.txt') }}
     - run: ls ~/.cache/pip
     - name: Install requirements
       run: |
@@ -49,8 +49,8 @@ jobs:
     - name: pip cache
       uses: actions/cache@v2
       with:
-        path: ~/.cache/pip
-        key: ${{ hashFiles('setup.py') }}-${{ hashFiles('dev-requirements.txt') }}
+        path: ${{ env.pythonLocation }}
+        key: ${{ env.pythonLocation }}-${{ hashFiles('requirements.txt')-${{ hashFiles('test-requirements.txt') }}
     - name: Install requirements
       run: |
         pip install nose2
@@ -83,13 +83,13 @@ jobs:
     - name: pip cache
       uses: actions/cache@v2
       with:
-        path: ~/.cache/pip
-        key: ${{ hashFiles('setup.py') }}-${{ hashFiles('dev-requirements.txt') }}
+        path: ${{ env.pythonLocation }}
+        key: ${{ env.pythonLocation }}-${{ hashFiles('requirements.txt')-${{ hashFiles('test-requirements.txt') }}
     - name: node cache
       uses: actions/cache@v2
       with:
         path: ./node_modules
-        key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
+        key: ${{ runner.os }}-build-${{ hashFiles('**/package-lock.json') }}
     - name: deploy static content
       run: ./node_modules/serverless/bin/serverless.js client deploy --no-confirm
       env:
