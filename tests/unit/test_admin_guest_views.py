@@ -41,6 +41,7 @@ class TestAdminGuest(ParentTest):
         self.assert_redirects(response, "admin/guest/list")
 
         guests = list_guests()
+        print(guests)
         expected_data["filled_by_admin"] = True
         expected_data["id"] = uuid.UUID(guests[0].get_id())
 
