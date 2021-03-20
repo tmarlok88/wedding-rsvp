@@ -95,7 +95,7 @@ class TestAdminGuest(ParentTest):
     def test_delete_guest(self):
         guest_data = EXAMPLE_GUEST_1
         guest_id = save_guest(guest_data).id
-        response = self.client.get(f"/admin/guest/delete/{guest_id}")
+        response = self.client.post(f"/admin/guest/delete/{guest_id}")
         guests = list_guests()
 
         self.assert_redirects(response, "/admin/guest/list")
@@ -105,7 +105,7 @@ class TestAdminGuest(ParentTest):
     def test_delete_guest_no_such_guest(self):
         guest_data = EXAMPLE_GUEST_1
         guest_id = save_guest(guest_data).id
-        response = self.client.get(f"/admin/guest/delete/{guest_id}XXX")
+        response = self.client.post(f"/admin/guest/delete/{guest_id}XXX")
 
         self.assert404(response)
         self.assert_template_used("errors/404.html")
