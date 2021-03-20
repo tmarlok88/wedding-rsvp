@@ -59,7 +59,9 @@ jobs:
     - name: linting
       run: flake8 --extend-ignore=E501 app/
     - name: unit tests
-      run: nose2 --with-coverage --coverage ../../app/
+      run: |
+        cd tests/unit
+        nose2 --with-coverage --coverage ../../app/
 
   dev_deploy:
     if: startsWith(github.ref, 'refs/heads/feature/')
