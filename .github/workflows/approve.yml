@@ -5,11 +5,12 @@ on:
     types: [ submitted ]
   pull_request:
     types: [ labeled ]
+  workflow dispatch:
 
 jobs:
   functional_tests:
     if: github.event.review.state == 'approved' || github.event.label.name == 'lgtm'
-    name: deploy
+    name: Functional tests
     runs-on: ubuntu-20.04
     steps:
     - uses: actions/checkout@v2
@@ -35,7 +36,7 @@ jobs:
     - name: Install requirements
       run: |
         pip install nose2
-        apt-get -y install firefox-geckodriver
+        sudo apt-get -y install firefox-geckodriver
     - name: unit tests
       run: |
         cd tests/e2e
@@ -43,7 +44,7 @@ jobs:
 
   deploy:
     if: github.event.review.state == 'approved' || github.event.label.name == 'lgtm'
-    name: deploy
+    name: Deploy to stage
     runs-on: ubuntu-20.04
     needs: functional_tests
     steps:
