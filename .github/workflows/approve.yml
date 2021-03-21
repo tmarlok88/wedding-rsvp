@@ -5,7 +5,7 @@ on:
     types: [ submitted ]
   pull_request:
     types: [ labeled ]
-  workflow dispatch:
+  workflow_dispatch:
 
 jobs:
   functional_tests:
