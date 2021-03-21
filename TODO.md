@@ -25,7 +25,12 @@
 * pdf generation
 * admin dashboard
 * github actions
+  * rollback
+  * versioning deployment
+  * versioned S3 folders
 * README
 * mail send e2e tests
 * admin e2e
 * logging
+* host 404 page locally
+
