@@ -2,11 +2,13 @@ name: Approve
 
 on:
   pull_request_review:
-    types: [submitted]
+    types: [ submitted ]
+  pull_request:
+    types: [ labeled ]
 
 jobs:
   functional_tests:
-    if: github.event.review.state == 'approved'
+    if: github.event.review.state == 'approved' || github.event.label.name == 'lgtm'
     name: deploy
     runs-on: ubuntu-20.04
     steps:
@@ -40,7 +42,7 @@ jobs:
         nose2 --with-coverage --coverage ../../app/
 
   deploy:
-    if: github.event.review.state == 'approved'
+    if: github.event.review.state == 'approved' || github.event.label.name == 'lgtm'
     name: deploy
     runs-on: ubuntu-20.04
     needs: functional_tests
