@@ -2,6 +2,7 @@ import os
 from flask_testing import LiveServerTestCase
 from selenium import webdriver
 from selenium.common.exceptions import WebDriverException
+from selenium.webdriver.firefox.options import Options
 from test.support import EnvironmentVarGuard
 import threading
 import time
@@ -47,7 +48,9 @@ class E2ETest(LiveServerTestCase):
     def setUp(self) -> None:
         browser = os.getenv("E2E_BROWSER", "firefox")
         if browser == "firefox":
-            self.browser = webdriver.Firefox()
+            options = Options()
+            options.headless = True
+            self.browser = webdriver.Firefox(options=options)
         if browser == "chrome":
             self.browser = webdriver.Chrome()
         if browser == "edge":

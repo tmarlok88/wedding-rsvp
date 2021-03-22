@@ -31,7 +31,7 @@ jobs:
         pip install nose2
         pip install --upgrade --upgrade-strategy eager -r test-requirements.txt
         sudo apt-get -y install firefox-geckodriver
-    - name: unit tests
+    - name: Functional tests
       run: |
         cd tests/e2e
         nose2 --with-coverage --coverage ../../app/
