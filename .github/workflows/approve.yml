@@ -14,10 +14,6 @@ jobs:
     runs-on: ubuntu-20.04
     steps:
     - uses: actions/checkout@v2
-    - name: Use Node.js
-      uses: actions/setup-node@v1
-      with:
-        node-version: '14.x'
     - name: Setup python
       uses: actions/setup-python@v2
       with:
@@ -28,14 +24,12 @@ jobs:
       with:
         path: ${{ env.pythonLocation }}
         key: ${{ env.pythonLocation }}-${{ hashFiles('requirements.txt') }}-${{ hashFiles('test-requirements.txt') }}
-    - name: node cache
-      uses: actions/cache@v2
-      with:
-        path: ./node_modules
-        key: ${{ runner.os }}-build-${{ hashFiles('**/package-lock.json') }}
+    - id: setup_env
+      uses: ./.github/actions/setup_env
     - name: Install requirements
       run: |
         pip install nose2
+        pip install --upgrade --upgrade-strategy eager -r test-requirements.txt
         sudo apt-get -y install firefox-geckodriver
     - name: unit tests
       run: |
@@ -78,8 +72,8 @@ jobs:
       uses: actions/setup-node@v1
       with:
         node-version: ${{ matrix.node-version }}
-    - run: npm install
-    - run: npm install -g serverless
+    - id: setup_env
+      uses: ./.github/actions/setup_env
     - name: personalize image
       run: wget -N https://gist.github.com/${{ secrets.GIST_PATH }}/raw/img_bg_2.jpg -O app/static/img/img_bg_2.jpg
     - name: personalize content
