@@ -39,6 +39,7 @@ class E2ETest(LiveServerTestCase):
             cls.env.set('AWS_SECRET_ACCESS_KEY', 'testing')
             cls.env.set('AWS_SECURITY_TOKEN', 'testing')
             cls.env.set('AWS_SESSION_TOKEN', 'testing')
+            cls.env.set('PERSONALIZE_SRC_FILE', 'app/personalize/rsvp_content.yaml')
             cls.moto_app = create_backend_app("dynamodb2")
             cls.moto_thread = threading.Thread(target=cls.moto_app.run, args=("localhost", 7012),
                                                kwargs={"use_reloader": False})
