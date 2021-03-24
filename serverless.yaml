@@ -85,8 +85,6 @@ custom:
       Outputs:
         StaticBucketDNS:
           Value: !GetAtt StaticS3Bucket.DualStackDomainName
-          Export:
-            Name: CloudFrontDNS
         StaticBucket:
           Value: !Ref StaticS3Bucket
           Export:
