@@ -19,11 +19,11 @@ custom:
     production: ''
   staticPrefix:
     dev: dev_static
-    stage: dev_static
+    stage: stage_static
     production: 'static'
   tableName: '${self:custom.prefix.${self:custom.environment}}-wedding-rsvp-guests'
   domainName: ${env:WEB_DOMAIN, 'dummy-domain.info'}
-  staticBucketName: "${cf:wedding-rsvp-dev-permanentResources.StaticBucket, 'wedding-rsvp-staticbucket-${sls:instanceId}'}"
+  staticBucketName: "${cf:wedding-rsvp-${self:custom.environment}-permanentResources.StaticBucket, '${self:custom.prefix.${self:custom.environment}}-wedding-rsvp-staticbucket-${sls:instanceId}'}"
   wsgi:
     app: run.app
     packRequirements: false
@@ -85,12 +85,8 @@ custom:
       Outputs:
         StaticBucketDNS:
           Value: !GetAtt StaticS3Bucket.DualStackDomainName
-          Export:
-            Name: CloudFrontDNS
         StaticBucket:
           Value: !Ref StaticS3Bucket
-          Export:
-            Name: StaticBucket
 
 provider:
   name: aws
@@ -120,7 +116,7 @@ provider:
     RECAPTCHA_PRIVATE_KEY: ${env:RECAPTCHA_PRIVATE_KEY}
     SENDER_EMAIL_ADDRESS: ${env:SENDER_EMAIL_ADDRESS}
     PERSONALIZE_SRC_FILE: ${env:PERSONALIZE_SRC_FILE}
-    STATIC_URL_PATH: "${cf:wedding-rsvp-dev-permanentResources.StaticBucketDNS, 'dummy'}"
+    STATIC_URL_PATH: "${cf:wedding-rsvp-${self:custom.environment}-permanentResources.StaticBucketDNS, 'dummy'}"
     ENVIRONMENT: ${env:ENVIRONMENT, self:custom.environment}
     USE_RECAPTCHA_FOR_GUEST: ${env:USE_RECAPTCHA_FOR_GUEST, 'True'}
     USE_RECAPTCHA_FOR_ADMIN: ${env:USE_RECAPTCHA_FOR_ADMIN, 'True'}

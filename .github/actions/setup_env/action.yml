@@ -1,0 +1,40 @@
+name: 'Setup build environment'
+description: 'Setup build environment'
+inputs:
+  python:  # id of input
+    description: 'Who to greet'
+    required: true
+    default: 'World'
+runs:
+  using: "composite"
+  steps:
+# TODO: wait for: https://github.com/actions/runner/pull/612
+#    - name: Cache node modules
+#      uses: actions/cache@v2
+#      with:
+#        path: ./node_modules
+#        key: ${{ runner.os }}-build-${{ hashFiles('**/package-lock.json') }}
+#    - name: Setup python
+#      uses: actions/setup-python@v2
+#      with:
+#        python-version: '3.8'
+#        architecture: 'x64'
+#    - name: pip cache
+#      uses: actions/cache@v2
+#      with:
+#        path: ${{ env.pythonLocation }}
+#        key: ${{ env.pythonLocation }}-${{ hashFiles('requirements.txt') }}-${{ hashFiles('test-requirements.txt') }}
+#    - name: Use Node.js
+#      uses: actions/setup-node@v1
+#      with:
+#        node-version: '14.x'
+
+    - name: Install Dependencies
+      run: npm install
+      shell: bash
+    - run: npm install serverless
+      shell: bash
+    - name: Install requirements
+      run: |
+        pip install --upgrade --upgrade-strategy eager -r requirements.txt
+      shell: bash

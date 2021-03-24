@@ -1,6 +1,6 @@
 Flask==1.1.2
-pynamodb
-pynamodb-attributes
+pynamodb==4.3.3
+pynamodb-attributes==0.2.10
 flask-babel
 flask-login
 flask-wtf

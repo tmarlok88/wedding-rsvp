@@ -1,0 +1,133 @@
+name: Approve
+
+on:
+  pull_request_review:
+    types: [ submitted ]
+  pull_request:
+    types: [ labeled ]
+  workflow_dispatch:
+
+jobs:
+  functional_tests:
+    if: github.event.review.state == 'approved' || github.event.label.name == 'lgtm'
+    name: Functional tests
+    runs-on: ubuntu-20.04
+    steps:
+    - uses: actions/checkout@v2
+    - name: Setup python
+      uses: actions/setup-python@v2
+      with:
+        python-version: '3.8'
+        architecture: 'x64'
+    - name: pip cache
+      uses: actions/cache@v2
+      with:
+        path: ${{ env.pythonLocation }}
+        key: ${{ env.pythonLocation }}-${{ hashFiles('requirements.txt') }}-${{ hashFiles('test-requirements.txt') }}
+    - id: setup_env
+      uses: ./.github/actions/setup_env
+    - name: Install requirements
+      run: |
+        pip install nose2
+        pip install --upgrade --upgrade-strategy eager -r test-requirements.txt
+        sudo apt-get update && sudo apt-get -y install firefox-geckodriver
+    - name: Functional tests
+      run: |
+        cd tests/e2e
+        nose2 --with-coverage --coverage ../../app/
+      env:
+        PERSONALIZE_SRC_FILE: "../../app/personalize/rsvp_content.yaml"
+    - name: "remove LGTM label"
+      uses: actions-ecosystem/action-remove-labels@v1
+      if: ${{ failure() || cancelled() }}
+      with:
+        labels: |
+          lgtm
+
+  deploy:
+    if: github.event.review.state == 'approved' || github.event.label.name == 'lgtm'
+    name: Deploy to Stage
+    runs-on: ubuntu-20.04
+    needs: functional_tests
+    steps:
+    - uses: actions/checkout@v2
+    - name: Use Node.js
+      uses: actions/setup-node@v1
+      with:
+        node-version: '14.x'
+    - name: Setup python
+      uses: actions/setup-python@v2
+      with:
+        python-version: '3.8'
+        architecture: 'x64'
+    - name: pip cache
+      uses: actions/cache@v2
+      with:
+        path: ${{ env.pythonLocation }}
+        key: ${{ env.pythonLocation }}-${{ hashFiles('requirements.txt') }}-${{ hashFiles('test-requirements.txt') }}
+    - name: node cache
+      uses: actions/cache@v2
+      with:
+        path: ./node_modules
+        key: ${{ runner.os }}-build-${{ hashFiles('**/package-lock.json') }}
+    - uses: actions/checkout@v2
+    - name: Setup python
+      uses: actions/setup-python@v2
+      with:
+        python-version: '3.8'
+        architecture: 'x64'
+    - name: Use Node.js
+      uses: actions/setup-node@v1
+      with:
+        node-version: '14.x'
+    - id: setup_env
+      uses: ./.github/actions/setup_env
+    - name: personalize images
+      run: |
+        FILES=$(curl -s https://api.github.com/gists/a83d97a735a69cd7b2476fa10aea396f | jq -r '.files | keys[]')
+        for fname in $FILES; do
+          if [[ "${fname##*.}" == "jpg" ]]; then
+            wget -N https://gist.github.com/${{ secrets.GIST_PATH }}/raw/${fname} -O app/static/img/${fname}
+          fi
+        done
+    - name: personalize content
+      run: wget -N https://gist.github.com/${{ secrets.GIST_PATH }}/raw/wedding-rsvp-personalize.yaml -O app/personalize/rsvp_content.yaml
+    - name: deploy static content
+      run: ./node_modules/serverless/bin/serverless.js client deploy --stage stage --no-confirm
+      env:
+        AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        RECAPTCHA_PUBLIC_KEY: ${{ secrets.RECAPTCHA_PUBLIC_KEY }}
+        RECAPTCHA_PRIVATE_KEY: ${{ secrets.RECAPTCHA_PRIVATE_KEY }}
+        USE_RECAPTCHA_FOR_GUEST: True
+        USE_RECAPTCHA_FOR_ADMIN: True
+        FLASK_SECRET: ${{ secrets.FLASK_SECRET }}
+        ADMIN_PASSWORD_HASH: ${{ secrets.ADMIN_PASSWORD_HASH }}
+        WEB_DOMAIN: ${{ secrets.WEB_DOMAIN }}
+        HOSTED_ZONE_ID: ${{ secrets.HOSTED_ZONE_ID }}
+        SENDER_EMAIL_ADDRESS: ${{ secrets.SENDER_EMAIL_ADDRESS }}
+        PERSONALIZE_SRC_FILE: app/personalize/rsvp_content.yaml
+        MAPS_API_KEY: ${{ secrets.MAPS_API_KEY }}
+    - name: serverless deploy
+      run: ./node_modules/serverless/bin/serverless.js deploy --stage stage
+      env:
+        AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        RECAPTCHA_PUBLIC_KEY: ${{ secrets.RECAPTCHA_PUBLIC_KEY }}
+        RECAPTCHA_PRIVATE_KEY: ${{ secrets.RECAPTCHA_PRIVATE_KEY }}
+        USE_RECAPTCHA_FOR_GUEST: True
+        USE_RECAPTCHA_FOR_ADMIN: True
+        FLASK_SECRET: ${{ secrets.FLASK_SECRET }}
+        ADMIN_PASSWORD_HASH: ${{ secrets.ADMIN_PASSWORD_HASH }}
+        WEB_DOMAIN: ${{ secrets.WEB_DOMAIN }}
+        HOSTED_ZONE_ID: ${{ secrets.HOSTED_ZONE_ID }}
+        SENDER_EMAIL_ADDRESS: ${{ secrets.SENDER_EMAIL_ADDRESS }}
+        PERSONALIZE_SRC_FILE: app/personalize/rsvp_content.yaml
+        MAPS_API_KEY: ${{ secrets.MAPS_API_KEY }}
+    - name: "remove LGTM label"
+      uses: actions-ecosystem/action-remove-labels@v1
+      if: ${{ failure() || cancelled() }}
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        labels: |
+          lgtm
