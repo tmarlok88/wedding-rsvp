@@ -35,6 +35,8 @@ jobs:
       run: |
         cd tests/e2e
         nose2 --with-coverage --coverage ../../app/
+      env:
+        PERSONALIZE_SRC_FILE": "../../app/personalize/rsvp_content.yaml"
 
   deploy:
     if: github.event.review.state == 'approved' || github.event.label.name == 'lgtm'
