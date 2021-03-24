@@ -19,7 +19,7 @@ custom:
     production: ''
   staticPrefix:
     dev: dev_static
-    stage: dev_static
+    stage: stage_static
     production: 'static'
   tableName: '${self:custom.prefix.${self:custom.environment}}-wedding-rsvp-guests'
   domainName: ${env:WEB_DOMAIN, 'dummy-domain.info'}
