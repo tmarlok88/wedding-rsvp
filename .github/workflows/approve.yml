@@ -46,7 +46,7 @@ jobs:
 
   deploy:
     if: github.event.review.state == 'approved' || github.event.label.name == 'lgtm'
-    name: Deploy to Production
+    name: Deploy to Stage
     runs-on: ubuntu-20.04
     needs: functional_tests
     steps:
