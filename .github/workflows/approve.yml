@@ -82,8 +82,14 @@ jobs:
         node-version: ${{ matrix.node-version }}
     - id: setup_env
       uses: ./.github/actions/setup_env
-    - name: personalize image
-      run: wget -N https://gist.github.com/${{ secrets.GIST_PATH }}/raw/img_bg_2.jpg -O app/static/img/img_bg_2.jpg
+    - name: personalize images
+      run: |
+        FILES=$(curl -s https://api.github.com/gists/a83d97a735a69cd7b2476fa10aea396f | jq -r '.files | keys[]')
+        for fname in $FILES; do
+          if [[ "${fname##*.}" == "jpg" ]]; then
+            wget -N https://gist.github.com/${{ secrets.GIST_PATH }}/raw/${fname} -O app/static/img/${fname}
+          fi
+        done
     - name: personalize content
       run: wget -N https://gist.github.com/${{ secrets.GIST_PATH }}/raw/wedding-rsvp-personalize.yaml -O app/personalize/rsvp_content.yaml
     - name: deploy static content
