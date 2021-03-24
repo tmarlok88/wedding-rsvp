@@ -30,13 +30,19 @@ jobs:
       run: |
         pip install nose2
         pip install --upgrade --upgrade-strategy eager -r test-requirements.txt
-        sudo apt-get -y install firefox-geckodriver
+        sudo apt-get update && sudo apt-get -y install firefox-geckodriver
     - name: Functional tests
       run: |
         cd tests/e2e
         nose2 --with-coverage --coverage ../../app/
       env:
-        PERSONALIZE_SRC_FILE": "../../app/personalize/rsvp_content.yaml"
+        PERSONALIZE_SRC_FILE: "../../app/personalize/rsvp_content.yaml"
+    - name: "remove LGTM label"
+      uses: actions-ecosystem/action-remove-labels@v1
+      if: ${{ failure() || cancelled() }}
+      with:
+        labels: |
+          lgtm
 
   deploy:
     if: github.event.review.state == 'approved' || github.event.label.name == 'lgtm'
@@ -112,3 +118,9 @@ jobs:
         SENDER_EMAIL_ADDRESS: ${{ secrets.SENDER_EMAIL_ADDRESS }}
         PERSONALIZE_SRC_FILE: app/personalize/rsvp_content.yaml
         MAPS_API_KEY: ${{ secrets.MAPS_API_KEY }}
+    - name: "remove LGTM label"
+      uses: actions-ecosystem/action-remove-labels@v1
+      if: ${{ failure() || cancelled() }}
+      with:
+        labels: |
+          lgtm
