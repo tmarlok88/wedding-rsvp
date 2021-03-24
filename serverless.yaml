@@ -23,7 +23,7 @@ custom:
     production: 'static'
   tableName: '${self:custom.prefix.${self:custom.environment}}-wedding-rsvp-guests'
   domainName: ${env:WEB_DOMAIN, 'dummy-domain.info'}
-  staticBucketName: "${cf:wedding-rsvp-dev-permanentResources.StaticBucket${self:custom.environment}, '${self:custom.prefix.${self:custom.environment}}-wedding-rsvp-staticbucket-${sls:instanceId}'}"
+  staticBucketName: "${cf:wedding-rsvp-${self:custom.environment}-permanentResources.StaticBucket, '${self:custom.prefix.${self:custom.environment}}-wedding-rsvp-staticbucket-${sls:instanceId}'}"
   wsgi:
     app: run.app
     packRequirements: false
@@ -87,8 +87,6 @@ custom:
           Value: !GetAtt StaticS3Bucket.DualStackDomainName
         StaticBucket:
           Value: !Ref StaticS3Bucket
-          Export:
-            Name: StaticBucket${self:custom.environment}
 
 provider:
   name: aws
