@@ -1,54 +1,13 @@
-name: Approve
+name: Release
 
 on:
-  pull_request_review:
-    types: [ submitted ]
-  pull_request:
-    types: [ labeled ]
-  workflow_dispatch:
+  release:
+    types: [ created ]
 
 jobs:
-  functional_tests:
-    if: github.event.review.state == 'approved' || github.event.label.name == 'lgtm'
-    name: Functional tests
-    runs-on: ubuntu-20.04
-    steps:
-    - uses: actions/checkout@v2
-    - name: Setup python
-      uses: actions/setup-python@v2
-      with:
-        python-version: '3.8'
-        architecture: 'x64'
-    - name: pip cache
-      uses: actions/cache@v2
-      with:
-        path: ${{ env.pythonLocation }}
-        key: ${{ env.pythonLocation }}-${{ hashFiles('requirements.txt') }}-${{ hashFiles('test-requirements.txt') }}
-    - id: setup_env
-      uses: ./.github/actions/setup_env
-    - name: Install requirements
-      run: |
-        pip install nose2
-        pip install --upgrade --upgrade-strategy eager -r test-requirements.txt
-        sudo apt-get update && sudo apt-get -y install firefox-geckodriver
-    - name: Functional tests
-      run: |
-        cd tests/e2e
-        nose2 --with-coverage --coverage ../../app/
-      env:
-        PERSONALIZE_SRC_FILE: "../../app/personalize/rsvp_content.yaml"
-    - name: "remove LGTM label"
-      uses: actions-ecosystem/action-remove-labels@v1
-      if: ${{ failure() || cancelled() }}
-      with:
-        labels: |
-          lgtm
-
   deploy:
-    if: github.event.review.state == 'approved' || github.event.label.name == 'lgtm'
     name: Deploy to Production
     runs-on: ubuntu-20.04
-    needs: functional_tests
     steps:
     - uses: actions/checkout@v2
     - name: Use Node.js
@@ -93,7 +52,7 @@ jobs:
     - name: personalize content
       run: wget -N https://gist.github.com/${{ secrets.GIST_PATH }}/raw/wedding-rsvp-personalize.yaml -O app/personalize/rsvp_content.yaml
     - name: deploy static content
-      run: ./node_modules/serverless/bin/serverless.js client deploy --stage stage --no-confirm
+      run: ./node_modules/serverless/bin/serverless.js client deploy --stage production --no-confirm
       env:
         AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
         AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
@@ -109,7 +68,7 @@ jobs:
         PERSONALIZE_SRC_FILE: app/personalize/rsvp_content.yaml
         MAPS_API_KEY: ${{ secrets.MAPS_API_KEY }}
     - name: serverless deploy
-      run: ./node_modules/serverless/bin/serverless.js deploy --stage stage
+      run: ./node_modules/serverless/bin/serverless.js deploy --stage production
       env:
         AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
         AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
@@ -124,10 +83,3 @@ jobs:
         SENDER_EMAIL_ADDRESS: ${{ secrets.SENDER_EMAIL_ADDRESS }}
         PERSONALIZE_SRC_FILE: app/personalize/rsvp_content.yaml
         MAPS_API_KEY: ${{ secrets.MAPS_API_KEY }}
-    - name: "remove LGTM label"
-      uses: actions-ecosystem/action-remove-labels@v1
-      if: ${{ failure() || cancelled() }}
-      with:
-        github_token: ${{ secrets.GITHUB_TOKEN }}
-        labels: |
-          lgtm
