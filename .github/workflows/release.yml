@@ -68,7 +68,7 @@ jobs:
         PERSONALIZE_SRC_FILE: app/personalize/rsvp_content.yaml
         MAPS_API_KEY: ${{ secrets.MAPS_API_KEY }}
     - name: serverless deploy
-      run: ./node_modules/serverless/bin/serverless.js deploy --stage production
+      run: ./node_modules/serverless/bin/serverless.js deploy --stage production --skip-additionalstacks
       env:
         AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
         AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}

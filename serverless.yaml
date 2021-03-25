@@ -14,8 +14,8 @@ custom:
     stage: stg
     production: prd
   domainPrefix:
-    dev: dev
-    stage: stage
+    dev: 'dev.'
+    stage: 'stage.'
     production: ''
   staticPrefix:
     dev: dev_static
@@ -23,7 +23,7 @@ custom:
     production: 'static'
   tableName: '${self:custom.prefix.${self:custom.environment}}-wedding-rsvp-guests'
   domainName: ${env:WEB_DOMAIN, 'dummy-domain.info'}
-  staticBucketName: "${cf:wedding-rsvp-${self:custom.environment}-permanentResources.StaticBucket, '${self:custom.prefix.${self:custom.environment}}-wedding-rsvp-staticbucket-${sls:instanceId}'}"
+  staticBucketName: "${cf:wedding-rsvp-static-resources.StaticBucket, 'wedding-rsvp-staticbucket-${sls:instanceId}'}"
   wsgi:
     app: run.app
     packRequirements: false
@@ -35,7 +35,7 @@ custom:
     keyPrefix: ${self:custom.staticPrefix.${self:custom.environment}}
     manageResources: false
   customDomain:
-    domainName: '${self:custom.domainPrefix.${self:custom.environment}}.${env:WEB_DOMAIN}'
+    domainName: '${self:custom.domainPrefix.${self:custom.environment}}${env:WEB_DOMAIN}'
     certificateName: '${env:WEB_DOMAIN}'
     stage: ${self:provider.stage}
     createRoute53Record: true
@@ -44,7 +44,7 @@ custom:
   additionalStacks:
     permanentResources:
       deploy: Before
-      stackName: 'wedding-rsvp-static-resources'
+      StackName: 'wedding-rsvp-static-resources'
       Resources:
         SSLCertificate:
           Type: 'AWS::CertificateManager::Certificate'
@@ -56,6 +56,7 @@ custom:
             DomainValidationOptions:
               - DomainName: '*.${self:custom.domainName}'
                 HostedZoneId: '${env:HOSTED_ZONE_ID}'
+
         StaticS3Bucket:
           Type: AWS::S3::Bucket
           Properties:
@@ -116,7 +117,7 @@ provider:
     RECAPTCHA_PRIVATE_KEY: ${env:RECAPTCHA_PRIVATE_KEY}
     SENDER_EMAIL_ADDRESS: ${env:SENDER_EMAIL_ADDRESS}
     PERSONALIZE_SRC_FILE: ${env:PERSONALIZE_SRC_FILE}
-    STATIC_URL_PATH: "${cf:wedding-rsvp-${self:custom.environment}-permanentResources.StaticBucketDNS, 'dummy'}"
+    STATIC_URL_PATH: "${cf:wedding-rsvp-permanentResources.StaticBucketDNS, 'dummy'}"
     ENVIRONMENT: ${env:ENVIRONMENT, self:custom.environment}
     USE_RECAPTCHA_FOR_GUEST: ${env:USE_RECAPTCHA_FOR_GUEST, 'True'}
     USE_RECAPTCHA_FOR_ADMIN: ${env:USE_RECAPTCHA_FOR_ADMIN, 'True'}
