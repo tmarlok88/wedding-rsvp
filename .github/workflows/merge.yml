@@ -1,0 +1,17 @@
+name: Merge
+
+on:
+  pull_request:
+    types: [closed]
+
+jobs:
+  bump_semver:
+    if: github.event.pull_request.merged == true
+    name: Increment version
+    runs-on: ubuntu-20.04
+    steps:
+     - uses: actions/checkout@master
+     - name: Bump version and push tag
+       uses: hennejg/github-tag-action@v4.1.jh1
+       with:
+         github_token: ${{ secrets.GITHUB_TOKEN }}
