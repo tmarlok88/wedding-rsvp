@@ -35,11 +35,10 @@
 		<div class="container">
 			<div class="row">
 				<div class="col-xs-2">
-					<div id="fh5co-logo"><a href="index.html">Wedding<strong>.</strong></a></div>
+					<div id="fh5co-logo"><a href="#fh5co-header">{{_("Wedding")}}<strong>.</strong></a></div>
 				</div>
 				<div class="col-xs-10 text-right menu-1">
 					<ul>
-						<li><a href="#fh5co-header">{{_("Home")}}</a></li>
 						<li><a href="#fh5co-description">{{_("Details")}}</a></li>
 						<li><a href="#fh5co-event-timeline">{{_("Events")}}</a></li>
 						<li><a href="#fh5co-started">{{_("RSVP")}}</a></li>
@@ -51,7 +50,7 @@
 		</div>
 	</nav>
 
-	<header id="fh5co-header" class="fh5co-cover" role="banner" style="background-image:url({{url_for('static', filename='img/img_bg_2.jpg')}});" data-stellar-background-ratio="0.5">
+	<header id="fh5co-header" class="fh5co-cover" role="banner" style="background-image:url({{url_for('static', filename='img/img_bg_1.jpg')}});" data-stellar-background-ratio="0.5">
 		<div class="overlay"></div>
 		<div class="container">
 			<div class="row">
@@ -69,19 +68,19 @@
 		</div>
 	</header>
 
-	<div id="fh5co-description" style="background-image:url({{url_for('static', filename='img/img_bg_3.jpg')}});" data-stellar-background-ratio="0.5">
+	<div id="fh5co-description" style="height: 600; background-image:url({{url_for('static', filename='img/img_bg_2.jpg')}}); background-size: cover;" data-stellar-background-ratio="0.5">
 		<div class="container">
 			<div class="row">
 				<div class="col-md-8 col-md-offset-2 text-center fh5co-heading animate-box">
 					<h2>Hello!</h2>
 					<h3>{{rsvp_content["basic_data"]['event_date'].strftime("%Y.%m.%d %H:%M")}}</h3>
 					<p>{{_("We invited you to celebrate our wedding")}}</p>
-					<p>{{ rsvp_content["main_message"] }}</p>
+					<p>{{ rsvp_content["main_message"] | safe }}</p>
 				</div>
 			</div>
 		</div>
 	</div>
-	<div id="fh5co-event-timeline">
+	<div id="fh5co-event-timeline" style="background-image:url({{url_for('static', filename='img/img_bg_3.jpg')}});">
 		<div class="container">
 			<div class="row">
 				<div class="col-md-8 col-md-offset-2 text-center fh5co-heading animate-box">
@@ -110,7 +109,7 @@
 			</div>
 		</div>
 	</div>
-	<div id="fh5co-started" class="fh5co-bg" style="background-image:url({{url_for('static', filename='img/img_bg_5.jpg')}});">
+	<div id="fh5co-started" class="fh5co-bg" style="background-image:url({{url_for('static', filename='img/img_bg_4.jpg')}});">
 		<div class="overlay"></div>
 		<div class="container">
 			<div class="row animate-box">

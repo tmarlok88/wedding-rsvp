@@ -25,6 +25,7 @@
 * pdf generation
 * admin dashboard
 * github actions
+  * ~~basic pipelines~~
   * rollback
   * versioning deployment
   * versioned S3 folders
