@@ -108,6 +108,7 @@ jobs:
         SENDER_EMAIL_ADDRESS: ${{ secrets.SENDER_EMAIL_ADDRESS }}
         PERSONALIZE_SRC_FILE: app/personalize/rsvp_content.yaml
         MAPS_API_KEY: ${{ secrets.MAPS_API_KEY }}
+        LANGUAGE: hu
     - name: serverless deploy
       run: ./node_modules/serverless/bin/serverless.js deploy --stage stage --skip-additionalstacks
       env:
@@ -124,6 +125,7 @@ jobs:
         SENDER_EMAIL_ADDRESS: ${{ secrets.SENDER_EMAIL_ADDRESS }}
         PERSONALIZE_SRC_FILE: app/personalize/rsvp_content.yaml
         MAPS_API_KEY: ${{ secrets.MAPS_API_KEY }}
+        LANGUAGE: hu
     - name: "remove LGTM label"
       uses: actions-ecosystem/action-remove-labels@v1
       if: ${{ failure() || cancelled() }}
