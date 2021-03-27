@@ -122,6 +122,7 @@ provider:
     USE_RECAPTCHA_FOR_GUEST: ${env:USE_RECAPTCHA_FOR_GUEST, 'True'}
     USE_RECAPTCHA_FOR_ADMIN: ${env:USE_RECAPTCHA_FOR_ADMIN, 'True'}
     MAPS_API_KEY: ${env:MAPS_API_KEY}
+    LANGUAGE: ${env:LANGUAGE}
 functions:
   app:
     handler: wsgi_handler.handler
