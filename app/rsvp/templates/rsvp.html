@@ -27,7 +27,56 @@
 	<!--[if lt IE 9]>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/respond.js/1.4.2/respond.min.js"></script>
 	<![endif]-->
+	{% if "style_overrides" in rsvp_content %}
+	<style>
+	{% if "header_font_color" in rsvp_content["style_overrides"] %}
+	.fh5co-heading h2 {
+		color: {{rsvp_content["style_overrides"]["header_font_color"]}};
+	}
+	{% endif %}
+
+	{% if "circle_background" in rsvp_content["style_overrides"] %}
+	.simply-countdown .simply-section, .timeline li .timeline-badge {
+		background-color: {{rsvp_content["style_overrides"]["circle_background"]}}
+	}
+	{% endif %}
+
+	{% if "savedate_btn_text_color" in rsvp_content["style_overrides"] %}
+	.fh5co-cover .display-tc .btn,
+	#fh5co-header .display-tc .btn,
+	#fh5co-counter .display-tc .btn {
+		color: {{rsvp_content["style_overrides"]["savedate_btn_text_color"]}}
+	}
+	{% endif %}
+
+	{% if "rsvp_btn_background" in rsvp_content["style_overrides"] %}
+	#fh5co-started .btn {
+		background-color: {{rsvp_content["style_overrides"]["rsvp_btn_background"]}}
+	}
+	{% endif %}
+	#fh5co-started .btn
+
+	{% if "main_content_text_color" in rsvp_content["style_overrides"] %}
+	.fh5co-heading, .fh5co-heading p, #fh5co-description {
+		color: {{rsvp_content["style_overrides"]["main_content_text_color"]}}
+	}
+	{% endif %}
+
+	{% if "timeline_title_text_color" in rsvp_content["style_overrides"] %}
+	.timeline-title {
+		color: {{rsvp_content["style_overrides"]["timeline_title_text_color"]}}
+	}
+	{% endif %}
+
+	{% if "main_content_h3_color" in rsvp_content["style_overrides"] %}
+	#fh5co-description h3 {
+		color: {{rsvp_content["style_overrides"]["main_content_h3_color"]}}
+	}
+	{% endif %}
+	</style>
+	{% endif %}
 	{% endblock %}
+
 </head>
 <body>
 <div class="page">
@@ -68,7 +117,8 @@
 		</div>
 	</header>
 
-	<div id="fh5co-description" style="height: 600; background-image:url({{url_for('static', filename='img/img_bg_2.jpg')}}); background-size: cover;" data-stellar-background-ratio="0.5">
+	<div id="fh5co-description" style="height: 900px; background-image:url({{url_for('static', filename='img/img_bg_2.jpg')}}); background-size: cover;">
+		<div class="overlay"></div>
 		<div class="container">
 			<div class="row">
 				<div class="col-md-8 col-md-offset-2 text-center fh5co-heading animate-box">

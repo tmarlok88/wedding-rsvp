@@ -297,11 +297,10 @@ h1, h2, h3, h4, h5, h6, figure {
   }
 }
 
-#fh5co-counter,
-#fh5co-event {
-  height: 850px;
-  float: left;
+#fh5co-description {
+  position: relative;
 }
+
 #fh5co-counter .display-t,
 #fh5co-counter .display-tc,
 #fh5co-event .display-t,
@@ -322,14 +321,13 @@ h1, h2, h3, h4, h5, h6, figure {
   letter-spacing: 2px;
   font-weight: 600;
 }
-#fh5co-counter .overlay,
-#fh5co-event .overlay {
+#fh5co-description .overlay {
   position: absolute;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
-  background: rgba(0, 0, 0, 0.4);
+  background: rgba(255, 255, 255, 0.4);
 }
 @media screen and (max-width: 768px) {
   #fh5co-counter,
@@ -832,19 +830,9 @@ form label {
 #fh5co-started,
 #fh5co-footer,
 #fh5co-event-timeline,
-#fh5co-description,
 .fh5co-section {
   padding: 2em 0;
   clear: both;
-}
-@media screen and (max-width: 768px) {
-  #fh5co-started,
-  #fh5co-footer,
-  #fh5co-event-timeline,
-  #fh5co-description,
-  .fh5co-section {
-    padding: 3em 0;
-  }
 }
 
 .fh5co-section-gray {
@@ -1101,12 +1089,12 @@ form label {
   color: #fff;
 }
 #fh5co-started .fh5co-heading p {
-  color: rgba(255, 255, 255, 0.5);
+  color: #FFFFFF;
 }
 #fh5co-started .form-control {
-  background: rgba(255, 255, 255, 0.2);
+  background: rgba(255, 255, 255, 0.6);
   border: none !important;
-  color: #fff;
+  color: #000000;
   font-size: 16px !important;
   width: 100%;
   -webkit-transition: 0.5s;
@@ -1132,11 +1120,11 @@ form label {
 }
 
 #fh5co-started .col-form-label, .form-text {
-  color: rgba(255, 255, 255, 0.5);
+  color: #FFFFFF;
 }
 
 #fh5co-started .form-check-label {
-  color: rgba(255, 255, 255, 0.5);
+  color: #FFFFFF;
 }
 
 #fh5co-started .btn {
