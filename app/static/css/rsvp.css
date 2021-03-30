@@ -322,6 +322,7 @@ h1, h2, h3, h4, h5, h6, figure {
   letter-spacing: 2px;
   font-weight: 600;
 }
+
 #fh5co-description .overlay {
   position: absolute;
   top: 0;
@@ -329,6 +330,15 @@ h1, h2, h3, h4, h5, h6, figure {
   right: 0;
   bottom: 0;
   background: rgba(255, 255, 255, 0.4);
+}
+
+#fh5co-description ul li {
+  text-align: left;
+}
+
+#fh5co-description .fh5co-heading {
+  background: rgba(255,255,255,0.7);
+  border-radius: 20px;
 }
 
 #fh5co-map {

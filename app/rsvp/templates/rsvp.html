@@ -1,6 +1,6 @@
+<!DOCTYPE html>
 {% from "rsvp_macros.html" import generate_text_field %}
 
-<!DOCTYPE html>
 <html>
 
 <head>
@@ -121,7 +121,7 @@
 		<div class="overlay"></div>
 		<div class="container">
 			<div class="row">
-				<div class="col-md-8 col-md-offset-2 text-center fh5co-heading animate-box">
+				<div class="col-md-12 text-center fh5co-heading">
 					<h2>{{_("Dear")}} {{guest["name"]}}!</h2>
 					<h3>{{rsvp_content["basic_data"]['event_date'].strftime("%Y.%m.%d %H:%M")}}</h3>
 					<p>{{_("We invited you to celebrate our wedding")}}</p>
@@ -220,7 +220,7 @@
 						{% if 'description' in location %}
 
 						var infowindow{{loop.index}} = new google.maps.InfoWindow({
-							content: "{{ location['description'] }}",
+							content: `{{ location['description'] | safe}}`,
 						});
 						marker{{loop.index}}.addListener("click", () => {
 							infowindow{{loop.index}}.open(map, marker{{loop.index}});
