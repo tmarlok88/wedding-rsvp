@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2021-03-15 11:25+0100\n"
+"POT-Creation-Date: 2021-03-30 18:39+0200\n"
 "PO-Revision-Date: 2020-12-30 12:51+0100\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: hu\n"
@@ -154,21 +154,9 @@ msgstr "Szerkesztés"
 msgid "Delete"
 msgstr "Tőrlés"
 
-#: app/admin/templates/guest_list.html:52
+#: app/admin/templates/guest_list.html:56
 msgid "Add"
 msgstr "Hozzáadás"
-
-#: app/admin/templates/errors/404.html:3
-msgid "Not found"
-msgstr "Nincs ilyen oldal"
-
-#: app/admin/templates/errors/404.html:7
-msgid "The requested resource couldn't be found"
-msgstr "A keresett oldalt nem találom"
-
-#: app/rsvp/forms.py:12
-msgid "Bring me to the RSVP"
-msgstr ""
 
 #: app/rsvp/forms.py:17
 msgid "How many of you come (including you)?"
@@ -190,74 +178,62 @@ msgstr "Elküld"
 msgid "Wedding RSVP | "
 msgstr "Esküvői meghívó |"
 
-#: app/rsvp/views.py:57
+#: app/rsvp/templates/rsvp.html:87 app/rsvp/views.py:57
 msgid "Wedding"
 msgstr "Esküvő"
 
-#: app/rsvp/templates/rsvp.html:42
-msgid "Home"
-msgstr "Főoldal"
-
-#: app/rsvp/templates/rsvp.html:43
+#: app/rsvp/templates/rsvp.html:91
 msgid "Details"
 msgstr "Részletek"
 
-#: app/rsvp/templates/rsvp.html:44
+#: app/rsvp/templates/rsvp.html:92
 msgid "Events"
 msgstr "Események"
 
-#: app/rsvp/templates/rsvp.html:45
+#: app/rsvp/templates/rsvp.html:93
 msgid "RSVP"
 msgstr "Visszajelzés"
 
-#: app/rsvp/templates/rsvp.html:46
+#: app/rsvp/templates/rsvp.html:94
 msgid "Map"
 msgstr "Térkép"
 
-#: app/rsvp/templates/rsvp.html:62
+#: app/rsvp/templates/rsvp.html:110
 msgid "We Are Getting Married"
-msgstr ""
+msgstr "Összeházasodunk!"
 
-#: app/rsvp/templates/rsvp.html:64
+#: app/rsvp/templates/rsvp.html:112
 msgid "Save the date"
 msgstr "Mentsd el a naptáradba"
 
-#: app/rsvp/templates/rsvp.html:78
+#: app/rsvp/templates/rsvp.html:125
+msgid "Dear"
+msgstr "Kedves"
+
+#: app/rsvp/templates/rsvp.html:127
 msgid "We invited you to celebrate our wedding"
 msgstr "Szeretnénk ha velünk ünnepelnéd az esküvőnket"
 
-#: app/rsvp/templates/rsvp.html:88 app/rsvp/templates/rsvp.html:89
+#: app/rsvp/templates/rsvp.html:137
 msgid "Evening's program"
 msgstr "Az este programja"
 
-#: app/rsvp/templates/rsvp.html:119
+#: app/rsvp/templates/rsvp.html:167
 msgid "Are You Attending?"
 msgstr "Eljössz?"
 
-#: app/rsvp/templates/rsvp.html:120
+#: app/rsvp/templates/rsvp.html:168
 msgid "Please Fill-up the form to notify you that you're attending. Thanks."
 msgstr "Kérjük jelezd vissza nekünk, hogy tervezel-e jönni"
 
-#: app/rsvp/templates/rsvp.html:154
+#: app/rsvp/templates/rsvp.html:199
 msgid "Location"
 msgstr "Helyszín"
 
-#: app/rsvp/templates/rsvp.html:155
+#: app/rsvp/templates/rsvp.html:200
 msgid "A map for the different event locations"
 msgstr "A különböző események helyszínei"
 
-#: app/rsvp/templates/rsvp.html:158
+#: app/rsvp/templates/rsvp.html:201
 msgid "Click on the location pin for more information."
-msgstr "Kattints a helszínre bővebb informacióért"
-
-#: app/rsvp/templates/errors/404.html:4
-msgid "Unknown"
-msgstr "Ismeretlen"
-
-#: app/rsvp/templates/errors/404.html:9
-msgid "Please use the link sent to you by e-mail"
-msgstr "Kérunk használd az e-mailben küldött linket"
-
-#~ msgid "Wedding RSVP"
-#~ msgstr "Esküvői meghívó"
-
+msgstr "Kattints a helszínre bővebb információért"

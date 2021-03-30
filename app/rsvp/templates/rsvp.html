@@ -122,7 +122,7 @@
 		<div class="container">
 			<div class="row">
 				<div class="col-md-8 col-md-offset-2 text-center fh5co-heading animate-box">
-					<h2>Hello!</h2>
+					<h2>{{_("Dear")}} {{guest["name"]}}!</h2>
 					<h3>{{rsvp_content["basic_data"]['event_date'].strftime("%Y.%m.%d %H:%M")}}</h3>
 					<p>{{_("We invited you to celebrate our wedding")}}</p>
 					<p>{{ rsvp_content["main_message"] | safe }}</p>
@@ -142,7 +142,7 @@
 					<ul class="timeline animate-box">
 						{% for event in rsvp_content["wedding_events"] %}
 						<li class="{{loop.cycle('timeline-inverted', '') }} animate-box">
-							<div class="timeline-badge"><i class="fas {{event['icon']}} fa-4x"></i></div>
+							<div class="timeline-badge"><i class="fas {{event['icon']}} fa-3x"></i></div>
 							<div class="timeline-panel">
 								<div class="timeline-heading">
 									<h3 class="timeline-title">{{event["name"]}}</h3>

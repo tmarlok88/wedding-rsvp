@@ -299,6 +299,7 @@ h1, h2, h3, h4, h5, h6, figure {
 
 #fh5co-description {
   position: relative;
+  padding: 2em 0;
 }
 
 #fh5co-counter .display-t,
@@ -329,6 +330,12 @@ h1, h2, h3, h4, h5, h6, figure {
   bottom: 0;
   background: rgba(255, 255, 255, 0.4);
 }
+
+#fh5co-map {
+    padding: 2em 0;
+}
+
+
 @media screen and (max-width: 768px) {
   #fh5co-counter,
   #fh5co-event {
@@ -493,7 +500,7 @@ h1, h2, h3, h4, h5, h6, figure {
   -moz-border-radius: 50%;
   -ms-border-radius: 50%;
   border-radius: 50%;
-  padding-top: 30px;
+  padding-top: 45px;
 }
 @media screen and (max-width: 480px) {
   .timeline > li > .timeline-badge {
@@ -537,43 +544,6 @@ h1, h2, h3, h4, h5, h6, figure {
 
 .timeline-body > p + p {
   margin-top: 5px;
-}
-
-@media (max-width: 992px) {
-  ul.timeline:before {
-    left: 90px;
-  }
-
-  ul.timeline > li > .timeline-panel {
-    width: calc(100% - 200px);
-    width: -moz-calc(100% - 200px);
-    width: -webkit-calc(100% - 200px);
-  }
-
-  ul.timeline > li > .timeline-badge {
-    left: 15px;
-    margin-left: 0;
-    top: 16px;
-    padding-top: 30px;
-  }
-
-  ul.timeline > li > .timeline-panel {
-    float: right;
-  }
-
-  ul.timeline > li > .timeline-panel:before {
-    border-left-width: 0;
-    border-right-width: 15px;
-    left: -15px;
-    right: auto;
-  }
-
-  ul.timeline > li > .timeline-panel:after {
-    border-left-width: 0;
-    border-right-width: 14px;
-    left: -14px;
-    right: auto;
-  }
 }
 
 #map {
@@ -1116,7 +1086,7 @@ form label {
   color: #fff;
 }
 #fh5co-started .form-control:focus {
-  background: rgba(255, 255, 255, 0.3);
+  background: rgba(255, 255, 255, 0.8);
 }
 
 #fh5co-started .col-form-label, .form-text {

@@ -9,7 +9,7 @@ from app.model.Guest import Guest
 
 class RSVPCaptchaForm(FlaskForm):
     recaptcha = RecaptchaField()
-    submit = SubmitField(_l('Bring me to the RSVP'))
+    submit = SubmitField()
 
 
 class GuestForm(FlaskForm):

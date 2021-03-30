@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2021-03-15 11:25+0100\n"
+"POT-Creation-Date: 2021-03-30 18:39+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -153,20 +153,8 @@ msgstr ""
 msgid "Delete"
 msgstr ""
 
-#: app/admin/templates/guest_list.html:52
+#: app/admin/templates/guest_list.html:56
 msgid "Add"
-msgstr ""
-
-#: app/admin/templates/errors/404.html:3
-msgid "Not found"
-msgstr ""
-
-#: app/admin/templates/errors/404.html:7
-msgid "The requested resource couldn't be found"
-msgstr ""
-
-#: app/rsvp/forms.py:12
-msgid "Bring me to the RSVP"
 msgstr ""
 
 #: app/rsvp/forms.py:17
@@ -189,71 +177,63 @@ msgstr ""
 msgid "Wedding RSVP | "
 msgstr ""
 
-#: app/rsvp/views.py:57
-msgid "B & T Wedding"
+#: app/rsvp/templates/rsvp.html:87 app/rsvp/views.py:57
+msgid "Wedding"
 msgstr ""
 
-#: app/rsvp/templates/rsvp.html:42
-msgid "Home"
-msgstr ""
-
-#: app/rsvp/templates/rsvp.html:43
+#: app/rsvp/templates/rsvp.html:91
 msgid "Details"
 msgstr ""
 
-#: app/rsvp/templates/rsvp.html:44
+#: app/rsvp/templates/rsvp.html:92
 msgid "Events"
 msgstr ""
 
-#: app/rsvp/templates/rsvp.html:45
+#: app/rsvp/templates/rsvp.html:93
 msgid "RSVP"
 msgstr ""
 
-#: app/rsvp/templates/rsvp.html:46
+#: app/rsvp/templates/rsvp.html:94
 msgid "Map"
 msgstr ""
 
-#: app/rsvp/templates/rsvp.html:62
+#: app/rsvp/templates/rsvp.html:110
 msgid "We Are Getting Married"
 msgstr ""
 
-#: app/rsvp/templates/rsvp.html:64
+#: app/rsvp/templates/rsvp.html:112
 msgid "Save the date"
 msgstr ""
 
-#: app/rsvp/templates/rsvp.html:78
+#: app/rsvp/templates/rsvp.html:125
+msgid "Dear"
+msgstr ""
+
+#: app/rsvp/templates/rsvp.html:127
 msgid "We invited you to celebrate our wedding"
 msgstr ""
 
-#: app/rsvp/templates/rsvp.html:88 app/rsvp/templates/rsvp.html:89
+#: app/rsvp/templates/rsvp.html:137
 msgid "Evening's program"
 msgstr ""
 
-#: app/rsvp/templates/rsvp.html:119
+#: app/rsvp/templates/rsvp.html:167
 msgid "Are You Attending?"
 msgstr ""
 
-#: app/rsvp/templates/rsvp.html:120
+#: app/rsvp/templates/rsvp.html:168
 msgid "Please Fill-up the form to notify you that you're attending. Thanks."
 msgstr ""
 
-#: app/rsvp/templates/rsvp.html:154
+#: app/rsvp/templates/rsvp.html:199
 msgid "Location"
 msgstr ""
 
-#: app/rsvp/templates/rsvp.html:155
+#: app/rsvp/templates/rsvp.html:200
 msgid "A map for the different event locations"
 msgstr ""
 
-#: app/rsvp/templates/rsvp.html:158
+#: app/rsvp/templates/rsvp.html:201
 msgid "Click on the location pin for more information."
-msgstr ""
-
-#: app/rsvp/templates/errors/404.html:4
-msgid "Unknown"
-msgstr ""
-
-#: app/rsvp/templates/errors/404.html:9
-msgid "Please use the link sent to you by e-mail"
 msgstr ""
 
