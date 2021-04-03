@@ -299,7 +299,10 @@ h1, h2, h3, h4, h5, h6, figure {
 
 #fh5co-description {
   position: relative;
-  padding: 2em 0;
+}
+
+#fh5co-description .container {
+  height: 100%;
 }
 
 #fh5co-counter .display-t,
@@ -338,7 +341,6 @@ h1, h2, h3, h4, h5, h6, figure {
 
 #fh5co-description .fh5co-heading {
   background: rgba(255,255,255,0.7);
-  border-radius: 20px;
 }
 
 #fh5co-map {
@@ -970,7 +972,8 @@ form label {
 }
 
 .fh5co-heading {
-  margin-bottom: 5em;
+  padding-bottom: 5em;
+  padding-top: 2em;
 }
 .fh5co-heading.fh5co-heading-sm {
   margin-bottom: 2em;
