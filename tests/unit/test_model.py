@@ -46,6 +46,7 @@ class GuestModelTest(TestCase):
             test_guest.save()
 
     def test_find_guest(self):
+        from tests import context
         test_guest = context.app.model.Guest.Guest(**EXAMPLE_GUEST_1)
         test_guest_2 = context.app.model.Guest.Guest(**EXAMPLE_GUEST_2)                # Just so that we have a second value
         test_guest.save()
