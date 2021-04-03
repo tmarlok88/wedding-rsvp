@@ -1,4 +1,4 @@
-Flask-Testing
-moto[ses,dynamodb2]
-blinker
-selenium
+Flask-Testing==0.8.1
+moto[ses,dynamodb2]==2.0.4
+blinker==1.4
+selenium==3.141.0

@@ -44,6 +44,7 @@ class TestAdminGuest(ParentTest):
         guests = list_guests()
         added_guest = next(item for item in guests if item.email == unique_mail)
         expected_data["filled_by_admin"] = True
+        expected_data['notes'] = ''
         expected_data["id"] = uuid.UUID(added_guest.get_id())
 
         self.assertDictEqual(added_guest.__dict__["attribute_values"], expected_data)
@@ -93,6 +94,7 @@ class TestAdminGuest(ParentTest):
         edited_guest_data["filled_by_admin"] = True
         edited_guest_data["id"] = guests[0].id
         edited_guest_data["will_attend"] = False
+        edited_guest_data["notes"] = ''
         self.assertDictEqual(guests[0].__dict__["attribute_values"], edited_guest_data)
 
     def test_delete_guest(self):
