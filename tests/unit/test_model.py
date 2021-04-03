@@ -4,8 +4,9 @@ from uuid import UUID
 import datetime
 import os
 
-from tests import context
-from tests.guest_helper import EXAMPLE_GUEST_1, EXAMPLE_GUEST_2
+with mock.patch.dict(os.environ, {"AWS_REGION": "us-west-1", "DYNAMO_TABLE": "fake-table"}):
+    from tests import context
+    from tests.guest_helper import EXAMPLE_GUEST_1, EXAMPLE_GUEST_2
 
 
 class AdminModelTest(TestCase):
@@ -46,7 +47,6 @@ class GuestModelTest(TestCase):
             test_guest.save()
 
     def test_find_guest(self):
-        from tests import context
         test_guest = context.app.model.Guest.Guest(**EXAMPLE_GUEST_1)
         test_guest_2 = context.app.model.Guest.Guest(**EXAMPLE_GUEST_2)                # Just so that we have a second value
         test_guest.save()
