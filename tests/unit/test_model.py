@@ -15,7 +15,7 @@ class AdminModelTest(TestCase):
 
 
 @mock_dynamodb2
-@mock.patch.dict(os.environ, {"AWS_REGION": "us-west-1", "DYNAMO_TABLE": "fake-table"})
+@mock.patch.dict(os.environ, {"AWS_REGION": "us-west-1", "DYNAMO_TABLE": "placeholder"})
 class GuestModelTest(TestCase):
     def test_guest_default_values(self):
         test_guest = context.app.model.Guest.Guest()
