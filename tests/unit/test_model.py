@@ -5,7 +5,7 @@ import datetime
 import os
 
 with mock.patch.dict(os.environ, {"AWS_REGION": "us-west-1", "DYNAMO_TABLE": "fake-table"}):
-    with mock_dynamodb2:
+    with mock_dynamodb2():
         from tests import context
         from tests.guest_helper import EXAMPLE_GUEST_1, EXAMPLE_GUEST_2
 
