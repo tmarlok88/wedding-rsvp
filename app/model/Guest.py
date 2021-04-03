@@ -10,7 +10,7 @@ from pynamodb_attributes import UUIDAttribute
 
 class Guest(Model, UserMixin):
     class Meta:
-        table_name = os.getenv("DYNAMO_TABLE")
+        table_name = os.getenv("DYNAMO_TABLE", "placeholder")
         region = os.getenv("AWS_REGION")
         host = os.getenv("AWS_ENDPOINT_URL", None)
 
