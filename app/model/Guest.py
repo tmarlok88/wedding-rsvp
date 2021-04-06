@@ -12,6 +12,7 @@ class Guest(Model, UserMixin):
     class Meta:
         table_name = os.getenv("DYNAMO_TABLE")
         region = os.getenv("AWS_REGION")
+        host = os.getenv("AWS_ENDPOINT_URL", None)
 
     id = UUIDAttribute(hash_key=True, default=uuid.uuid4)
     email = UnicodeAttribute()

@@ -41,6 +41,7 @@ jobs:
       uses: actions-ecosystem/action-remove-labels@v1
       if: ${{ failure() || cancelled() }}
       with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
         labels: |
           lgtm
 
