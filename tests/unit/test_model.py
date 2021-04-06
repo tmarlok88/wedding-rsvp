@@ -4,10 +4,9 @@ from uuid import UUID
 import datetime
 import os
 
-with mock.patch.dict(os.environ, {"AWS_REGION": "us-west-1", "DYNAMO_TABLE": "fake-table"}):
-    with mock_dynamodb2():
-        from tests import context
-        from tests.guest_helper import EXAMPLE_GUEST_1, EXAMPLE_GUEST_2
+with mock.patch.dict(os.environ, {"AWS_REGION": "us-west-1", "DYNAMO_TABLE": "fake-table"}), mock_dynamodb2():
+    from tests import context
+    from tests.guest_helper import EXAMPLE_GUEST_1, EXAMPLE_GUEST_2
 
 
 class AdminModelTest(TestCase):
@@ -19,6 +18,9 @@ class AdminModelTest(TestCase):
 @mock_dynamodb2
 @mock.patch.dict(os.environ, {"AWS_REGION": "us-west-1", "DYNAMO_TABLE": "fake-table"})
 class GuestModelTest(TestCase):
+    def setUp(self) -> None:
+        context.app.model.Guest.Guest.create_table()
+
     def test_guest_default_values(self):
         test_guest = context.app.model.Guest.Guest()
         self.assertIsNotNone(UUID(str(test_guest.get_id()), version=4))
