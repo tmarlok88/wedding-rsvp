@@ -1,4 +1,4 @@
-from unittest import TestCase, mock
+from unittest import TestCase
 from test.support import EnvironmentVarGuard
 from moto import mock_dynamodb2
 from uuid import UUID
@@ -20,6 +20,8 @@ with env:
     @mock_dynamodb2
     class GuestModelTest(TestCase):
         def setUp(self) -> None:
+            import os
+            print(os.environ)
             context.app.model.Guest.Guest.create_table()
 
         def test_guest_default_values(self):
