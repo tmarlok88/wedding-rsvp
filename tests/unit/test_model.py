@@ -1,10 +1,13 @@
 from unittest import TestCase, mock
+from test.support import EnvironmentVarGuard
 from moto import mock_dynamodb2
 from uuid import UUID
 import datetime
-import os
 
-with mock.patch.dict(os.environ, {"AWS_REGION": "us-west-1", "DYNAMO_TABLE": "fake-table"}):
+env = EnvironmentVarGuard()
+env.set('DYNAMO_TABLE', 'test_table')
+env.set('AWS_REGION', 'us-west-1')
+with env:
     from tests import context
     from tests.guest_helper import EXAMPLE_GUEST_1, EXAMPLE_GUEST_2
 
