@@ -1,12 +1,10 @@
-from unittest import TestCase, mock
-import os
+from unittest import TestCase
 from moto import mock_dynamodb2
 from uuid import UUID
 import datetime
 
-with mock.patch.dict(os.environ, {"AWS_REGION": "us-west-1", "DYNAMO_TABLE": "fake-table"}):
-    from tests import context
-    from tests.guest_helper import EXAMPLE_GUEST_1, EXAMPLE_GUEST_2
+from tests import context
+from tests.guest_helper import EXAMPLE_GUEST_1, EXAMPLE_GUEST_2
 
 
 class AdminModelTest(TestCase):
@@ -16,12 +14,9 @@ class AdminModelTest(TestCase):
 
 
 @mock_dynamodb2
-@mock.patch.dict(os.environ, {"AWS_REGION": "us-west-1", "DYNAMO_TABLE": "fake-table"})
 class GuestModelTest(TestCase):
     def setUp(self) -> None:
-        with mock.patch.dict(os.environ, {"AWS_REGION": "us-west-1", "DYNAMO_TABLE": "fake-table"}):
-            print(context.app.model.Guest.Guest.Meta.table_name)
-            context.app.model.Guest.Guest.create_table()
+        context.app.model.Guest.Guest.create_table()
 
     def test_guest_default_values(self):
         test_guest = context.app.model.Guest.Guest()
