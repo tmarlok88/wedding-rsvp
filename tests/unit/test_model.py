@@ -20,9 +20,7 @@ class AdminModelTest(TestCase):
 class GuestModelTest(TestCase):
     def setUp(self) -> None:
         with mock.patch.dict(os.environ, {"AWS_REGION": "us-west-1", "DYNAMO_TABLE": "fake-table"}):
-            print(os.environ)
-            print(os.getenv("DYNAMO_TABLE"))
-
+            print(context.app.model.Guest.Guest.Meta.table_name)
             context.app.model.Guest.Guest.create_table()
 
     def test_guest_default_values(self):
