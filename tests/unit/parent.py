@@ -1,6 +1,3 @@
-import os
-import mock
-
 from flask_testing import TestCase
 from test.support import EnvironmentVarGuard
 

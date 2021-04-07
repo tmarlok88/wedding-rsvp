@@ -1,8 +1,7 @@
-from unittest import TestCase, mock
+from unittest import TestCase
 from moto import mock_dynamodb2
 from uuid import UUID
 import datetime
-import os
 
 from tests import context
 from tests.guest_helper import EXAMPLE_GUEST_1, EXAMPLE_GUEST_2
@@ -16,6 +15,9 @@ class AdminModelTest(TestCase):
 
 @mock_dynamodb2
 class GuestModelTest(TestCase):
+    def setUp(self) -> None:
+        context.app.model.Guest.Guest.create_table()
+
     def test_guest_default_values(self):
         test_guest = context.app.model.Guest.Guest()
         self.assertIsNotNone(UUID(str(test_guest.get_id()), version=4))
@@ -24,8 +26,7 @@ class GuestModelTest(TestCase):
     def test_guest_create_from_json(self):
         test_guest = context.app.model.Guest.Guest(**EXAMPLE_GUEST_1)
         test_guest_dict = test_guest.attribute_values
-        with mock.patch.dict(os.environ, {"AWS_REGION": "us-west-1", "DYNAMO_TABLE": "fake-table"}):
-            test_guest.save()
+        test_guest.save()
 
         test_guest_dict.pop("id")               # filled_by_default
         test_guest_dict.pop("filled_by_admin")  # filled_by_default
@@ -48,16 +49,14 @@ class GuestModelTest(TestCase):
     def test_find_guest(self):
         test_guest = context.app.model.Guest.Guest(**EXAMPLE_GUEST_1)
         test_guest_2 = context.app.model.Guest.Guest(**EXAMPLE_GUEST_2)                # Just so that we have a second value
-        with mock.patch.dict(os.environ, {"AWS_REGION": "us-west-1", "DYNAMO_TABLE": "fake-table"}):
-            test_guest.save()
-            test_guest_2.save()
-            found_guest = context.app.model.Guest.Guest.find(test_guest.get_id())
-            self.assertDictEqual(test_guest.attribute_values, found_guest.attribute_values)
+        test_guest.save()
+        test_guest_2.save()
+        found_guest = context.app.model.Guest.Guest.find(test_guest.get_id())
+        self.assertDictEqual(test_guest.attribute_values, found_guest.attribute_values)
 
     def test_find_non_existing_guest(self):
         test_guest = context.app.model.Guest.Guest(**EXAMPLE_GUEST_1)
         test_guest_2 = context.app.model.Guest.Guest(**EXAMPLE_GUEST_2)                # Just so that we have a second value
-        with mock.patch.dict(os.environ, {"AWS_REGION": "us-west-1", "DYNAMO_TABLE": "fake-table"}):
-            test_guest_2.save()
-            found_guest = context.app.model.Guest.Guest.find(test_guest.get_id())
-            self.assertIsNone(found_guest)
+        test_guest_2.save()
+        found_guest = context.app.model.Guest.Guest.find(test_guest.get_id())
+        self.assertIsNone(found_guest)

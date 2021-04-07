@@ -117,11 +117,12 @@ provider:
     RECAPTCHA_PRIVATE_KEY: ${env:RECAPTCHA_PRIVATE_KEY}
     SENDER_EMAIL_ADDRESS: ${env:SENDER_EMAIL_ADDRESS}
     PERSONALIZE_SRC_FILE: ${env:PERSONALIZE_SRC_FILE}
-    STATIC_URL_PATH: "${cf:wedding-rsvp-permanentResources.StaticBucketDNS, 'dummy'}"
+    STATIC_URL_PATH: "${cf:wedding-rsvp-static-resources.StaticBucketDNS, 'dummy'}"
     ENVIRONMENT: ${env:ENVIRONMENT, self:custom.environment}
     USE_RECAPTCHA_FOR_GUEST: ${env:USE_RECAPTCHA_FOR_GUEST, 'True'}
     USE_RECAPTCHA_FOR_ADMIN: ${env:USE_RECAPTCHA_FOR_ADMIN, 'True'}
     MAPS_API_KEY: ${env:MAPS_API_KEY}
+    LANGUAGE: ${env:LANGUAGE, 'None'}
 functions:
   app:
     handler: wsgi_handler.handler

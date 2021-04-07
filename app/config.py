@@ -14,3 +14,4 @@ class Config(object):
     CDN_DOMAIN = os.environ.get('STATIC_URL_PATH')
     CDN_TIMESTAMP = False
     CDN_HTTPS = True
+    LANGUAGE = os.environ.get('LANGUAGE')
