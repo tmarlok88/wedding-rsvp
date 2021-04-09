@@ -4,7 +4,7 @@ from moto import mock_dynamodb2, mock_ses
 
 from parent import ParentTest
 
-from tests.guest_helper import save_guest, EXAMPLE_GUEST_1, EXAMPLE_GUEST_2
+from tests.guest_helper import save_guest, EXAMPLE_GUEST_1, EXAMPLE_GUEST_2, clear_all_guests
 
 
 @mock.patch.dict(os.environ, {"AWS_REGION": "eu-central-1", "SENDER_EMAIL_ADDRESS": "sender@example.com"})
@@ -17,15 +17,19 @@ class TestAdminSendMail(ParentTest):
         Guest.create_table()
         return app
 
+    def setUp(self) -> None:
+        save_guest(EXAMPLE_GUEST_1)
+        save_guest(EXAMPLE_GUEST_2)
+
+    def tearDown(self) -> None:
+        clear_all_guests()
+
     def test_email_sender_page(self):
         response = self.client.get("/admin/email_sender")
         self.assertIn("Send mail", response.data.decode("utf-8"))
         self.assert_template_used("email_sender.html")
 
     def test_email_sender_page_recipient_list(self):
-        save_guest(EXAMPLE_GUEST_1)
-        save_guest(EXAMPLE_GUEST_2)
-
         response = self.client.get("/admin/email_sender")
 
         self.assertIn(EXAMPLE_GUEST_1["name"], response.data.decode("utf-8"))
