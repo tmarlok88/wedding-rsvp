@@ -4,7 +4,7 @@ from uuid import UUID
 import datetime
 
 from tests import context
-from tests.guest_helper import EXAMPLE_GUEST_1, EXAMPLE_GUEST_2
+from tests.guest_helper import EXAMPLE_GUEST_1, EXAMPLE_GUEST_2, clear_all_guests
 
 
 class AdminModelTest(TestCase):
@@ -17,6 +17,9 @@ class AdminModelTest(TestCase):
 class GuestModelTest(TestCase):
     def setUp(self) -> None:
         context.app.model.Guest.Guest.create_table()
+
+    def tearDown(self) -> None:
+        clear_all_guests()
 
     def test_guest_default_values(self):
         test_guest = context.app.model.Guest.Guest()

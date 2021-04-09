@@ -1,6 +1,6 @@
 import os
 
-from flask import render_template, redirect, url_for, abort, flash
+from flask import render_template, redirect, url_for, abort, flash, request, Response
 from flask_babel import _
 from flask_login import login_required
 from flask_login import login_user, logout_user
@@ -10,6 +10,7 @@ from app.admin.forms import GuestForm, LoginForm, EmailForm
 from app.model.Admin import Admin
 from app.model.Guest import Guest
 from app.services.EmailSender import EmailSender
+from app.services.CSVHandler import CSVHandler
 
 
 @admin.route('/', methods=['GET'])
@@ -95,3 +96,21 @@ def email_sender():
             flash(_("E-mails couldn't be sent"))
 
     return render_template('email_sender.html', title=_('Send mail'), form=form)
+
+
+@admin.route('/guest/import', methods=['POST'])
+@login_required
+def import_guests():
+    if CSVHandler.import_csv(request.files["csv_file"].read().decode("utf-8")):
+        flash("Guest list imported successfully")
+    else:
+        flash("Guest list import was unsuccessful", category="error")
+    return redirect(url_for("admin.list_guest"))
+
+
+@admin.route('/guest/export', methods=['GET'])
+@login_required
+def export_guests():
+    response = Response(CSVHandler.export_csv().getvalue(), mimetype='text/csv')
+    response.headers.set("Content-Disposition", "attachment", filename="guests.csv")
+    return response

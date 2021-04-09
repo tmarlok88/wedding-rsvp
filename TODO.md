@@ -6,7 +6,7 @@
 * ~~test for mail_sender service~~
 * ~~bind api gw to domain name~~
 * ~~clean up serverless.yaml~~
-* proper rsvp page
+* ~~proper rsvp page~~
     * ~~clean up unnecessary cdn imports~~
     * ~~fix 404 error page~~
     * ~~form validation~~
@@ -16,7 +16,7 @@
     * ~~auto forward after captcha~~
     * ~~save the date to google calendar~~
     * ~~descriptions in form~~
-* customization
+* ~~customization~~
 * proper captcha page
 * ~~translation~~
 * unsubscribe and delete my data
