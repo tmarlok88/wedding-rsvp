@@ -89,7 +89,7 @@ def email_sender():
     form = EmailForm()
     form.recipients.choices.extend([(str(g.id), g.name) for g in Guest.scan()])
     if form.validate_on_submit():
-        footer = _l("Your RSVP link: {url_root}rsvp/{{id}}\nUnsubscribe and delete my data: {url_root}rsvp/unsubscribe/{{id}}".format(request.url_root))
+        footer = _l("Your RSVP link: {url_root}rsvp/{{id}}\nUnsubscribe and delete my data: {url_root}rsvp/unsubscribe/{{id}}".format(url_root=request.url_root))
         emailsender = EmailSender(os.getenv("AWS_REGION"), os.getenv("SENDER_EMAIL_ADDRESS"), footer_template=footer)
         if "all" in form.recipients.data:
             guests = Guest.scan()

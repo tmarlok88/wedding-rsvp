@@ -71,7 +71,6 @@ msgid "Send To"
 msgstr "Címzett"
 
 #: app/admin/forms.py:59
-#, fuzzy
 msgid "Send to all"
 msgstr "Küldés mindenkinek"
 
@@ -118,12 +117,12 @@ msgstr ""
 #: app/admin/views.py:100
 #, fuzzy
 msgid "{success_length} E-mails sent successfully"
-msgstr "E-mail-ek sikeresen elküldve"
+msgstr "{success_length} E-mail sikeresen elküldve"
 
 #: app/admin/views.py:102
 #, fuzzy
 msgid "{failed_length} E-mails couldn't be sent"
-msgstr "E-mail-ek küldése sikertelen"
+msgstr "{failed_length} E-mail küldése sikertelen"
 
 #: app/admin/views.py:104
 msgid "Send mail"

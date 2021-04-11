@@ -1,5 +1,5 @@
 from flask import current_app
-from flask_babel import lazy_gettext as _l
+from flask_babel import lazy_gettext as _l, _
 from flask_wtf import FlaskForm, RecaptchaField
 from werkzeug.security import check_password_hash
 from wtforms import StringField, SubmitField, BooleanField, PasswordField, TextAreaField, \
@@ -56,6 +56,6 @@ class EmailForm(FlaskForm):
     subject = StringField(_l('Subject'), validators=[DataRequired()])
     recipients = SelectMultipleField(_l('Send To'), validators=[DataRequired()],
                                      render_kw={'multiple': None, 'data-live-search': "true", 'class': "selectpicker"},
-                                     choices=[("all", _l("Send to all"))])
+                                     choices=[("all", _("Send to all"))])
     body = TextAreaField(_l('E-mail body'), validators=[DataRequired()])
     submit = SubmitField(_l('Send'))
