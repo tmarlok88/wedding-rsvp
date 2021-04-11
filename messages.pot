@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2021-04-11 17:01+0200\n"
+"POT-Creation-Date: 2021-04-11 18:07+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -108,7 +108,8 @@ msgstr ""
 #: app/admin/views.py:92
 msgid ""
 "Your RSVP link: {url_root}rsvp/{{id}}\n"
-"Unsubscribe and delete my data: {url_root}rsvp/unsubscribe/{{id}}"
+"Unsubscribe and delete my data: "
+"{url_root}rsvp/unsubscribe/{{id}}?email={{email}}"
 msgstr ""
 
 #: app/admin/views.py:100
@@ -253,5 +254,15 @@ msgstr ""
 
 #: app/rsvp/templates/rsvp.html:201
 msgid "Click on the location pin for more information."
+msgstr ""
+
+#: app/rsvp/templates/unsubscribe.html:5
+msgid "Goodbye!"
+msgstr ""
+
+#: app/rsvp/templates/unsubscribe.html:17
+msgid ""
+"All of your data is removed from the database and you will not get any "
+"massage in the future"
 msgstr ""
 

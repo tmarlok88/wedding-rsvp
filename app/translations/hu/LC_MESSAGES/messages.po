@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2021-04-11 17:01+0200\n"
+"POT-Creation-Date: 2021-04-11 18:07+0200\n"
 "PO-Revision-Date: 2020-12-30 12:51+0100\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: hu\n"
@@ -107,12 +107,14 @@ msgid "Invalid username or password"
 msgstr "Érvenytelen felhasználónév vagy jelszó"
 
 #: app/admin/views.py:92
+#, fuzzy
 msgid ""
 "Your RSVP link: {url_root}rsvp/{{id}}\n"
-"Unsubscribe and delete my data: {url_root}rsvp/unsubscribe/{{id}}"
+"Unsubscribe and delete my data: "
+"{url_root}rsvp/unsubscribe/{{id}}?email={{email}}"
 msgstr ""
 "A meghívód elérhetősége: {url_root}rsvp/{{id}}\n"
-"Leiratkozás és adataim törlése: {url_root}rsvp/unsubscribe/{{id}}"
+"Leiratkozás és adataim törlése: {url_root}rsvp/unsubscribe/{{id}}?email={{email}}"
 
 #: app/admin/views.py:100
 #, fuzzy
@@ -260,4 +262,15 @@ msgstr "A különböző események helyszínei"
 
 #: app/rsvp/templates/rsvp.html:201
 msgid "Click on the location pin for more information."
-msgstr "Kattints a helszínre bővebb információért"
+msgstr "Kattints a helyszínre bővebb információért"
+
+#: app/rsvp/templates/unsubscribe.html:5
+msgid "Goodbye!"
+msgstr "Viszlát!"
+
+#: app/rsvp/templates/unsubscribe.html:17
+msgid ""
+"All of your data is removed from the database and you will not get any "
+"message in the future"
+msgstr "Minden adatod törölve az adatbázisból, nem fogsz több üzenetet kapni"
+
