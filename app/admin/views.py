@@ -97,7 +97,7 @@ def email_sender():
             guests = Guest.find_multi_id(form.recipients.data)
         success, failed = emailsender.send_emails(guests, form.subject.data, form.body.data)
         if success:
-            flash(_("{success_length} E-mails sent successfully".format(success_length=len(failed))), "success")
+            flash(_("{success_length} E-mails sent successfully".format(success_length=len(success))), "success")
         if failed:
             flash(_("{failed_length} E-mails couldn't be sent".format(failed_length=len(failed))), "warning")
 
