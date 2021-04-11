@@ -35,3 +35,10 @@ class Guest(Model, UserMixin):
             return Guest.get(guest_id)
         except DoesNotExist:
             return None
+
+    @staticmethod
+    def find_multi_id(guest_ids: list) -> iter:
+        try:
+            return Guest.batch_get(guest_ids)
+        except DoesNotExist:
+            return []

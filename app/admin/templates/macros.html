@@ -11,7 +11,7 @@
             <div class="col-sm-2"></div>
             <div class="col-sm-5">
                 <div class="form-check">
-                    {{ form[field](class_="form-check-input") }} {{ form[field].label(class="form-check-label") }}<br/>
+                    {{ form[field](class_="form-check-input") }} {{ form[field].label(class_="form-check-label") }}<br/>
                 </div>
             </div>
         </div>
@@ -22,7 +22,7 @@
         {% else %}
         <div class="form-group row">
             {{ form[field].label(class="col-sm-2 col-form-label") }}
-            <div class="col-sm-5">{{ form[field](class="form-control", **kwargs) }}
+            <div class="col-sm-5">{{ form[field](class_="form-control", **kwargs) }}
             {% if form[field].errors %}
                 {% for error in form[field].errors %}
             <div class="invalid-feedback">{{ error }}</div>

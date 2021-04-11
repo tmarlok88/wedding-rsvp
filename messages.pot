@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2021-03-30 18:39+0200\n"
+"POT-Creation-Date: 2021-04-11 17:01+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,11 +17,11 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.9.0\n"
 
-#: app/admin/forms.py:15 app/admin/templates/guest_list.html:16
+#: app/admin/forms.py:15 app/admin/templates/guest_list.html:34
 msgid "Name"
 msgstr ""
 
-#: app/admin/forms.py:16 app/admin/templates/guest_list.html:17
+#: app/admin/forms.py:16 app/admin/templates/guest_list.html:35
 msgid "E-mail"
 msgstr ""
 
@@ -57,7 +57,7 @@ msgstr ""
 msgid "Remember Me"
 msgstr ""
 
-#: app/admin/forms.py:49 app/admin/views.py:76
+#: app/admin/forms.py:49 app/admin/views.py:77
 msgid "Sign In"
 msgstr ""
 
@@ -69,6 +69,10 @@ msgstr ""
 msgid "Send To"
 msgstr ""
 
+#: app/admin/forms.py:59
+msgid "Send to all"
+msgstr ""
+
 #: app/admin/forms.py:60
 msgid "E-mail body"
 msgstr ""
@@ -77,39 +81,45 @@ msgstr ""
 msgid "Send"
 msgstr ""
 
-#: app/admin/views.py:18
+#: app/admin/views.py:19
 msgid "Admin page"
 msgstr ""
 
-#: app/admin/views.py:32
+#: app/admin/views.py:33
 msgid "Add guest"
 msgstr ""
 
-#: app/admin/views.py:46
+#: app/admin/views.py:47
 msgid "Edit guest"
 msgstr ""
 
-#: app/admin/templates/admin_base.html:24 app/admin/views.py:53
+#: app/admin/templates/admin_base.html:24 app/admin/views.py:54
 msgid "Guest list"
 msgstr ""
 
-#: app/admin/views.py:61
+#: app/admin/views.py:62
 msgid "Guest {} removed"
 msgstr ""
 
-#: app/admin/views.py:72
+#: app/admin/views.py:73
 msgid "Invalid username or password"
 msgstr ""
 
-#: app/admin/views.py:93
-msgid "E-mails sent successfully"
+#: app/admin/views.py:92
+msgid ""
+"Your RSVP link: {url_root}rsvp/{{id}}\n"
+"Unsubscribe and delete my data: {url_root}rsvp/unsubscribe/{{id}}"
 msgstr ""
 
-#: app/admin/views.py:95
-msgid "E-mails couldn't be sent"
+#: app/admin/views.py:100
+msgid "{success_length} E-mails sent successfully"
 msgstr ""
 
-#: app/admin/views.py:97
+#: app/admin/views.py:102
+msgid "{failed_length} E-mails couldn't be sent"
+msgstr ""
+
+#: app/admin/views.py:104
 msgid "Send mail"
 msgstr ""
 
@@ -134,26 +144,34 @@ msgid "Logout"
 msgstr ""
 
 #: app/admin/templates/guest_list.html:18
-msgid "Guest count"
-msgstr ""
-
-#: app/admin/templates/guest_list.html:19
-msgid "Viewed"
-msgstr ""
-
-#: app/admin/templates/guest_list.html:20
-msgid "Responded"
-msgstr ""
-
-#: app/admin/templates/guest_list.html:21
-msgid "Edit"
+msgid "Choose file"
 msgstr ""
 
 #: app/admin/templates/guest_list.html:22
+msgid "Import"
+msgstr ""
+
+#: app/admin/templates/guest_list.html:36
+msgid "Guest count"
+msgstr ""
+
+#: app/admin/templates/guest_list.html:37
+msgid "Viewed"
+msgstr ""
+
+#: app/admin/templates/guest_list.html:38
+msgid "Responded"
+msgstr ""
+
+#: app/admin/templates/guest_list.html:39
+msgid "Edit"
+msgstr ""
+
+#: app/admin/templates/guest_list.html:40
 msgid "Delete"
 msgstr ""
 
-#: app/admin/templates/guest_list.html:56
+#: app/admin/templates/guest_list.html:78
 msgid "Add"
 msgstr ""
 

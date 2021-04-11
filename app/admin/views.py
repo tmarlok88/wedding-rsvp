@@ -1,7 +1,7 @@
 import os
 
 from flask import render_template, redirect, url_for, abort, flash, request, Response
-from flask_babel import _
+from flask_babel import _, lazy_gettext as _l
 from flask_login import login_required
 from flask_login import login_user, logout_user
 
@@ -87,13 +87,19 @@ def logout():
 @login_required
 def email_sender():
     form = EmailForm()
-    form.recipients.choices = [(g.email, g.name) for g in Guest.scan()]
+    form.recipients.choices.extend([(str(g.id), g.name) for g in Guest.scan()])
     if form.validate_on_submit():
-        emailsender = EmailSender(os.getenv("AWS_REGION"), os.getenv("SENDER_EMAIL_ADDRESS"))
-        if emailsender.send_email(form.recipients.data, form.subject.data, form.body.data):
-            flash(_("E-mails sent successfully"))
+        footer = _l("Your RSVP link: {url_root}rsvp/{{id}}\nUnsubscribe and delete my data: {url_root}rsvp/unsubscribe/{{id}}".format(request.url_root))
+        emailsender = EmailSender(os.getenv("AWS_REGION"), os.getenv("SENDER_EMAIL_ADDRESS"), footer_template=footer)
+        if "all" in form.recipients.data:
+            guests = Guest.scan()
         else:
-            flash(_("E-mails couldn't be sent"))
+            guests = Guest.find_multi_id(form.recipients.data)
+        success, failed = emailsender.send_emails(guests, form.subject.data, form.body.data)
+        if success:
+            flash(_("{success_length} E-mails sent successfully".format(success_length=len(failed))), "success")
+        if failed:
+            flash(_("{failed_length} E-mails couldn't be sent".format(failed_length=len(failed))), "warning")
 
     return render_template('email_sender.html', title=_('Send mail'), form=form)
 
@@ -102,9 +108,9 @@ def email_sender():
 @login_required
 def import_guests():
     if CSVHandler.import_csv(request.files["csv_file"].read().decode("utf-8")):
-        flash("Guest list imported successfully")
+        flash("Guest list imported successfully", "success")
     else:
-        flash("Guest list import was unsuccessful", category="error")
+        flash("Guest list import was unsuccessful", "error")
     return redirect(url_for("admin.list_guest"))
 
 

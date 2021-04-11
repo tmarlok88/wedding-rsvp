@@ -19,9 +19,12 @@
 * ~~customization~~
 * proper captcha page
 * ~~translation~~
-* unsubscribe and delete my data
-* csv upload, export
-* html e-mail skeleton
+* ~~csv upload, export~~
+* e-mail sending
+  * ~~send to all~~
+  * ~~unique rsvp link~~
+  * unsubscribe link
+  * html template
 * pdf generation
 * admin dashboard
 * github actions

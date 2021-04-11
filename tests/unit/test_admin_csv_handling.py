@@ -24,7 +24,7 @@ class TestAdminCSVHandling(ParentTest):
         guests = list_guests()
 
         self.assertRedirects(response, "/admin/guest/list")
-        self.assertMessageFlashed("Guest list imported successfully")
+        self.assertMessageFlashed("Guest list imported successfully", "success")
         self.assertEqual(["testmail@testddomain.tld", "alfa@beta.gamma"], [guest.email for guest in guests])
         self.assertEqual(["Test user", "Mock family"], [guest.name for guest in guests])
 

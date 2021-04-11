@@ -56,6 +56,6 @@ class EmailForm(FlaskForm):
     subject = StringField(_l('Subject'), validators=[DataRequired()])
     recipients = SelectMultipleField(_l('Send To'), validators=[DataRequired()],
                                      render_kw={'multiple': None, 'data-live-search': "true", 'class': "selectpicker"},
-                                     choices=[])
+                                     choices=[("all", _l("Send to all"))])
     body = TextAreaField(_l('E-mail body'), validators=[DataRequired()])
     submit = SubmitField(_l('Send'))
