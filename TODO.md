@@ -17,10 +17,10 @@
     * ~~save the date to google calendar~~
     * ~~descriptions in form~~
 * ~~customization~~
-* proper captcha page
+* ~~proper captcha page~~
 * ~~translation~~
 * ~~csv upload, export~~
-* e-mail sending
+* ~~e-mail sending~~
   * ~~send to all~~
   * ~~unique rsvp link~~
   * ~~unsubscribe link~~
