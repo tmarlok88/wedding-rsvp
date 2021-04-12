@@ -35,7 +35,8 @@ class EmailSender:
 
             self.server.sendmail(self.sender, recipient, msg.as_string())
             return True
-        except Exception:
+        except Exception as exception:
+            print(exception)
             return False
 
     @staticmethod
