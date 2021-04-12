@@ -69,7 +69,7 @@ jobs:
         PERSONALIZE_SRC_FILE: app/personalize/rsvp_content.yaml
         MAPS_API_KEY: ${{ secrets.MAPS_API_KEY }}
         LANGUAGE: hu
-        SENDER_EMAIL_PASSWORD: ${{ secrets.MAPS_API_KEY }}
+        SENDER_EMAIL_PASSWORD: ${{ secrets.SENDER_EMAIL_PASSWORD }}
         SENDER_SMTP_SERVER: smtp.gmail.com
     - name: serverless deploy
       run: ./node_modules/serverless/bin/serverless.js deploy --stage production --skip-additionalstacks
@@ -88,5 +88,5 @@ jobs:
         PERSONALIZE_SRC_FILE: app/personalize/rsvp_content.yaml
         MAPS_API_KEY: ${{ secrets.MAPS_API_KEY }}
         LANGUAGE: hu
-        SENDER_EMAIL_PASSWORD: ${{ secrets.MAPS_API_KEY }}
+        SENDER_EMAIL_PASSWORD: ${{ secrets.SENDER_EMAIL_PASSWORD }}
         SENDER_SMTP_SERVER: smtp.gmail.com
