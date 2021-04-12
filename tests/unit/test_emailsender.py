@@ -1,13 +1,15 @@
+import base64
+import binascii
 from unittest import TestCase, mock
 
 from tests import context
 from tests.guest_helper import EXAMPLE_GUEST_1
 
 
-@mock.patch("boto3.client")
+@mock.patch("smtplib.SMTP_SSL")
 class EmailSenderTest(TestCase):
     def test_send_email(self, client_mock):
-        sender = context.app.services.EmailSender.EmailSender('eu-central-1', 'fake@sender.address')
+        sender = context.app.services.EmailSender.EmailSender('some.fake.address', 'fake@sender.address', 'testpass')
         sendmail = sender.send_email('recipient1@address.com', "Test email", "Mail body")
         self.assertTrue(sendmail)
 
@@ -16,14 +18,16 @@ class EmailSenderTest(TestCase):
 
         footer = "rsvp: https://test.tld/rsvp/{id}\nunsubscribe: https://test.tld/rsvp/unsubscribe/{id}"
         expected_body = f'Mail body {test_guest.name}\n---\n'+footer.format(**test_guest.attribute_values)
-        sender = context.app.services.EmailSender.EmailSender('eu-central-1', 'fake@sender.address',
+
+        sender = context.app.services.EmailSender.EmailSender('some.fake.address', 'fake@sender.address', 'testpass',
                                                               footer_template=footer)
         sendmail = sender.send_emails([test_guest], "Test email", "Mail body {name}")
+
         self.assertTrue(sendmail)
-        client_mock.assert_has_calls([mock.call().send_email(Destination={'ToAddresses': ['fake@mail.com']},
-                                                             Message={'Body': {'Text': {'Charset': 'UTF-8',
-                                                                                        'Data': expected_body}},
-                                                                      'Subject': {'Charset': 'UTF-8',
-                                                                                  'Data': 'Test email'}},
-                                                             Source='fake@sender.address')])
+        for call in client_mock.mock_calls:
+            if call[0] == '().sendmail':
+                self.assertEqual(call[1][0], 'fake@sender.address')
+                self.assertEqual(call[1][1], 'fake@mail.com')
+                self.assertIn(base64.b64encode(expected_body.encode('UTF-8')).decode("UTF-8"),
+                              call[1][2].replace("\n", ""))
 

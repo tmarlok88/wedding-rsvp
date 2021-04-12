@@ -1,13 +1,16 @@
-import boto3
-from botocore.exceptions import ClientError
+import smtplib
+import ssl
+from email.mime.text import MIMEText
+from email.mime.multipart import MIMEMultipart
 
 
 class EmailSender:
-    def __init__(self, region: str, sender: str, html_template: str = None, footer_template: str = None):
-        self.client = boto3.client('ses', region_name=region)
+    def __init__(self, smtp_server: str, sender: str, password: str,
+                 footer_template: str = None):
+        context = ssl.create_default_context()
+        self.server = smtplib.SMTP_SSL(smtp_server, 465, context=context)
+        self.server.login(sender, password)
         self.sender = sender
-
-        self.html_template = html_template
         self.footer_template = footer_template
 
     def send_emails(self, recipients: list, subject, body) -> (list, list):
@@ -23,35 +26,17 @@ class EmailSender:
                 fail.append(guest.email)
         return success, fail
 
-    def send_email(self, recipient: str, subject: str, body: str, html_body: str = None) -> bool:
+    def send_email(self, recipient: str, subject: str, body: str) -> bool:
         try:
-            self.client.send_email(
-                Destination={
-                    'ToAddresses': [recipient],
-                },
-                Message={
-                    'Body': {
-                        # 'Html': {
-                        #     'Charset': "UTF-8",
-                        #     'Data': BODY_HTML,
-                        # },
-                        'Text': {
-                            'Charset': "UTF-8",
-                            'Data': body,
-                        },
-                    },
-                    'Subject': {
-                        'Charset': "UTF-8",
-                        'Data': subject,
-                    },
-                },
-                Source=self.sender,
-            )
-        except ClientError as e:
-            print(str(e))
-            return False
-        else:
+            msg = MIMEMultipart()
+            msg['Subject'] = subject
+            msg['From'] = self.sender
+            msg.attach(MIMEText(body, 'plain', _charset="UTF-8"))
+
+            self.server.sendmail(self.sender, recipient, msg.as_string())
             return True
+        except Exception:
+            return False
 
     @staticmethod
     def generate_text(template: str, **kwargs):

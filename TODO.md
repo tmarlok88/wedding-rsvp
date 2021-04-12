@@ -23,8 +23,7 @@
 * e-mail sending
   * ~~send to all~~
   * ~~unique rsvp link~~
-  * unsubscribe link
-  * html template
+  * ~~unsubscribe link~~
 * pdf generation
 * admin dashboard
 * github actions

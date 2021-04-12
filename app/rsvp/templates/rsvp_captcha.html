@@ -1,11 +1,35 @@
-<script>
-    function onSubmitCallback(token) {
-        document.getElementById("rsvp-captcha").submit();
-    }
-</script>
-<form id="rsvp-captcha" action="" method="post" novalidate>
-    {{ form.hidden_tag() }}
-    <p>
-        {{ form.recaptcha }} <br/>
-    </p>
-</form>
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>
+        {{_("Captcha")}}
+    </title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css" rel="stylesheet">
+
+    <link href="{{ url_for('static', filename='css/rsvp.css') }}" rel="stylesheet">
+
+</head>
+<body>
+<div class="container">
+    <div class="row" style="padding-top: 10%">
+        <div class="col-sm-4 col-md-offset-4">
+            <script>
+                    function onSubmitCallback(token) {
+                        document.getElementById("rsvp-captcha").submit();
+                    }
+            </script>
+            <p>
+                {{_("Please tick this to take you to your RSVP page")}}
+            </p>
+            <form id="rsvp-captcha" action="" method="post" novalidate>
+                {{ form.hidden_tag() }}
+                <p>
+                    {{ form.recaptcha }} <br/>
+                </p>
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+</html>
