@@ -109,8 +109,9 @@ jobs:
         SENDER_EMAIL_ADDRESS: ${{ secrets.SENDER_EMAIL_ADDRESS }}
         PERSONALIZE_SRC_FILE: app/personalize/rsvp_content.yaml
         MAPS_API_KEY: ${{ secrets.MAPS_API_KEY }}
-        SENDER_EMAIL_PASSWORD: ${{ secrets.SENDER_EMAIL_PASSWORD }}
-        SENDER_SMTP_SERVER: smtp.gmail.com
+        SMTP_PASSWORD: ${{ secrets.SMTP_PASSWORD }}
+        SMTP_USER: apikey
+        SENDER_SMTP_SERVER: smtp.sendgrid.net
         LANGUAGE: hu
     - name: serverless deploy
       run: ./node_modules/serverless/bin/serverless.js deploy --stage stage --skip-additionalstacks
@@ -129,8 +130,9 @@ jobs:
         PERSONALIZE_SRC_FILE: app/personalize/rsvp_content.yaml
         MAPS_API_KEY: ${{ secrets.MAPS_API_KEY }}
         LANGUAGE: hu
-        SENDER_EMAIL_PASSWORD: ${{ secrets.SENDER_EMAIL_PASSWORD }}
-        SENDER_SMTP_SERVER: smtp.gmail.com
+        SMTP_PASSWORD: ${{ secrets.SMTP_PASSWORD }}
+        SMTP_USER: apikey
+        SENDER_SMTP_SERVER: smtp.sendgrid.net
     - name: "remove LGTM label"
       uses: actions-ecosystem/action-remove-labels@v1
       if: ${{ failure() || cancelled() }}

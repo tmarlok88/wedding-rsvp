@@ -9,7 +9,8 @@ from tests.guest_helper import EXAMPLE_GUEST_1
 @mock.patch("smtplib.SMTP_SSL")
 class EmailSenderTest(TestCase):
     def test_send_email(self, client_mock):
-        sender = context.app.services.EmailSender.EmailSender('some.fake.address', 'fake@sender.address', 'testpass')
+        sender = context.app.services.EmailSender.EmailSender('some.fake.address', 'fake@sender.address', 'testuser',
+                                                              'testpass')
         sendmail = sender.send_email('recipient1@address.com', "Test email", "Mail body")
         self.assertTrue(sendmail)
 
@@ -19,8 +20,8 @@ class EmailSenderTest(TestCase):
         footer = "rsvp: https://test.tld/rsvp/{id}\nunsubscribe: https://test.tld/rsvp/unsubscribe/{id}"
         expected_body = f'Mail body {test_guest.name}\n---\n'+footer.format(**test_guest.attribute_values)
 
-        sender = context.app.services.EmailSender.EmailSender('some.fake.address', 'fake@sender.address', 'testpass',
-                                                              footer_template=footer)
+        sender = context.app.services.EmailSender.EmailSender('some.fake.address', 'fake@sender.address', 'testuser',
+                                                              'testpass', footer_template=footer)
         sendmail = sender.send_emails([test_guest], "Test email", "Mail body {name}")
 
         self.assertTrue(sendmail)

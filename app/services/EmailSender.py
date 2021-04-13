@@ -5,11 +5,10 @@ from email.mime.multipart import MIMEMultipart
 
 
 class EmailSender:
-    def __init__(self, smtp_server: str, sender: str, password: str,
-                 footer_template: str = None):
+    def __init__(self, smtp_server: str, sender: str, smtp_user: str, password: str, footer_template: str = None):
         context = ssl.create_default_context()
         self.server = smtplib.SMTP_SSL(smtp_server, 465, context=context)
-        self.server.login(sender, password)
+        self.server.login(smtp_user, password)
         self.sender = sender
         self.footer_template = footer_template
 
