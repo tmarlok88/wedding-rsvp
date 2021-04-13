@@ -125,7 +125,7 @@ provider:
     MAPS_API_KEY: ${env:MAPS_API_KEY}
     LANGUAGE: ${env:LANGUAGE, 'None'}
     SMTP_PASSWORD: ${env:SMTP_PASSWORD}
-    SMTP_USER: ${env:SMTP_PASSWORD}
+    SMTP_USER: ${env:SMTP_USER}
     SENDER_SMTP_SERVER: ${env:SENDER_SMTP_SERVER}
 
 functions:
