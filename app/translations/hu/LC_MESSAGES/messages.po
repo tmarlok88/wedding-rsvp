@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2021-04-11 18:07+0200\n"
+"POT-Creation-Date: 2021-04-13 20:09+0200\n"
 "PO-Revision-Date: 2020-12-30 12:51+0100\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: hu\n"
@@ -114,19 +114,20 @@ msgid ""
 "{url_root}rsvp/unsubscribe/{{id}}?email={{email}}"
 msgstr ""
 "A meghívód elérhetősége: {url_root}rsvp/{{id}}\n"
-"Leiratkozás és adataim törlése: {url_root}rsvp/unsubscribe/{{id}}?email={{email}}"
+"Leiratkozás és adataim törlése: "
+"{url_root}rsvp/unsubscribe/{{id}}?email={{email}}"
 
-#: app/admin/views.py:100
+#: app/admin/views.py:102
 #, fuzzy
 msgid "{success_length} E-mails sent successfully"
 msgstr "{success_length} E-mail sikeresen elküldve"
 
-#: app/admin/views.py:102
+#: app/admin/views.py:104
 #, fuzzy
 msgid "{failed_length} E-mails couldn't be sent"
 msgstr "{failed_length} E-mail küldése sikertelen"
 
-#: app/admin/views.py:104
+#: app/admin/views.py:106
 msgid "Send mail"
 msgstr "Küldés"
 
@@ -224,45 +225,45 @@ msgstr "Visszajelzés"
 msgid "Map"
 msgstr "Térkép"
 
-#: app/rsvp/templates/rsvp.html:110
-msgid "We Are Getting Married"
-msgstr "Összeházasodunk!"
-
-#: app/rsvp/templates/rsvp.html:112
+#: app/rsvp/templates/rsvp.html:111
 msgid "Save the date"
 msgstr "Mentsd el a naptáradba"
 
-#: app/rsvp/templates/rsvp.html:125
+#: app/rsvp/templates/rsvp.html:124
 msgid "Dear"
 msgstr "Kedves"
 
-#: app/rsvp/templates/rsvp.html:127
-msgid "We invited you to celebrate our wedding"
-msgstr "Szeretnénk ha velünk ünnepelnéd az esküvőnket"
+#: app/rsvp/templates/rsvp.html:135
+msgid "Our day's program"
+msgstr "A nagy nap"
 
-#: app/rsvp/templates/rsvp.html:137
-msgid "Evening's program"
-msgstr "Az este programja"
-
-#: app/rsvp/templates/rsvp.html:167
+#: app/rsvp/templates/rsvp.html:165
 msgid "Are You Attending?"
 msgstr "Eljössz?"
 
-#: app/rsvp/templates/rsvp.html:168
+#: app/rsvp/templates/rsvp.html:166
 msgid "Please Fill-up the form to notify you that you're attending. Thanks."
 msgstr "Kérjük jelezd vissza nekünk, hogy tervezel-e jönni"
 
-#: app/rsvp/templates/rsvp.html:199
+#: app/rsvp/templates/rsvp.html:197
 msgid "Location"
 msgstr "Helyszín"
 
-#: app/rsvp/templates/rsvp.html:200
+#: app/rsvp/templates/rsvp.html:198
 msgid "A map for the different event locations"
 msgstr "A különböző események helyszínei"
 
-#: app/rsvp/templates/rsvp.html:201
+#: app/rsvp/templates/rsvp.html:199
 msgid "Click on the location pin for more information."
 msgstr "Kattints a helyszínre bővebb információért"
+
+#: app/rsvp/templates/rsvp_captcha.html:6
+msgid "Captcha"
+msgstr "Kapu"
+
+#: app/rsvp/templates/rsvp_captcha.html:23
+msgid "Please tick this to take you to your RSVP page"
+msgstr "Kérlek kattints a négyzetbe, hogy lásd a meghívódat"
 
 #: app/rsvp/templates/unsubscribe.html:5
 msgid "Goodbye!"
@@ -273,4 +274,3 @@ msgid ""
 "All of your data is removed from the database and you will not get any "
 "message in the future"
 msgstr "Minden adatod törölve az adatbázisból, nem fogsz több üzenetet kapni"
-
