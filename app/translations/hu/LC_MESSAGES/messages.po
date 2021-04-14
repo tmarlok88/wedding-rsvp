@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2021-04-13 20:09+0200\n"
+"POT-Creation-Date: 2021-04-14 19:03+0200\n"
 "PO-Revision-Date: 2020-12-30 12:51+0100\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: hu\n"
@@ -107,29 +107,32 @@ msgid "Invalid username or password"
 msgstr "Érvenytelen felhasználónév vagy jelszó"
 
 #: app/admin/views.py:92
-#, fuzzy
-msgid ""
-"Your RSVP link: {url_root}rsvp/{{id}}\n"
-"Unsubscribe and delete my data: "
-"{url_root}rsvp/unsubscribe/{{id}}?email={{email}}"
-msgstr ""
-"A meghívód elérhetősége: {url_root}rsvp/{{id}}\n"
-"Leiratkozás és adataim törlése: "
-"{url_root}rsvp/unsubscribe/{{id}}?email={{email}}"
+msgid "Your RSVP link: "
+msgstr "A meghívód linkje: "
 
-#: app/admin/views.py:102
-#, fuzzy
-msgid "{success_length} E-mails sent successfully"
-msgstr "{success_length} E-mail sikeresen elküldve"
+#: app/admin/views.py:93
+msgid "Unsubscribe and delete my data: "
+msgstr "Leiratkozás és adataim tőrlése: "
 
-#: app/admin/views.py:104
-#, fuzzy
-msgid "{failed_length} E-mails couldn't be sent"
-msgstr "{failed_length} E-mail küldése sikertelen"
+#: app/admin/views.py:103
+msgid "E-mails sent successfully"
+msgstr "E-mail sikeresen elküldve"
 
-#: app/admin/views.py:106
+#: app/admin/views.py:105
+msgid "E-mails couldn't be sent"
+msgstr "E-mail küldése sikertelen"
+
+#: app/admin/views.py:107
 msgid "Send mail"
 msgstr "Küldés"
+
+#: app/admin/views.py:114
+msgid "Guest list imported successfully"
+msgstr "Vendéglista sikeresen importálva"
+
+#: app/admin/views.py:116
+msgid "Guest list import was unsuccessful"
+msgstr "Vendéglista importálása nem sikerült"
 
 #: app/admin/templates/admin_base.html:15
 msgid "Admin"

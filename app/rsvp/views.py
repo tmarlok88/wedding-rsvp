@@ -62,6 +62,7 @@ def unsubscribe(guest_id):
     email = request.args.get('email')
     guest = Guest.find(guest_id)
     if guest and email == guest.email:
+        print(f"Guest {guest.id} removed")
         guest.delete()
         return render_template('unsubscribe.html')
     else:

@@ -31,7 +31,6 @@ class EmailSender:
             msg['Subject'] = subject
             msg['From'] = self.sender
             msg.attach(MIMEText(body, 'plain', _charset="UTF-8"))
-
             self.server.sendmail(self.sender, recipient, msg.as_string())
             return True
         except Exception as exception:

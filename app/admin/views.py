@@ -89,7 +89,8 @@ def email_sender():
     form = EmailForm()
     form.recipients.choices.extend([(str(g.id), g.name) for g in Guest.scan()])
     if form.validate_on_submit():
-        footer = _l("Your RSVP link: {url_root}rsvp/{{id}}\nUnsubscribe and delete my data: {url_root}rsvp/unsubscribe/{{id}}?email={{email}}".format(url_root=request.url_root))
+        footer = _("Your RSVP link: ")+f"{request.url_root}rsvp/{{id}}"+"\n"
+        footer += _("Unsubscribe and delete my data: ")+f"{request.url_root}rsvp/unsubscribe/{{id}}?email={{email}}"
         emailsender = EmailSender(os.getenv("SENDER_SMTP_SERVER"), os.getenv("SENDER_EMAIL_ADDRESS"),
                                   os.getenv("SMTP_USER"), os.getenv("SMTP_PASSWORD"), footer_template=footer)
 
@@ -99,9 +100,9 @@ def email_sender():
             guests = Guest.find_multi_id(form.recipients.data)
         success, failed = emailsender.send_emails(guests, form.subject.data, form.body.data)
         if success:
-            flash(_("{success_length} E-mails sent successfully".format(success_length=len(success))), "success")
+            flash(_("E-mails sent successfully".format(len(success))), "success")
         if failed:
-            flash(_("{failed_length} E-mails couldn't be sent".format(failed_length=len(failed))), "warning")
+            flash(_("E-mails couldn't be sent".format(len(failed))), "warning")
 
     return render_template('email_sender.html', title=_('Send mail'), form=form)
 
@@ -110,9 +111,9 @@ def email_sender():
 @login_required
 def import_guests():
     if CSVHandler.import_csv(request.files["csv_file"].read().decode("utf-8")):
-        flash("Guest list imported successfully", "success")
+        flash(_("Guest list imported successfully"), "success")
     else:
-        flash("Guest list import was unsuccessful", "error")
+        flash(_("Guest list import was unsuccessful"), "error")
     return redirect(url_for("admin.list_guest"))
 
 

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2021-04-13 20:09+0200\n"
+"POT-Creation-Date: 2021-04-14 19:03+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -106,22 +106,31 @@ msgid "Invalid username or password"
 msgstr ""
 
 #: app/admin/views.py:92
-msgid ""
-"Your RSVP link: {url_root}rsvp/{{id}}\n"
-"Unsubscribe and delete my data: "
-"{url_root}rsvp/unsubscribe/{{id}}?email={{email}}"
+msgid "Your RSVP link: "
 msgstr ""
 
-#: app/admin/views.py:102
-msgid "{success_length} E-mails sent successfully"
+#: app/admin/views.py:93
+msgid "Unsubscribe and delete my data: "
 msgstr ""
 
-#: app/admin/views.py:104
-msgid "{failed_length} E-mails couldn't be sent"
+#: app/admin/views.py:103
+msgid "E-mails sent successfully"
 msgstr ""
 
-#: app/admin/views.py:106
+#: app/admin/views.py:105
+msgid "E-mails couldn't be sent"
+msgstr ""
+
+#: app/admin/views.py:107
 msgid "Send mail"
+msgstr ""
+
+#: app/admin/views.py:114
+msgid "Guest list imported successfully"
+msgstr ""
+
+#: app/admin/views.py:116
+msgid "Guest list import was unsuccessful"
 msgstr ""
 
 #: app/admin/templates/admin_base.html:15
