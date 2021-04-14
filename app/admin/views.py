@@ -1,7 +1,7 @@
 import os
 
 from flask import render_template, redirect, url_for, abort, flash, request, Response
-from flask_babel import _, lazy_gettext as _l
+from flask_babel import _
 from flask_login import login_required
 from flask_login import login_user, logout_user
 
@@ -100,9 +100,9 @@ def email_sender():
             guests = Guest.find_multi_id(form.recipients.data)
         success, failed = emailsender.send_emails(guests, form.subject.data, form.body.data)
         if success:
-            flash(_("E-mails sent successfully".format(len(success))), "success")
+            flash(str(len(success)) + _(" E-mails sent successfully"), "success")
         if failed:
-            flash(_("E-mails couldn't be sent".format(len(failed))), "warning")
+            flash(str(len(failed)) + _(" E-mails couldn't be sent"), "warning")
 
     return render_template('email_sender.html', title=_('Send mail'), form=form)
 
