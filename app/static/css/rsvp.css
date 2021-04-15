@@ -323,6 +323,7 @@ h1, h2, h3, h4, h5, h6, figure {
   text-transform: uppercase;
   font-size: 13px;
   letter-spacing: 2px;
+  margin
   font-weight: 600;
 }
 
@@ -336,7 +337,8 @@ h1, h2, h3, h4, h5, h6, figure {
 }
 
 #fh5co-description p {
-  text-align: left;
+  text-align: justify;
+  padding-bottom: 20px;
 }
 
 #fh5co-description .fh5co-heading {
@@ -974,6 +976,8 @@ form label {
 .fh5co-heading {
   padding-bottom: 5em;
   padding-top: 2em;
+  padding-left: 50px;
+  padding-right: 50px;
 }
 .fh5co-heading.fh5co-heading-sm {
   margin-bottom: 2em;

@@ -30,6 +30,7 @@ class EmailSender:
             msg = MIMEMultipart()
             msg['Subject'] = subject
             msg['From'] = self.sender
+            msg["To"] = recipient
             msg.attach(MIMEText(body, 'plain', _charset="UTF-8"))
             self.server.sendmail(self.sender, recipient, msg.as_string())
             return True
