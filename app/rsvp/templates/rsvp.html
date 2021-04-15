@@ -107,7 +107,6 @@
 					<div class="display-t">
 						<div class="display-tc animate-box" data-animate-effect="fadeIn">
 							<h1>{{rsvp_content["basic_data"]["bride"]}} &amp; {{rsvp_content["basic_data"]["groom"]}}</h1>
-							<h2>{{_("We Are Getting Married")}}</h2>
 							<div class="simply-countdown simply-countdown-one"></div>
 							<p><a target="_blank" href="{{rsvp_content['basic_data']['calendar_event_link']}}" class="btn btn-default btn-sm">{{_("Save the date")}}</a></p>
 						</div>
@@ -124,8 +123,7 @@
 				<div class="col-md-12 text-center fh5co-heading">
 					<h2>{{_("Dear")}} {{guest["name"]}}!</h2>
 					<h3>{{rsvp_content["basic_data"]['event_date'].strftime("%Y.%m.%d %H:%M")}}</h3>
-					<p>{{_("We invited you to celebrate our wedding")}}</p>
-					<p>{{ rsvp_content["main_message"] | safe }}</p>
+					{{ rsvp_content["main_message"] | safe }}
 				</div>
 			</div>
 		</div>
@@ -134,7 +132,7 @@
 		<div class="container">
 			<div class="row">
 				<div class="col-md-8 col-md-offset-2 text-center fh5co-heading animate-box">
-					<h2>{{_("Evening's program")}}</h2>
+					<h2>{{_("Our day's program")}}</h2>
 				</div>
 			</div>
 			<div class="row">
@@ -184,7 +182,7 @@
 					{{generate_text_field(form["favourite_music"])}}
 					{{generate_text_field(form["notes"])}}
 					<div class="form-row">
-						<div class="col-sm-3 col-md-offset-4">{{ form.submit(class_="btn btn-default") }}</div><br/>
+						<div class="col-sm-3 col-md-offset-5">{{ form.submit(class_="btn btn-default") }}</div><br/>
 					</div>
 				</div>
 			</form>

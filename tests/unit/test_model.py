@@ -63,3 +63,12 @@ class GuestModelTest(TestCase):
         test_guest_2.save()
         found_guest = context.app.model.Guest.Guest.find(test_guest.get_id())
         self.assertIsNone(found_guest)
+
+    def test_find_multi_ids(self):
+        test_guest = context.app.model.Guest.Guest(**EXAMPLE_GUEST_1)
+        test_guest_2 = context.app.model.Guest.Guest(**EXAMPLE_GUEST_2)
+        test_guest.save()
+        test_guest_2.save()
+        found_guests = list(context.app.model.Guest.Guest.find_multi_id([test_guest.get_id(), test_guest_2.get_id()]))
+        self.assertIn(test_guest, found_guests)
+        self.assertIn(test_guest_2, found_guests)

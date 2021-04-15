@@ -4,9 +4,9 @@ from moto import mock_dynamodb2
 from tests import context
 from tests.guest_helper import list_guests, clear_all_guests, EXAMPLE_GUEST_1, EXAMPLE_GUEST_2, save_guest
 
-TEST_INPUT_1 = '''email;name
-testmail@testddomain.tld;Test user
-alfa@beta.gamma;Mock family
+TEST_INPUT_1 = '''email,name
+testmail@testddomain.tld,Test user
+alfa@beta.gamma,Mock family
 '''
 
 
@@ -31,7 +31,7 @@ class CSVHandlerTest(TestCase):
         guest1 = save_guest(EXAMPLE_GUEST_1)
         guest2 = save_guest(EXAMPLE_GUEST_2)
         exported = self.handler.export_csv().getvalue().split("\r\n")
-        exploded_exported_list = [list(filter(lambda x:x != '', exp.split(";"))) for exp in exported]   # explode each line to items, remove empty strings
+        exploded_exported_list = [list(filter(lambda x:x != '', exp.split(","))) for exp in exported]   # explode each line to items, remove empty strings
 
         self.assertCountEqual(list(guest1.get_attributes().keys()), exploded_exported_list[0])
         self.assertCountEqual([str(guest_attr) for guest_attr in guest1.attribute_values.values()], exploded_exported_list[1])

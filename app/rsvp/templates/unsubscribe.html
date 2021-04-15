@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>{{_("Goodbye!")}}</title>
+    {% block styles %}
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css" rel="stylesheet">
+
+    <link href="{{ url_for('static', filename='css/rsvp.css') }}" rel="stylesheet">
+	{% endblock %}
+</head>
+<body>
+<div class="page" style="padding-top: 30px">
+	<div class="fh5co-description">
+		<div class="container">
+			{{_("All of your data is removed from the database and you will not get any message in the future")}}
+		</div>
+	</div>
+
+
+	<footer id="fh5co-footer" role="contentinfo">
+		<div class="container">
+			<div class="row copyright">
+				<div class="col-md-12 text-center">
+					<p>
+						<small class="block"><i class="fab fa-github"></i> <a href="https://github.com/tmarlok88/wedding-rsvp">Page source.</a></small>
+						<small class="block">Design based on <a href="http://freehtml5.co/" target="_blank">FREEHTML5.co</a></small>
+					</p>
+				</div>
+			</div>
+
+		</div>
+	</footer>
+</div>
+{% block scripts %}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-migrate/3.3.2/jquery-migrate.min.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.3/js/bootstrap.bundle.min.js"></script>
+{% endblock %}
+</body>
+</html>

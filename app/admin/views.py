@@ -87,13 +87,22 @@ def logout():
 @login_required
 def email_sender():
     form = EmailForm()
-    form.recipients.choices = [(g.email, g.name) for g in Guest.scan()]
+    form.recipients.choices.extend([(str(g.id), g.name) for g in Guest.scan()])
     if form.validate_on_submit():
-        emailsender = EmailSender(os.getenv("AWS_REGION"), os.getenv("SENDER_EMAIL_ADDRESS"))
-        if emailsender.send_email(form.recipients.data, form.subject.data, form.body.data):
-            flash(_("E-mails sent successfully"))
+        footer = _("Your RSVP link: ")+f"{request.url_root}rsvp/{{id}}"+"\n"
+        footer += _("Unsubscribe and delete my data: ")+f"{request.url_root}rsvp/unsubscribe/{{id}}?email={{email}}"
+        emailsender = EmailSender(os.getenv("SENDER_SMTP_SERVER"), os.getenv("SENDER_EMAIL_ADDRESS"),
+                                  os.getenv("SMTP_USER"), os.getenv("SMTP_PASSWORD"), footer_template=footer)
+
+        if "all" in form.recipients.data:
+            guests = Guest.scan()
         else:
-            flash(_("E-mails couldn't be sent"))
+            guests = Guest.find_multi_id(form.recipients.data)
+        success, failed = emailsender.send_emails(guests, form.subject.data, form.body.data)
+        if success:
+            flash(str(len(success)) + _(" E-mails sent successfully"), "success")
+        if failed:
+            flash(str(len(failed)) + _(" E-mails couldn't be sent"), "warning")
 
     return render_template('email_sender.html', title=_('Send mail'), form=form)
 
@@ -102,9 +111,9 @@ def email_sender():
 @login_required
 def import_guests():
     if CSVHandler.import_csv(request.files["csv_file"].read().decode("utf-8")):
-        flash("Guest list imported successfully")
+        flash(_("Guest list imported successfully"), "success")
     else:
-        flash("Guest list import was unsuccessful", category="error")
+        flash(_("Guest list import was unsuccessful"), "error")
     return redirect(url_for("admin.list_guest"))
 
 

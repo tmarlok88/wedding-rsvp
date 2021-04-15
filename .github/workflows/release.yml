@@ -69,6 +69,9 @@ jobs:
         PERSONALIZE_SRC_FILE: app/personalize/rsvp_content.yaml
         MAPS_API_KEY: ${{ secrets.MAPS_API_KEY }}
         LANGUAGE: hu
+        SMTP_PASSWORD: ${{ secrets.SMTP_PASSWORD }}
+        SMTP_USER: apikey
+        SENDER_SMTP_SERVER: smtp.sendgrid.net
     - name: serverless deploy
       run: ./node_modules/serverless/bin/serverless.js deploy --stage production --skip-additionalstacks
       env:
@@ -86,3 +89,6 @@ jobs:
         PERSONALIZE_SRC_FILE: app/personalize/rsvp_content.yaml
         MAPS_API_KEY: ${{ secrets.MAPS_API_KEY }}
         LANGUAGE: hu
+        SMTP_PASSWORD: ${{ secrets.SMTP_PASSWORD }}
+        SMTP_USER: apikey
+        SENDER_SMTP_SERVER: smtp.sendgrid.net

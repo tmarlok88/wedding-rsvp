@@ -7,7 +7,7 @@ from dateutil.tz import tzutc
 from moto import mock_dynamodb2
 
 from parent import ParentTest
-from tests.guest_helper import save_guest, get_guest, clear_all_guests, EXAMPLE_GUEST_1, EXAMPLE_GUEST_2
+from tests.guest_helper import save_guest, get_guest, clear_all_guests, EXAMPLE_GUEST_1, EXAMPLE_GUEST_2, list_guests
 
 
 @mock_dynamodb2
@@ -159,3 +159,12 @@ class TestRSVPViews(ParentTest):
         for key in form.data.keys():
             if form[key].description:
                 self.assertIn(str(form[key].description), response.data.decode("utf-8"))
+
+    def test_unsubscribe(self):
+        guest = save_guest(EXAMPLE_GUEST_1)
+        response = self.client.get(f"/rsvp/unsubscribe/{guest.id}?email={guest.email}", follow_redirects=True)
+
+        guests = list_guests()
+        self.assertNotIn(guest, guests)
+        self.assert200(response)
+        self.assert_template_used("unsubscribe.html")

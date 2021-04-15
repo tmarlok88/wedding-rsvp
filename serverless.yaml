@@ -103,6 +103,7 @@ provider:
         - dynamodb:Query
         - dynamodb:Scan
         - dynamodb:GetItem
+        - dynamodb:BatchGetItem
         - dynamodb:PutItem
         - dynamodb:UpdateItem
         - dynamodb:DeleteItem
@@ -123,6 +124,10 @@ provider:
     USE_RECAPTCHA_FOR_ADMIN: ${env:USE_RECAPTCHA_FOR_ADMIN, 'True'}
     MAPS_API_KEY: ${env:MAPS_API_KEY}
     LANGUAGE: ${env:LANGUAGE, 'None'}
+    SMTP_PASSWORD: ${env:SMTP_PASSWORD}
+    SMTP_USER: ${env:SMTP_USER}
+    SENDER_SMTP_SERVER: ${env:SENDER_SMTP_SERVER}
+
 functions:
   app:
     handler: wsgi_handler.handler

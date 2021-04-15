@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2021-03-30 18:39+0200\n"
+"POT-Creation-Date: 2021-04-14 19:03+0200\n"
 "PO-Revision-Date: 2020-12-30 12:51+0100\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: hu\n"
@@ -18,11 +18,11 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.9.0\n"
 
-#: app/admin/forms.py:15 app/admin/templates/guest_list.html:16
+#: app/admin/forms.py:15 app/admin/templates/guest_list.html:34
 msgid "Name"
 msgstr "Név"
 
-#: app/admin/forms.py:16 app/admin/templates/guest_list.html:17
+#: app/admin/forms.py:16 app/admin/templates/guest_list.html:35
 msgid "E-mail"
 msgstr "E-mail"
 
@@ -58,7 +58,7 @@ msgstr "Jelszó"
 msgid "Remember Me"
 msgstr "Emlékezzen rám"
 
-#: app/admin/forms.py:49 app/admin/views.py:76
+#: app/admin/forms.py:49 app/admin/views.py:77
 msgid "Sign In"
 msgstr "Bejelentkezés"
 
@@ -70,6 +70,10 @@ msgstr "Tárgy"
 msgid "Send To"
 msgstr "Címzett"
 
+#: app/admin/forms.py:59
+msgid "Send to all"
+msgstr "Küldés mindenkinek"
+
 #: app/admin/forms.py:60
 msgid "E-mail body"
 msgstr "E-mail szövege"
@@ -78,41 +82,57 @@ msgstr "E-mail szövege"
 msgid "Send"
 msgstr "Küldés"
 
-#: app/admin/views.py:18
+#: app/admin/views.py:19
 msgid "Admin page"
 msgstr "Admin felület"
 
-#: app/admin/views.py:32
+#: app/admin/views.py:33
 msgid "Add guest"
 msgstr "Vendég hozzáadása"
 
-#: app/admin/views.py:46
+#: app/admin/views.py:47
 msgid "Edit guest"
 msgstr "Vendég szerkesztése"
 
-#: app/admin/templates/admin_base.html:24 app/admin/views.py:53
+#: app/admin/templates/admin_base.html:24 app/admin/views.py:54
 msgid "Guest list"
 msgstr "Vendéglista"
 
-#: app/admin/views.py:61
+#: app/admin/views.py:62
 msgid "Guest {} removed"
 msgstr "{} vendég eltávolítva"
 
-#: app/admin/views.py:72
+#: app/admin/views.py:73
 msgid "Invalid username or password"
 msgstr "Érvenytelen felhasználónév vagy jelszó"
 
+#: app/admin/views.py:92
+msgid "Your RSVP link: "
+msgstr "A meghívód linkje: "
+
 #: app/admin/views.py:93
+msgid "Unsubscribe and delete my data: "
+msgstr "Leiratkozás és adataim tőrlése: "
+
+#: app/admin/views.py:103
 msgid "E-mails sent successfully"
-msgstr "E-mail-ek sikeresen elküldve"
+msgstr "E-mail sikeresen elküldve"
 
-#: app/admin/views.py:95
+#: app/admin/views.py:105
 msgid "E-mails couldn't be sent"
-msgstr "E-mail-ek küldése sikertelen"
+msgstr "E-mail küldése sikertelen"
 
-#: app/admin/views.py:97
+#: app/admin/views.py:107
 msgid "Send mail"
 msgstr "Küldés"
+
+#: app/admin/views.py:114
+msgid "Guest list imported successfully"
+msgstr "Vendéglista sikeresen importálva"
+
+#: app/admin/views.py:116
+msgid "Guest list import was unsuccessful"
+msgstr "Vendéglista importálása nem sikerült"
 
 #: app/admin/templates/admin_base.html:15
 msgid "Admin"
@@ -135,26 +155,34 @@ msgid "Logout"
 msgstr "Kijelentkezés"
 
 #: app/admin/templates/guest_list.html:18
+msgid "Choose file"
+msgstr "Válassz file-t"
+
+#: app/admin/templates/guest_list.html:22
+msgid "Import"
+msgstr "Import"
+
+#: app/admin/templates/guest_list.html:36
 msgid "Guest count"
 msgstr "Vendégek száma"
 
-#: app/admin/templates/guest_list.html:19
+#: app/admin/templates/guest_list.html:37
 msgid "Viewed"
 msgstr "Megtekintve"
 
-#: app/admin/templates/guest_list.html:20
+#: app/admin/templates/guest_list.html:38
 msgid "Responded"
 msgstr "Válaszolt"
 
-#: app/admin/templates/guest_list.html:21
+#: app/admin/templates/guest_list.html:39
 msgid "Edit"
 msgstr "Szerkesztés"
 
-#: app/admin/templates/guest_list.html:22
+#: app/admin/templates/guest_list.html:40
 msgid "Delete"
 msgstr "Tőrlés"
 
-#: app/admin/templates/guest_list.html:56
+#: app/admin/templates/guest_list.html:78
 msgid "Add"
 msgstr "Hozzáadás"
 
@@ -164,7 +192,9 @@ msgstr "Hányan jönnétek (téged is beleszámíŧva)?"
 
 #: app/rsvp/forms.py:19
 msgid "If you (or one of your guests) have any food allergy please let us know"
-msgstr "Ha neked (vagy bármelyik veled érkező vendégnek) ételerzekenysége van, jelezd kérlek!"
+msgstr ""
+"Ha neked (vagy bármelyik veled érkező vendégnek) ételerzekenysége van, "
+"jelezd kérlek!"
 
 #: app/rsvp/forms.py:23
 msgid "Anything important you'd want us to know"
@@ -198,42 +228,52 @@ msgstr "Visszajelzés"
 msgid "Map"
 msgstr "Térkép"
 
-#: app/rsvp/templates/rsvp.html:110
-msgid "We Are Getting Married"
-msgstr "Összeházasodunk!"
-
-#: app/rsvp/templates/rsvp.html:112
+#: app/rsvp/templates/rsvp.html:111
 msgid "Save the date"
 msgstr "Mentsd el a naptáradba"
 
-#: app/rsvp/templates/rsvp.html:125
+#: app/rsvp/templates/rsvp.html:124
 msgid "Dear"
 msgstr "Kedves"
 
-#: app/rsvp/templates/rsvp.html:127
-msgid "We invited you to celebrate our wedding"
-msgstr "Szeretnénk ha velünk ünnepelnéd az esküvőnket"
+#: app/rsvp/templates/rsvp.html:135
+msgid "Our day's program"
+msgstr "A nagy nap"
 
-#: app/rsvp/templates/rsvp.html:137
-msgid "Evening's program"
-msgstr "Az este programja"
-
-#: app/rsvp/templates/rsvp.html:167
+#: app/rsvp/templates/rsvp.html:165
 msgid "Are You Attending?"
 msgstr "Eljössz?"
 
-#: app/rsvp/templates/rsvp.html:168
+#: app/rsvp/templates/rsvp.html:166
 msgid "Please Fill-up the form to notify you that you're attending. Thanks."
 msgstr "Kérjük jelezd vissza nekünk, hogy tervezel-e jönni"
 
-#: app/rsvp/templates/rsvp.html:199
+#: app/rsvp/templates/rsvp.html:197
 msgid "Location"
 msgstr "Helyszín"
 
-#: app/rsvp/templates/rsvp.html:200
+#: app/rsvp/templates/rsvp.html:198
 msgid "A map for the different event locations"
 msgstr "A különböző események helyszínei"
 
-#: app/rsvp/templates/rsvp.html:201
+#: app/rsvp/templates/rsvp.html:199
 msgid "Click on the location pin for more information."
-msgstr "Kattints a helszínre bővebb információért"
+msgstr "Kattints a helyszínre bővebb információért"
+
+#: app/rsvp/templates/rsvp_captcha.html:6
+msgid "Captcha"
+msgstr "Kapu"
+
+#: app/rsvp/templates/rsvp_captcha.html:23
+msgid "Please tick this to take you to your RSVP page"
+msgstr "Kérlek kattints a négyzetbe, hogy lásd a meghívódat"
+
+#: app/rsvp/templates/unsubscribe.html:5
+msgid "Goodbye!"
+msgstr "Viszlát!"
+
+#: app/rsvp/templates/unsubscribe.html:17
+msgid ""
+"All of your data is removed from the database and you will not get any "
+"message in the future"
+msgstr "Minden adatod törölve az adatbázisból, nem fogsz több üzenetet kapni"

@@ -55,3 +55,15 @@ def rsvp_captcha():
             abort(404)
     else:
         return render_template('rsvp_captcha.html', title=_('Wedding'), form=form)
+
+
+@rsvp.route('/unsubscribe/<string:guest_id>', methods=['GET'])
+def unsubscribe(guest_id):
+    email = request.args.get('email')
+    guest = Guest.find(guest_id)
+    if guest and email == guest.email:
+        print(f"Guest {guest.id} removed")
+        guest.delete()
+        return render_template('unsubscribe.html')
+    else:
+        abort(404)
