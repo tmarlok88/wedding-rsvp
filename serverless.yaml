@@ -20,7 +20,7 @@ custom:
   staticPrefix:
     dev: dev_static
     stage: stage_static
-    production: 'static'
+    production: 'production_static'
   tableName: '${self:custom.prefix.${self:custom.environment}}-wedding-rsvp-guests'
   domainName: ${env:WEB_DOMAIN, 'dummy-domain.info'}
   staticBucketName: "${cf:wedding-rsvp-static-resources.StaticBucket, 'wedding-rsvp-staticbucket-${sls:instanceId}'}"
@@ -127,10 +127,12 @@ provider:
     SMTP_PASSWORD: ${env:SMTP_PASSWORD}
     SMTP_USER: ${env:SMTP_USER}
     SENDER_SMTP_SERVER: ${env:SENDER_SMTP_SERVER}
+    STATIC_PATH: ${self:custom.staticPrefix.${self:custom.environment}}
 
 functions:
   app:
     handler: wsgi_handler.handler
+    timeout: 60
     events:
       - http: ANY /
       - http: 'ANY {proxy+}'
