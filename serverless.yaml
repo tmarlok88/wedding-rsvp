@@ -128,6 +128,7 @@ provider:
     SMTP_USER: ${env:SMTP_USER}
     SENDER_SMTP_SERVER: ${env:SENDER_SMTP_SERVER}
     STATIC_PATH: ${self:custom.staticPrefix.${self:custom.environment}}
+    MAX_GUEST_COUNT: ${env:MAX_GUEST_COUNT}
 
 functions:
   app:

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2021-04-14 19:03+0200\n"
+"POT-Creation-Date: 2021-04-20 19:13+0200\n"
 "PO-Revision-Date: 2020-12-30 12:51+0100\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: hu\n"
@@ -18,7 +18,10 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.9.0\n"
 
-#: app/admin/forms.py:15 app/admin/templates/guest_list.html:34
+#: app/admin/forms.py:15 app/admin/templates/admin_dashboard.html:47
+#: app/admin/templates/admin_dashboard.html:79
+#: app/admin/templates/admin_dashboard.html:105
+#: app/admin/templates/guest_list.html:34
 msgid "Name"
 msgstr "Név"
 
@@ -26,7 +29,8 @@ msgstr "Név"
 msgid "E-mail"
 msgstr "E-mail"
 
-#: app/admin/forms.py:17 app/rsvp/forms.py:18
+#: app/admin/forms.py:17 app/admin/templates/admin_dashboard.html:80
+#: app/rsvp/forms.py:18
 msgid "Food allergies"
 msgstr "Ételérzékenység"
 
@@ -38,7 +42,8 @@ msgstr "Vendégek száma"
 msgid "Other important notes"
 msgstr "Egyéb fontos megjegyzés"
 
-#: app/admin/forms.py:20 app/rsvp/forms.py:20
+#: app/admin/forms.py:20 app/admin/templates/admin_dashboard.html:106
+#: app/rsvp/forms.py:20
 msgid "Favourite music"
 msgstr "Kedvenc zene"
 
@@ -58,7 +63,7 @@ msgstr "Jelszó"
 msgid "Remember Me"
 msgstr "Emlékezzen rám"
 
-#: app/admin/forms.py:49 app/admin/views.py:77
+#: app/admin/forms.py:49 app/admin/views.py:80
 msgid "Sign In"
 msgstr "Bejelentkezés"
 
@@ -82,55 +87,55 @@ msgstr "E-mail szövege"
 msgid "Send"
 msgstr "Küldés"
 
-#: app/admin/views.py:19
+#: app/admin/views.py:22
 msgid "Admin page"
 msgstr "Admin felület"
 
-#: app/admin/views.py:33
+#: app/admin/views.py:36
 msgid "Add guest"
 msgstr "Vendég hozzáadása"
 
-#: app/admin/views.py:47
+#: app/admin/views.py:50
 msgid "Edit guest"
 msgstr "Vendég szerkesztése"
 
-#: app/admin/templates/admin_base.html:24 app/admin/views.py:54
+#: app/admin/templates/admin_base.html:24 app/admin/views.py:57
 msgid "Guest list"
 msgstr "Vendéglista"
 
-#: app/admin/views.py:62
+#: app/admin/views.py:65
 msgid "Guest {} removed"
 msgstr "{} vendég eltávolítva"
 
-#: app/admin/views.py:73
+#: app/admin/views.py:76
 msgid "Invalid username or password"
 msgstr "Érvenytelen felhasználónév vagy jelszó"
 
-#: app/admin/views.py:92
+#: app/admin/views.py:95
 msgid "Your RSVP link: "
 msgstr "A meghívód linkje: "
 
-#: app/admin/views.py:93
+#: app/admin/views.py:96
 msgid "Unsubscribe and delete my data: "
 msgstr "Leiratkozás és adataim tőrlése: "
 
-#: app/admin/views.py:103
-msgid "E-mails sent successfully"
+#: app/admin/views.py:106
+msgid " E-mails sent successfully"
 msgstr "E-mail sikeresen elküldve"
 
-#: app/admin/views.py:105
-msgid "E-mails couldn't be sent"
+#: app/admin/views.py:108
+msgid " E-mails couldn't be sent"
 msgstr "E-mail küldése sikertelen"
 
-#: app/admin/views.py:107
+#: app/admin/views.py:110
 msgid "Send mail"
 msgstr "Küldés"
 
-#: app/admin/views.py:114
+#: app/admin/views.py:117
 msgid "Guest list imported successfully"
 msgstr "Vendéglista sikeresen importálva"
 
-#: app/admin/views.py:116
+#: app/admin/views.py:119
 msgid "Guest list import was unsuccessful"
 msgstr "Vendéglista importálása nem sikerült"
 
@@ -154,6 +159,58 @@ msgstr "Bejelentkezés"
 msgid "Logout"
 msgstr "Kijelentkezés"
 
+#: app/admin/templates/admin_dashboard.html:6
+#: app/admin/templates/guest_list.html:36
+msgid "Guest count"
+msgstr "Vendégek száma"
+
+#: app/admin/templates/admin_dashboard.html:18
+msgid "Responses"
+msgstr "Válaszok"
+
+#: app/admin/templates/admin_dashboard.html:27
+msgid "Answered"
+msgstr "Visszajelzett"
+
+#: app/admin/templates/admin_dashboard.html:31
+msgid "Seen"
+msgstr "Látta"
+
+#: app/admin/templates/admin_dashboard.html:35
+msgid "Did not see"
+msgstr "Nem látta"
+
+#: app/admin/templates/admin_dashboard.html:43
+msgid "Recently responded"
+msgstr "Nem rég válaszolt"
+
+#: app/admin/templates/admin_dashboard.html:48
+msgid "When"
+msgstr "Mikor"
+
+#: app/admin/templates/admin_dashboard.html:49
+msgid "Coming"
+msgstr "Jön"
+
+#: app/admin/templates/admin_dashboard.html:50
+#: app/admin/templates/admin_dashboard.html:81
+#: app/admin/templates/admin_dashboard.html:107
+#: app/admin/templates/guest_list.html:39
+msgid "Edit"
+msgstr "Szerkesztés"
+
+#: app/admin/templates/admin_dashboard.html:75
+msgid "Food"
+msgstr "Étel"
+
+#: app/admin/templates/admin_dashboard.html:101
+msgid "Music"
+msgstr "Zene"
+
+#: app/admin/templates/guest_list.html:10
+msgid "Guests"
+msgstr "Vendégek"
+
 #: app/admin/templates/guest_list.html:18
 msgid "Choose file"
 msgstr "Válassz file-t"
@@ -162,10 +219,6 @@ msgstr "Válassz file-t"
 msgid "Import"
 msgstr "Import"
 
-#: app/admin/templates/guest_list.html:36
-msgid "Guest count"
-msgstr "Vendégek száma"
-
 #: app/admin/templates/guest_list.html:37
 msgid "Viewed"
 msgstr "Megtekintve"
@@ -173,10 +226,6 @@ msgstr "Megtekintve"
 #: app/admin/templates/guest_list.html:38
 msgid "Responded"
 msgstr "Válaszolt"
-
-#: app/admin/templates/guest_list.html:39
-msgid "Edit"
-msgstr "Szerkesztés"
 
 #: app/admin/templates/guest_list.html:40
 msgid "Delete"
@@ -277,3 +326,4 @@ msgid ""
 "All of your data is removed from the database and you will not get any "
 "message in the future"
 msgstr "Minden adatod törölve az adatbázisból, nem fogsz több üzenetet kapni"
+

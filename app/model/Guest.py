@@ -21,7 +21,7 @@ class Guest(Model, UserMixin):
     favourite_music = UnicodeAttribute(null=True)
     last_viewed = UTCDateTimeAttribute(null=True)
     last_responded = UTCDateTimeAttribute(null=True)
-    number_of_guests = NumberAttribute(null=True)
+    number_of_guests = NumberAttribute(default=0)
     notes = UnicodeAttribute(null=True)
     will_attend = BooleanAttribute(null=True)
     filled_by_admin = BooleanAttribute(default=False)
