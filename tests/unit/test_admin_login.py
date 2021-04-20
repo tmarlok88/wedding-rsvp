@@ -8,6 +8,8 @@ from parent import ParentTest
 class TestAdminLogin(ParentTest):
     def create_app(self):
         app = ParentTest.create_app(self)
+        from app.model.Guest import Guest
+        Guest.create_table()
         app.config['LOGIN_DISABLED'] = False
         app.config["ADMIN_PASSWORD_HASH"] = generate_password_hash("testing-password")
         return app
