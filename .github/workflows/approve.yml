@@ -113,6 +113,7 @@ jobs:
         SMTP_USER: apikey
         SENDER_SMTP_SERVER: smtp.sendgrid.net
         LANGUAGE: hu
+        MAX_GUEST_COUNT: 180
     - name: serverless deploy
       run: ./node_modules/serverless/bin/serverless.js deploy --stage stage --skip-additionalstacks
       env:
@@ -133,6 +134,7 @@ jobs:
         SMTP_PASSWORD: ${{ secrets.SMTP_PASSWORD }}
         SMTP_USER: apikey
         SENDER_SMTP_SERVER: smtp.sendgrid.net
+        MAX_GUEST_COUNT: 180
     - name: "remove LGTM label"
       uses: actions-ecosystem/action-remove-labels@v1
       if: ${{ failure() || cancelled() }}

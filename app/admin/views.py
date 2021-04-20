@@ -16,7 +16,11 @@ from app.services.CSVHandler import CSVHandler
 @admin.route('/', methods=['GET'])
 @login_required
 def admin_dashboard():
-    return render_template("admin_dashboard.html", title=_("Admin page"))
+    guest_list = [guest for guest in Guest.scan()]
+
+    max_guests = int(os.getenv("MAX_GUEST_COUNT", 200))
+    return render_template("admin_dashboard.html", title=_("Admin page"), guest_list=guest_list,
+                           max_guests=max_guests)
 
 
 @admin.route('/guest/add', methods=['GET', 'POST'])
@@ -29,7 +33,6 @@ def add_guest():
         guest.filled_by_admin = True
         guest.save()
         return redirect(url_for("admin.list_guest"))
-
     return render_template('guest_form.html', form=form, title=_("Add guest"))
 
 

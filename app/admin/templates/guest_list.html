@@ -7,7 +7,7 @@
             <div class="inner">
                 <br/>
                 <br/>
-                <h1 style="text-align:center;">Guests</h1>
+                <h1 style="text-align:center;">{{_("Guests")}}</h1>
                 <hr class="intro-divider">
                 <div class="center">
                     <form action="{{ url_for('admin.import_guests') }}" method="post" enctype="multipart/form-data">
@@ -31,13 +31,13 @@
                     <table class="table table-striped table-bordered">
                         <thead>
                         <tr>
-                            <th width="15%"> {{_('Name')}}</th>
-                            <th width="40%"> {{_('E-mail')}}</th>
-                            <th width="15%"> {{_('Guest count')}}</th>
-                            <th width="15%"> {{_('Viewed')}}</th>
-                            <th width="15%"> {{_('Responded')}}</th>
-                            <th width="15%"> {{_('Edit')}}</th>
-                            <th width="15%"> {{_('Delete')}}</th>
+                            <th width="25%"> {{_('Name')}}</th>
+                            <th width="25%"> {{_('E-mail')}}</th>
+                            <th width="10%"> {{_('Guest count')}}</th>
+                            <th width="10%"> {{_('Viewed')}}</th>
+                            <th width="10%"> {{_('Responded')}}</th>
+                            <th width="10%"> {{_('Edit')}}</th>
+                            <th width="10%"> {{_('Delete')}}</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -47,10 +47,10 @@
                             <td> {{ guest.email }}</td>
                             <td> {{ guest.number_of_guests }}</td>
                             <td>
-                                <i class="fa {% if guest.last_viewed != None %} fa-check {% else %} fa-minus-square {% endif %}"</i>
+                                <i class="fa {% if guest.last_viewed != None %} fa-check {% else %} fa-minus-square {% endif %}"></i>
                             </td>
                             <td>
-                                <i class="fa {% if guest.last_responded != None %} fa-check {% else %} fa-minus-square {% endif %}"</i>
+                                <i class="fa {% if guest.last_responded != None %} fa-check {% else %} fa-minus-square {% endif %}"></i>
                             </td>
                             <td>
                                 <a class="btn btn-link" href="{{ url_for('admin.edit_guest', guest_id=guest.id) }}">

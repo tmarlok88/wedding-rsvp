@@ -15,7 +15,7 @@ class GuestForm(FlaskForm):
     name = StringField(_l('Name'), validators=[DataRequired()])
     email = EmailField(_l('E-mail'), validators=[DataRequired(), Email()])
     food_allergies = StringField(_l('Food allergies'))
-    number_of_guests = IntegerField(_l('Number of guests'), validators=[NumberRange(0, 20)])
+    number_of_guests = IntegerField(_l('Number of guests'), default=0, validators=[NumberRange(0, 20)])
     notes = StringField(_l('Other important notes'))
     favourite_music = StringField(_l('Favourite music'),
                                   description=_l("Do you have some music, you'd really like to listen?"))

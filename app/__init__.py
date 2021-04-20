@@ -20,7 +20,7 @@ csrf = CSRFProtect()
 def create_app(config_class=Config):
     static_folder = 'static'
     if os.environ.get('ENVIRONMENT') and os.environ.get('ENVIRONMENT') != "local":
-        static_folder = f"{os.environ.get('ENVIRONMENT')}_static"
+        static_folder = os.environ.get('STATIC_PATH', "static")
 
     app = Flask(__name__, static_folder=static_folder)
     app.config.from_object(config_class)

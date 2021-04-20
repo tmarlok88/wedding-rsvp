@@ -1,7 +1,134 @@
 {% extends 'admin_base.html' %}
 
 {% block app_content %}
+<div class="container">
+    <div class="row">
+        <div class="col-md-3"><p>{{_("Guest count")}}</p></div>
+        <div class="col-md-8 flex">
+            <div class="progress">
+                {% set guest_count = guest_list | sum(attribute='number_of_guests') %}
+                {% set color = "bg-success" if guest_count <= max_guests else "bg-danger"%}
+              <div class="progress-bar {{color}} progress-bar-striped progress-bar-animated"
+                   style="width:{{ 100 * (guest_list | sum(attribute='number_of_guests'))/max_guests}}%">
+                  {{ guest_list | sum(attribute='number_of_guests') }} / {{ max_guests }}</div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-3"><p>{{_("Responses")}}</p></div>
+        <div class="col-md-8">
+            <div class="progress">
+              {% set all_guests = guest_list | length  %}
+                {% if all_guests != 0 %}
+                  {% set answered = guest_list | selectattr('last_responded') | list | length  %}
+                  {% set viewed = guest_list | selectattr('last_viewed') | list | length  %}
+                  {% set filled_by_admin = guest_list | selectattr('last_viewed') | list | length  %}
+                  <div class="progress-bar bg-success progress-bar-striped progress-bar-animated"
+                       style="width:{{100 * answered / all_guests}}%">
+                      {{_("Answered")}} ({{(answered)}})
+                  </div>
+                  <div class="progress-bar bg-warning progress-bar-striped progress-bar-animated"
+                       style="width:{{100 * (viewed-answered) / all_guests}}%">
+                    {{_("Seen")}} ({{(viewed-answered)}})
+                  </div>
+                  <div class="progress-bar bg-danger progress-bar-striped progress-bar-animated"
+                       style="width:{{100 * (all_guests-viewed) / all_guests}}%">
+                    {{_("Did not see")}} ({{(all_guests-viewed)}})
+                  </div>
+                {% else %}
+                    {{_("No guests yet...")}}
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    </div>
 
-TODO
+    <div class="row">
+        <h4>{{_("Recently responded")}}</h4>
+        <table class="table table-striped table-bordered">
+        <thead>
+        <tr>
+            <th width="25%"> {{_('Name')}}</th>
+            <th width="25%"> {{_('When')}}</th>
+            <th width="10%"> {{_('Coming')}}</th>
+            <th width="10%"> {{_('Edit')}}</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for guest in (guest_list|rejectattr('last_responded', 'none')|sort(attribute='last_responded')) %}
+        <tr>
+            <td> {{ guest.name }}</td>
+            <td> {{ guest.last_responded.strftime('%Y-%m-%d %H:%M') }}</td>
+            <td>
+                <i class="fa {% if guest.will_attend == True %} fa-check {% else %} fa-minus-square {% endif %}"></i>
+            </td>
+            <td>
+                <a class="btn btn-link" href="{{ url_for('admin.edit_guest', guest_id=guest.id) }}">
+                    <i class="fa fa-pencil"></i>
+                </a>
+            </td>
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    </div>
+
+
+    <div class="row">
+        <div class="col-md-6">
+        <h4>{{_("Food")}}</h4>
+        <table class="table table-striped table-bordered">
+        <thead>
+        <tr>
+            <th width="25%"> {{_('Name')}}</th>
+            <th width="25%"> {{_('Food allergies')}}</th>
+            <th width="10%"> {{_('Edit')}}</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for guest in (guest_list|rejectattr('food_allergies', 'none')|rejectattr('food_allergies', 'equalto','')|list)[:10] %}
+        <tr>
+            <td> {{ guest.name }}</td>
+            <td> {{ guest.food_allergies }}</td>
+            <td>
+                <a class="btn btn-link" href="{{ url_for('admin.edit_guest', guest_id=guest.id) }}">
+                    <i class="fa fa-pencil"></i>
+                </a>
+            </td>
+        </tr>
+        {% endfor %}
+        </tbody>
+        </table>
+        </div>
+
+        <div class="col-md-6">
+        <h4>{{_("Music")}}</h4>
+        <table class="table table-striped table-bordered">
+        <thead>
+        <tr>
+            <th width="25%"> {{_('Name')}}</th>
+            <th width="25%"> {{_('Favourite music')}}</th>
+            <th width="10%"> {{_('Edit')}}</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for guest in (guest_list|rejectattr('favourite_music', 'none')|rejectattr('favourite_music', 'equalto','')) %}
+        <tr>
+            <td> {{ guest.name }}</td>
+            <td> {{ guest.favourite_music }}</td>
+            <td>
+                <a class="btn btn-link" href="{{ url_for('admin.edit_guest', guest_id=guest.id) }}">
+                    <i class="fa fa-pencil"></i>
+                </a>
+            </td>
+        </tr>
+        {% endfor %}
+        </tbody>
+        </table>
+        </div>
+
+    </div>
+
+</div>
 
 {% endblock %}
