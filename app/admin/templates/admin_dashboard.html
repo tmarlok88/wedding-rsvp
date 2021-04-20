@@ -19,21 +19,25 @@
         <div class="col-md-8">
             <div class="progress">
               {% set all_guests = guest_list | length  %}
-              {% set answered = guest_list | selectattr('last_responded') | list | length  %}
-              {% set viewed = guest_list | selectattr('last_viewed') | list | length  %}
-              {% set filled_by_admin = guest_list | selectattr('last_viewed') | list | length  %}
-              <div class="progress-bar bg-success progress-bar-striped progress-bar-animated"
-                   style="width:{{100 * answered / all_guests}}%">
-                  {{_("Answered")}} ({{(answered)}})
-              </div>
-              <div class="progress-bar bg-warning progress-bar-striped progress-bar-animated"
-                   style="width:{{100 * (viewed-answered) / all_guests}}%">
-                {{_("Seen")}} ({{(viewed-answered)}})
-              </div>
-              <div class="progress-bar bg-danger progress-bar-striped progress-bar-animated"
-                   style="width:{{100 * (all_guests-viewed) / all_guests}}%">
-                {{_("Did not see")}} ({{(all_guests-viewed)}})
-              </div>
+                {% if all_guests != 0 %}
+                  {% set answered = guest_list | selectattr('last_responded') | list | length  %}
+                  {% set viewed = guest_list | selectattr('last_viewed') | list | length  %}
+                  {% set filled_by_admin = guest_list | selectattr('last_viewed') | list | length  %}
+                  <div class="progress-bar bg-success progress-bar-striped progress-bar-animated"
+                       style="width:{{100 * answered / all_guests}}%">
+                      {{_("Answered")}} ({{(answered)}})
+                  </div>
+                  <div class="progress-bar bg-warning progress-bar-striped progress-bar-animated"
+                       style="width:{{100 * (viewed-answered) / all_guests}}%">
+                    {{_("Seen")}} ({{(viewed-answered)}})
+                  </div>
+                  <div class="progress-bar bg-danger progress-bar-striped progress-bar-animated"
+                       style="width:{{100 * (all_guests-viewed) / all_guests}}%">
+                    {{_("Did not see")}} ({{(all_guests-viewed)}})
+                  </div>
+                {% else %}
+                    {{_("No guests yet...")}}
+                {% endif %}
             </div>
         </div>
     </div>
