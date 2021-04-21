@@ -32,7 +32,6 @@ class GuestModelTest(TestCase):
         test_guest.save()
 
         test_guest_dict.pop("id")               # filled_by_default
-        test_guest_dict.pop("filled_by_admin")  # filled_by_default
         self.assertDictEqual(test_guest_dict, EXAMPLE_GUEST_1)
 
     def test_guest_create_set_datetime(self):

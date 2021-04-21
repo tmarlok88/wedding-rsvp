@@ -24,7 +24,7 @@ class Guest(Model, UserMixin):
     number_of_guests = NumberAttribute(default=0)
     notes = UnicodeAttribute(null=True)
     will_attend = BooleanAttribute(null=True)
-    filled_by_admin = BooleanAttribute(default=False)
+    filled_by_admin = BooleanAttribute(null=True)
 
     def get_id(self):
         return str(self.id)
