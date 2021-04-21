@@ -43,7 +43,6 @@ class TestAdminGuest(ParentTest):
 
         guests = list_guests()
         added_guest = next(item for item in guests if item.email == unique_mail)
-        expected_data["filled_by_admin"] = True
         expected_data['notes'] = ''
         expected_data["id"] = uuid.UUID(added_guest.get_id())
 

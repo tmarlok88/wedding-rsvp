@@ -30,7 +30,6 @@ def add_guest():
     if form.validate_on_submit():
         guest = Guest()
         form.fill_model(guest)
-        guest.filled_by_admin = True
         guest.save()
         return redirect(url_for("admin.list_guest"))
     return render_template('guest_form.html', form=form, title=_("Add guest"))
