@@ -2,3 +2,5 @@ Flask-Testing==0.8.1
 moto[dynamodb2]==2.0.4
 blinker==1.4
 selenium==3.141.0
+petname==2.6
+beautifulsoup4==4.9.3
