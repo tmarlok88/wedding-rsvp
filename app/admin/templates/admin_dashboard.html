@@ -5,7 +5,7 @@
     <div class="row">
         <div class="col-md-2"><p>{{_("Guest count")}}</p></div>
         <div class="col-md-10">
-            <div class="progress">
+            <div class="progress" id="guest_counter">
                 {% set guest_count = guest_list | sum(attribute='number_of_guests') %}
                 {% set color = "bg-success" if guest_count <= max_guests else "bg-danger"%}
               <div class="progress-bar {{color}} progress-bar-striped progress-bar-animated"
@@ -17,7 +17,7 @@
     <div class="row">
         <div class="col-md-2"><p>{{_("Responses")}}</p></div>
         <div class="col-md-10">
-            <div class="progress">
+            <div class="progress" id="response_counter">
               {% set all_guests = guest_list | length  %}
                 {% if all_guests != 0 %}
                   {% set answered = guest_list | selectattr('last_responded') | list | length  %}
@@ -25,19 +25,19 @@
                   {% set viewed = guest_list | selectattr('last_viewed') | rejectattr('filled_by_admin') | list | length  %}
 
                   <div class="progress-bar bg-success progress-bar-striped progress-bar-animated"
-                       style="width:{{100 * answered / all_guests}}%">
+                       id="response_answered" style="width:{{100 * answered / all_guests}}%">
                       {{_("Answered")}} ({{(answered)}})
                   </div>
                   <div class="progress-bar bg-info progress-bar-striped progress-bar-animated"
-                       style="width:{{100 * filled_by_admin / all_guests}}%">
+                       id="response_admin_filled" style="width:{{100 * filled_by_admin / all_guests}}%">
                     {{_("Filled by admin")}} ({{filled_by_admin}})
                   </div>
                   <div class="progress-bar bg-warning progress-bar-striped progress-bar-animated"
-                       style="width:{{100 * (viewed-answered) / all_guests}}%">
+                       id="response_seen" style="width:{{100 * (viewed-answered) / all_guests}}%">
                     {{_("Seen but not filled")}} ({{(viewed-answered)}})
                   </div>
                   <div class="progress-bar bg-danger progress-bar-striped progress-bar-animated"
-                       style="width:{{100 * (all_guests-viewed-filled_by_admin) / all_guests}}%">
+                       id="response_remaining" style="width:{{100 * (all_guests-viewed-filled_by_admin) / all_guests}}%">
                     {{_("Remaining")}} ({{(all_guests-viewed-filled_by_admin)}})
                   </div>
                 {% else %}
@@ -50,7 +50,7 @@
     <div class="row">
         <div class="col-md-6">
         <h4>{{_("Recently responded")}}</h4>
-        <table class="table table-striped table-bordered">
+        <table class="table table-striped table-bordered" id="recently_responded">
         <thead>
         <tr>
             <th width="25%"> {{_('Name')}}</th>
@@ -74,7 +74,7 @@
 
         <div class="col-md-6">
         <h4>{{_("Still missing")}}</h4>
-        <table class="table table-striped table-bordered">
+        <table class="table table-striped table-bordered" id="still_missing">
         <thead>
         <tr>
             <th width="25%"> {{_('Name')}}</th>
@@ -82,8 +82,7 @@
         </tr>
         </thead>
         <tbody>
-        {% for guest in (guest_list|rejectattr('filled_by_admin', 'equalto', 'true')|selectattr('last_responded', 'none')
-        ) %}
+        {% for guest in (guest_list|rejectattr('filled_by_admin')|selectattr('last_responded', 'none')) %}
         <tr>
             <td> {{ guest.name }}</td>
             <td>
@@ -103,7 +102,7 @@
     <div class="row">
         <div class="col-md-6">
         <h4>{{_("Food")}}</h4>
-        <table class="table table-striped table-bordered">
+        <table class="table table-striped table-bordered" id="food_allergies">
         <thead>
         <tr>
             <th width="25%"> {{_('Name')}}</th>
@@ -111,7 +110,7 @@
         </tr>
         </thead>
         <tbody>
-        {% for guest in (guest_list|rejectattr('food_allergies', 'none')|rejectattr('food_allergies', 'equalto','')|list)[:10] %}
+        {% for guest in guest_list|rejectattr('food_allergies', 'none')|rejectattr('food_allergies', 'equalto','') %}
         <tr>
             <td> {{ guest.name }}</td>
             <td> {{ guest.food_allergies }}</td>
@@ -123,7 +122,7 @@
 
         <div class="col-md-6">
         <h4>{{_("Music")}}</h4>
-        <table class="table table-striped table-bordered">
+        <table class="table table-striped table-bordered" id="requested_songs">
         <thead>
         <tr>
             <th width="25%"> {{_('Name')}}</th>
