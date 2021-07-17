@@ -2,6 +2,7 @@ import datetime
 import os
 
 import yaml
+from urllib.parse import urlparse
 from flask import render_template, request, abort, redirect, url_for, current_app
 from flask_babel import _
 from flask_login import login_required, login_user, current_user, logout_user
@@ -40,7 +41,7 @@ def rsvp_page(guest_id):
 
 @rsvp.route('/captcha', methods=['GET', 'POST'])
 def rsvp_captcha():
-    guest_id = request.args.get("next", "").split('/')[-1]
+    guest_id = urlparse(request.args.get("next", "").split('/')[-1]).path
 
     if not guest_id:
         abort(404)
