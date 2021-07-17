@@ -7,6 +7,7 @@ from dateutil.tz import tzutc
 from moto import mock_dynamodb2
 
 from parent import ParentTest
+
 from tests.guest_helper import save_guest, get_guest, clear_all_guests, EXAMPLE_GUEST_1, EXAMPLE_GUEST_2, list_guests
 
 
@@ -15,6 +16,8 @@ from tests.guest_helper import save_guest, get_guest, clear_all_guests, EXAMPLE_
 class TestRSVPViews(ParentTest):
     def create_app(self):
         app = ParentTest.create_app(self)
+        from app.model.Guest import Guest
+        Guest.create_table()
         app.config['LOGIN_DISABLED'] = False
         return app
 
@@ -43,6 +46,15 @@ class TestRSVPViews(ParentTest):
         guest_id = save_guest(EXAMPLE_GUEST_1).id
 
         response = self.client.get(f"/rsvp/{guest_id}", follow_redirects=True)
+
+        self.assert200(response)
+        self.assert_template_used("rsvp.html")
+        self.assertIn(EXAMPLE_GUEST_1["name"], response.data.decode("utf-8"))
+
+    def test_userpage_with_extra_url_parameter(self):
+        guest_id = save_guest(EXAMPLE_GUEST_1).id
+
+        response = self.client.get(f"/rsvp/{guest_id}?fbcid=XXXXXXXXXXXX", follow_redirects=True)
 
         self.assert200(response)
         self.assert_template_used("rsvp.html")
