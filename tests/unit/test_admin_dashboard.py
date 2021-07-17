@@ -93,17 +93,21 @@ class TestAdminSendMail(ParentTest):
         for bar in soup.body.find(id="response_counter").find_all('div'):
             answer_percent_sum += float(bar.get('style').replace('width:', '').replace('%', ''))
 
+        responded_and_edited_by_admin = len([g for g in self.all_invites if g.last_responded and g.filled_by_admin])
+        filled_by_admin = self.filled_by_admin - responded_and_edited_by_admin
+
         self.assertEqual(answer_percent_sum, 100)
         self.assertEqual(f"width:{100 * self.responded / len(self.all_invites)}%",
                          soup.body.find(id="response_answered").get("style"))
-        self.assertEqual(f"width:{100 * self.filled_by_admin / len(self.all_invites)}%",
+        self.assertEqual(f"width:{100 * filled_by_admin  / len(self.all_invites)}%",
                          soup.body.find(id="response_admin_filled").get("style"))
         seen = (self.viewed-self.responded-len([g for g in self.all_invites if g.last_viewed and g.filled_by_admin]))
         self.assertEqual(f"width:{100 * seen / len(self.all_invites)}%",
                          soup.body.find(id="response_seen").get("style"))
-        other = len([g for g in self.all_invites if not (g.last_viewed or g.filled_by_admin)])
+        other = len([g for g in self.all_invites if not (g.last_viewed or g.filled_by_admin or g.last_responded)])
         self.assertEqual(f"width:{100 * other / len(self.all_invites)}%",
                          soup.body.find(id="response_remaining").get("style"))
+
 
     def test_dashboard_answered_recently(self):
         response = self.client.get("/admin/")

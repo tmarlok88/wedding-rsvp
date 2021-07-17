@@ -21,8 +21,8 @@
               {% set all_guests = guest_list | length  %}
                 {% if all_guests != 0 %}
                   {% set answered = guest_list | selectattr('last_responded') | list | length  %}
-                  {% set filled_by_admin = guest_list | selectattr('filled_by_admin') | list | length%}
-                  {% set viewed = guest_list | selectattr('last_viewed') | rejectattr('filled_by_admin') | list | length  %}
+                  {% set filled_by_admin = guest_list | selectattr('filled_by_admin') | rejectattr('last_responded') | list | length%}
+                  {% set viewed = guest_list | selectattr('last_viewed') | rejectattr('last_responded') | rejectattr('filled_by_admin') | list | length  %}
 
                   <div class="progress-bar bg-success progress-bar-striped progress-bar-animated"
                        id="response_answered" style="width:{{100 * answered / all_guests}}%">
@@ -33,12 +33,12 @@
                     {{_("Filled by admin")}} ({{filled_by_admin}})
                   </div>
                   <div class="progress-bar bg-warning progress-bar-striped progress-bar-animated"
-                       id="response_seen" style="width:{{100 * (viewed-answered) / all_guests}}%">
-                    {{_("Seen but not filled")}} ({{(viewed-answered)}})
+                       id="response_seen" style="width:{{100 * (viewed) / all_guests}}%">
+                    {{_("Seen but not filled")}} ({{(viewed)}})
                   </div>
                   <div class="progress-bar bg-danger progress-bar-striped progress-bar-animated"
-                       id="response_remaining" style="width:{{100 * (all_guests-viewed-filled_by_admin) / all_guests}}%">
-                    {{_("Remaining")}} ({{(all_guests-viewed-filled_by_admin)}})
+                       id="response_remaining" style="width:{{100 * (all_guests-viewed-filled_by_admin-answered) / all_guests}}%">
+                    {{_("Remaining")}} ({{(all_guests-viewed-filled_by_admin-answered)}})
                   </div>
                 {% else %}
                     {{_("No guests yet...")}}
