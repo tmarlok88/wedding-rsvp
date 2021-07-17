@@ -334,4 +334,3 @@ msgid ""
 "All of your data is removed from the database and you will not get any "
 "message in the future"
 msgstr ""
-

@@ -35,7 +35,7 @@ def rsvp_page(guest_id):
 
     with open(os.getenv('PERSONALIZE_SRC_FILE'), 'r') as stream:
         custom_rsvp_content = yaml.safe_load(stream)
-        return render_template("rsvp.html", form=form, guest=current_user, title=_("Wedding RSVP | ")+current_user.name,
+        return render_template("rsvp.html", form=form, guest=current_user, title=_("Wedding RSVP | ") + current_user.name,
                                rsvp_content=custom_rsvp_content, MAPS_API_KEY=os.getenv("MAPS_API_KEY"))
 
 
