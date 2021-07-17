@@ -6,4 +6,3 @@ class Config(object):
     SECRET_KEY = "testingsecret"
     WTF_CSRF_ENABLED = False
     LOGIN_DISABLED = True
-

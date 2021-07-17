@@ -91,8 +91,8 @@ def email_sender():
     form = EmailForm()
     form.recipients.choices.extend([(str(g.id), g.name) for g in Guest.scan()])
     if form.validate_on_submit():
-        footer = _("Your RSVP link: ")+f"{request.url_root}rsvp/{{id}}"+"\n"
-        footer += _("Unsubscribe and delete my data: ")+f"{request.url_root}rsvp/unsubscribe/{{id}}?email={{email}}"
+        footer = _("Your RSVP link: ") + f"{request.url_root}rsvp/{{id}}" + "\n"
+        footer += _("Unsubscribe and delete my data: ") + f"{request.url_root}rsvp/unsubscribe/{{id}}?email={{email}}"
         emailsender = EmailSender(os.getenv("SENDER_SMTP_SERVER"), os.getenv("SENDER_EMAIL_ADDRESS"),
                                   os.getenv("SMTP_USER"), os.getenv("SMTP_PASSWORD"), footer_template=footer)
 

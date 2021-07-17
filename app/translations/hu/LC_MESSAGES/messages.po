@@ -338,4 +338,3 @@ msgid ""
 "All of your data is removed from the database and you will not get any "
 "message in the future"
 msgstr "Minden adatod törölve az adatbázisból, nem fogsz több üzenetet kapni"
-

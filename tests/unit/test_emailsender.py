@@ -31,4 +31,3 @@ class EmailSenderTest(TestCase):
                 self.assertEqual(call[1][1], 'fake@mail.com')
                 self.assertIn(base64.b64encode(expected_body.encode('UTF-8')).decode("UTF-8"),
                               call[1][2].replace("\n", ""))
-

@@ -10,7 +10,7 @@ The only thing you have to pay for, is the domain name (if you need one).
 ## Features
 
 * E-mail invitation to the guests
-* Export the page to PDF (in case anyone wants to print it) 
+* Export the page to PDF (in case anyone wants to print it)
 * Personal response page with the following fields:
   * Number of guests
   * Food allergies
@@ -116,7 +116,7 @@ apt-get install firefox-geckodriver chromium-chromedriver
 
 End-to-end test are used to test the application from and end-user perspective.
 They can be executed against a local test environment with mocked dependencies,
-or a deployed staging environment as well. 
+or a deployed staging environment as well.
 
 Running in local environment:
 
@@ -141,6 +141,13 @@ nose2 --with-coverage --coverage ../../app/
 ```
 
 ## Development
+
+## Commit hooks
+
+```bash
+pre-commit install
+pre-commit install --hook-type commit-msg
+```
 
 ### Translations
 

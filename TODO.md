@@ -36,4 +36,3 @@
 * admin e2e
 * logging
 * host 404 page locally
-
