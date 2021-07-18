@@ -68,7 +68,7 @@ class TestAdminGuest(ParentTest):
         for key, value in guest_data.items():
             self.assertIn(f"name=\"{key}\"", html.unescape(response.data.decode("utf-8")))
             if type(value) is not bool:
-                self.assertIn(f"value=\"{value}\"", html.unescape(response.data.decode("utf-8")))
+                self.assertIn(str(value), html.unescape(response.data.decode("utf-8")))
             else:
                 string_val = "y" if value else "n"
                 self.assertIn(f"value=\"{string_val}\"", html.unescape(response.data.decode("utf-8")))
