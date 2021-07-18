@@ -108,7 +108,6 @@ class TestAdminSendMail(ParentTest):
         self.assertEqual(f"width:{100 * other / len(self.all_invites)}%",
                          soup.body.find(id="response_remaining").get("style"))
 
-
     def test_dashboard_answered_recently(self):
         response = self.client.get("/admin/")
         soup = BeautifulSoup(response.data.decode("utf-8"), 'html.parser')
