@@ -83,6 +83,20 @@ jobs:
         node-version: '14.x'
     - id: setup_env
       uses: ./.github/actions/setup_env
+    - id: deployment_version
+      name: get current deployment timestamp
+#      run: |
+#        echo "::set-output name=CURRENT_VERSION::$(./node_modules/serverless/bin/serverless.js deploy list --stage stage | sed -n -e 's/.*Timestamp: \\([0-9]*\\)/\\1/p' | tail -n 1)"
+      run: |
+        ./node_modules/serverless/bin/serverless.js deploy list --stage stage
+      env:
+        AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+
+    - id: debug
+      run: echo $CURRENT_VERSION
+      env:
+        CURRENT_VERSION: ${{ steps.deployment_version.outputs.CURRENT_VERSION }}
     - name: personalize images
       run: |
         FILES=$(curl -s https://api.github.com/gists/a83d97a735a69cd7b2476fa10aea396f | jq -r '.files | keys[]')
@@ -135,6 +149,12 @@ jobs:
         SMTP_USER: apikey
         SENDER_SMTP_SERVER: smtp.sendgrid.net
         MAX_GUEST_COUNT: 180
+    - name: Smoke tests
+      run: |
+        cd tests/smoke
+        nose2
+      env:
+        WEB_URL: https://${{ secrets.WEB_DOMAIN }}
     - name: "remove LGTM label"
       uses: actions-ecosystem/action-remove-labels@v1
       if: ${{ failure() || cancelled() }}
@@ -142,3 +162,8 @@ jobs:
         github_token: ${{ secrets.GITHUB_TOKEN }}
         labels: |
           lgtm
+    - name: "rollback"
+      if: ${{ failure() || cancelled() }}
+      run: ./node_modules/serverless/bin/serverless.js rollback -t $CURRENT_VERSION --stage stage
+      env:
+        CURRENT_VERSION: ${{ steps.deployment_version.outputs.CURRENT_VERSION }}
