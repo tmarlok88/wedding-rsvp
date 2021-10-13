@@ -106,11 +106,6 @@ jobs:
         SENDER_SMTP_SERVER: smtp.sendgrid.net
         LANGUAGE: hu
         MAX_GUEST_COUNT: 180
-
-    - id: debug
-      run: echo $CURRENT_VERSION
-      env:
-        CURRENT_VERSION: ${{ steps.deployment_version.outputs.CURRENT_VERSION }}
     - name: personalize images
       run: |
         FILES=$(curl -s https://api.github.com/gists/a83d97a735a69cd7b2476fa10aea396f | jq -r '.files | keys[]')
@@ -181,3 +176,21 @@ jobs:
       run: ./node_modules/serverless/bin/serverless.js rollback -t $CURRENT_VERSION --stage stage
       env:
         CURRENT_VERSION: ${{ steps.deployment_version.outputs.CURRENT_VERSION }}
+        AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        RECAPTCHA_PUBLIC_KEY: ${{ secrets.RECAPTCHA_PUBLIC_KEY }}
+        RECAPTCHA_PRIVATE_KEY: ${{ secrets.RECAPTCHA_PRIVATE_KEY }}
+        USE_RECAPTCHA_FOR_GUEST: True
+        USE_RECAPTCHA_FOR_ADMIN: True
+        FLASK_SECRET: ${{ secrets.FLASK_SECRET }}
+        ADMIN_PASSWORD_HASH: ${{ secrets.ADMIN_PASSWORD_HASH }}
+        WEB_DOMAIN: ${{ secrets.WEB_DOMAIN }}
+        HOSTED_ZONE_ID: ${{ secrets.HOSTED_ZONE_ID }}
+        SENDER_EMAIL_ADDRESS: ${{ secrets.SENDER_EMAIL_ADDRESS }}
+        PERSONALIZE_SRC_FILE: app/personalize/rsvp_content.yaml
+        MAPS_API_KEY: ${{ secrets.MAPS_API_KEY }}
+        LANGUAGE: hu
+        SMTP_PASSWORD: ${{ secrets.SMTP_PASSWORD }}
+        SMTP_USER: apikey
+        SENDER_SMTP_SERVER: smtp.sendgrid.net
+        MAX_GUEST_COUNT: 180
