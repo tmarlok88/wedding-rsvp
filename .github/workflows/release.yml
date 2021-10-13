@@ -42,6 +42,29 @@ jobs:
         node-version: '14.x'
     - id: setup_env
       uses: ./.github/actions/setup_env
+    - id: deployment_version
+      name: get current deployment timestamp
+      run: |
+        echo "::set-output name=CURRENT_VERSION::$(./node_modules/serverless/bin/serverless.js deploy list --stage production | sed -n -e 's/.*Timestamp: \([0-9]*\)/\1/p' | tail -n 1)"
+      env:
+        AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        RECAPTCHA_PUBLIC_KEY: ${{ secrets.RECAPTCHA_PUBLIC_KEY }}
+        RECAPTCHA_PRIVATE_KEY: ${{ secrets.RECAPTCHA_PRIVATE_KEY }}
+        USE_RECAPTCHA_FOR_GUEST: True
+        USE_RECAPTCHA_FOR_ADMIN: True
+        FLASK_SECRET: ${{ secrets.FLASK_SECRET }}
+        ADMIN_PASSWORD_HASH: ${{ secrets.ADMIN_PASSWORD_HASH }}
+        WEB_DOMAIN: ${{ secrets.WEB_DOMAIN }}
+        HOSTED_ZONE_ID: ${{ secrets.HOSTED_ZONE_ID }}
+        SENDER_EMAIL_ADDRESS: ${{ secrets.SENDER_EMAIL_ADDRESS }}
+        PERSONALIZE_SRC_FILE: app/personalize/rsvp_content.yaml
+        MAPS_API_KEY: ${{ secrets.MAPS_API_KEY }}
+        SMTP_PASSWORD: ${{ secrets.SMTP_PASSWORD }}
+        SMTP_USER: apikey
+        SENDER_SMTP_SERVER: smtp.sendgrid.net
+        LANGUAGE: hu
+        MAX_GUEST_COUNT: 180
     - name: personalize images
       run: |
         FILES=$(curl -s https://api.github.com/gists/a83d97a735a69cd7b2476fa10aea396f | jq -r '.files | keys[]')
@@ -76,6 +99,35 @@ jobs:
     - name: serverless deploy
       run: ./node_modules/serverless/bin/serverless.js deploy --stage production --skip-additionalstacks
       env:
+        AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        RECAPTCHA_PUBLIC_KEY: ${{ secrets.RECAPTCHA_PUBLIC_KEY }}
+        RECAPTCHA_PRIVATE_KEY: ${{ secrets.RECAPTCHA_PRIVATE_KEY }}
+        USE_RECAPTCHA_FOR_GUEST: True
+        USE_RECAPTCHA_FOR_ADMIN: True
+        FLASK_SECRET: ${{ secrets.FLASK_SECRET }}
+        ADMIN_PASSWORD_HASH: ${{ secrets.ADMIN_PASSWORD_HASH }}
+        WEB_DOMAIN: ${{ secrets.WEB_DOMAIN }}
+        HOSTED_ZONE_ID: ${{ secrets.HOSTED_ZONE_ID }}
+        SENDER_EMAIL_ADDRESS: ${{ secrets.SENDER_EMAIL_ADDRESS }}
+        PERSONALIZE_SRC_FILE: app/personalize/rsvp_content.yaml
+        MAPS_API_KEY: ${{ secrets.MAPS_API_KEY }}
+        LANGUAGE: hu
+        SMTP_PASSWORD: ${{ secrets.SMTP_PASSWORD }}
+        SMTP_USER: apikey
+        SENDER_SMTP_SERVER: smtp.sendgrid.net
+        MAX_GUEST_COUNT: 180
+    - name: Smoke tests
+      run: |
+        cd tests/smoke
+        nose2
+      env:
+        WEB_URL: https://${{ secrets.WEB_DOMAIN }}
+    - name: "rollback"
+      if: ${{ failure() || cancelled() }}
+      run: ./node_modules/serverless/bin/serverless.js rollback -t $CURRENT_VERSION --stage production
+      env:
+        CURRENT_VERSION: ${{ steps.deployment_version.outputs.CURRENT_VERSION }}
         AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
         AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
         RECAPTCHA_PUBLIC_KEY: ${{ secrets.RECAPTCHA_PUBLIC_KEY }}
